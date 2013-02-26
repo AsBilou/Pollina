@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database name="pollina" defaultIdMethod="native">
+    <table name="articles" phpName="Articles">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="title" type="varchar" size="45" required="true" />
+        <column name="contenu" type="varchar" size="1000" required="true" />
+        <column name="language" type="varchar" size="2" required="true" />
+    </table>
+    <table name="admin" phpName="Admin">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="login" type="varchar" size="45" required="true" />
+        <column name="password" type="varchar" size="45" required="true" />
+        <column name="mail" type="varchar" size="100"/>
+    </table>
+    <table name="newsletter" phpName="Newsletter">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="mail" type="varchar" size="100" required="true" />
+    </table>
+    <table name="configuration" phpName="Configuration">
+        <column name="key" type="varchar" size="45" required="true" primaryKey="true"/>
+        <column name="value" type="varchar" size="100" required="true" />
+    </table>
+    <table name="menu" phpName="Menu">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="name" type="varchar" size="45" required="true" />
+        <column name="parent" type="integer" />
+        <column name="langugae" type="varchar" size="2" required="true" />
+        <foreign-key foreignTable="menu">
+            <reference local="parent" foreign="id"/>
+        </foreign-key>
+    </table>
+</database>

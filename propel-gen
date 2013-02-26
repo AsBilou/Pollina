@@ -1,0 +1,2 @@
+vendor/propel/propel1/generator/bin/propel-gen $*
+vendor/propel/propel1/generator/bin/propel-gen insert-sql $*
