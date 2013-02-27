@@ -23,7 +23,32 @@ $app->get('/', function() use ($app){
 });
 
 $app->get('/admin', function() use ($app){
-    return $app['twig']->render('template/admin.twig', array(
+    return $app['twig']->render('template/admin.home.twig', array(
+    ));
+});
+
+$app->get('/admin/article', function() use ($app){
+    return $app['twig']->render('template/admin.article.twig', array(
+    ));
+});
+
+$app->get('/admin/article/create', function() use ($app){
+    return $app['twig']->render('template/admin.article_create.twig', array(
+    ));
+});
+
+$app->get('/admin/article/edit', function() use ($app){
+    return $app['twig']->render('template/admin.article_edit.twig', array(
+    ));
+});
+
+$app->get('/admin/article/edit/{id}', function($id) use ($app){
+    return $app['twig']->render('template/admin.article_edit_detail.twig', array(
+    ));
+});
+
+$app->get('/admin/menu', function() use ($app){
+    return $app['twig']->render('template/admin.menu.twig', array(
     ));
 });
 
@@ -41,6 +66,21 @@ $app->get('/article/{id}', function($id) use ($app){
 
 $app->get('/contact', function() use ($app){
     return $app['twig']->render('template/contact.twig', array(
+    ));
+});
+
+$app->get('/admin/login', function() use ($app){
+    return $app['twig']->render('template/admin.login.twig', array(
+    ));
+});
+
+$app->get('/admin/logout', function() use ($app){
+    return $app['twig']->render('template/admin.logout.twig', array(
+    ));
+});
+
+$app->get('/404', function() use ($app){
+    return $app['twig']->render('template/404.twig', array(
     ));
 });
 
