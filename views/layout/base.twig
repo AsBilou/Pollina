@@ -8,71 +8,10 @@
 	
 	<style type="text/css">
                 
-		html, body { 
-			height: 100%;
-			padding:0; margin:0;
-			font-size: 1.2em;
 
-			text-shadow: 1px 1px 0 #fff;
-			background-color: white;
-		}
-                
-		body {
-			height:1000px;
-		}
-
-		#header{position:absolute;
-                        height:50px;
-                        width:100%;
-                        background-color:green;
-                        z-index: 1
-                }
-                
-		#footer{position:absolute;
-                        height:50px;width:100%;
-                        background-color:green;
-                        top:1000px;
-                }
-                
-		#suiv{float:left;}
-		#pres{float:left;}
-
-		#container{width:100%;
-                           height:1000px;
-                           position:absolute;
-                           top:0%;
-                           background-color: blue;
-                           overflow: hidden;
-                }
-                
-		.article{width:100%;
-                         height:500px;
-                         position:relative;
-                         background-color: red;
-			min-height: 100px;
-			padding: 20px;
-			width: 100%;
-			background-color: red;
-			padding-top:50px;
-			opacity:0.5;
-			top:250px;}
-                
-		#menu {
-		    left: 300px;
-		    position: absolute;
-		    top: 250px;
-		    height: 200px
-		}
-                
-		.menu{height: 30px;
-                     width: 250px;
-                     background-color: black;
-                     z-index: 1;
-                     position: relative;
-                     display: block;
-                     margin-top: 5px;
-                }
 	</style>
+        
+        <link rel="stylesheet" type="text/css" media="screen" href="/Pollina/web/css/style.css" />
 	
 	<body>
 		<div id="header">
@@ -87,7 +26,8 @@
 			
 		</div>
 			<div id="container">
-		
+                                {%block article%}
+                                {%endblock%}
 				<div  id="1" class="article">
 					1
 				</div>
@@ -115,48 +55,12 @@
 			</div>
 
 		<div id="footer" >
-			Footer
+			footer
 		</div>
 		
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 
-		<script>
-
-			var numarticle=1;
-			var id = "#"+numarticle;
-			var numarticleMini = 1;
-			var numarticleMax = $('.article').length;
-			$(id).animate({ opacity: '1' }, 500);
-
-			$("#suiv").click(function() {
-
-				if(numarticle<numarticleMax){
-					$(".article").animate({ top: '-=570' }, 500);
-
-					numarticle++;
-					var id = "#"+numarticle;
-					var idmoins = "#"+(numarticle-1);
-					$(id).animate({ opacity: '1' }, 500);
-					$(idmoins).animate({ opacity: '0.5' }, 500);
-				}
-				
-			});
-
-			$("#pres").click(function() {
-
-				if(numarticle>numarticleMini){
-					$(".article").animate({ top: '+=570' }, 500);
-					numarticle--;
-					var id = "#"+numarticle;
-					var idmoins = "#"+(numarticle+1);
-					$(id).animate({ opacity: '1' }, 500);
-					$(idmoins).animate({ opacity: '0.5' }, 500);
-				}
-
-			});
-
-
-		</script>
+                <script type="text/javascript" src="/Pollina/web/js/fonction.js"></script>
 		
 	</body>
 </html>
