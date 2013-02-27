@@ -54,10 +54,26 @@ $app->match('/admin/accueil', function(Request $request) use ($app){
                     new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
                 )
             ))
-        ->add('description','textarea',array(
-            'label'=>'Description',
+        ->add('description_fr','textarea',array(
+            'label'=>'Description Français',
             'required'=>true,
             'data'=>$conf->get(10)->getValue(),
+            'constraints'=>array(
+                    new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
+                )
+            ))
+        ->add('description_en','textarea',array(
+            'label'=>'Description Anglais',
+            'required'=>true,
+            'data'=>$conf->get(11)->getValue(),
+            'constraints'=>array(
+                    new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
+                )
+            ))
+        ->add('description_de','textarea',array(
+            'label'=>'Description Allemand',
+            'required'=>true,
+            'data'=>$conf->get(12)->getValue(),
             'constraints'=>array(
                     new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
                 )
@@ -73,7 +89,9 @@ $app->match('/admin/accueil', function(Request $request) use ($app){
 
             //Mise a jour des information dans la table
             $conf->get(9)->setValue($data['carousel']);
-            $conf->get(10)->setValue($data['description']);
+            $conf->get(10)->setValue($data['description_fr']);
+            $conf->get(11)->setValue($data['description_en']);
+            $conf->get(12)->setValue($data['description_de']);
             $conf->save();
 
             return $app->redirect($app['url_generator']->generate('admin_ok'));
