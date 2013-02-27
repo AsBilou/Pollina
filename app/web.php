@@ -79,6 +79,11 @@ $app->get('/admin/logout', function() use ($app){
     ));
 });
 
+$app->match('/admin/info', function() use ($app){
+    return $app['twig']->render('template/admin.info.twig', array(
+    ));
+});
+
 $app->get('/404', function() use ($app){
     return $app['twig']->render('template/404.twig', array(
     ));
