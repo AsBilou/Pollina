@@ -1,4 +1,8 @@
-{%extends 'layout/admin.base.twig' %}
-{% block body %}
-    article
+{% extends 'layout/admin.base.twig' %}
+{% block content %}
+    <h2>Article</h2>
+    {% for article in articles %}
+
+        <p>{{ article.contenu }}</p>
+    {% endfor %}
 {% endblock %}
