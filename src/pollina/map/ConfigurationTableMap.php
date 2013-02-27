@@ -39,7 +39,7 @@ class ConfigurationTableMap extends TableMap
         $this->setUseIdGenerator(false);
         // columns
         $this->addPrimaryKey('key', 'Key', 'VARCHAR', true, 45, null);
-        $this->addColumn('value', 'Value', 'VARCHAR', true, 100, null);
+        $this->addColumn('value', 'Value', 'VARCHAR', true, 300, null);
         // validators
     } // initialize()
 

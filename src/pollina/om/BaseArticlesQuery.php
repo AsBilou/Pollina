@@ -8,13 +8,15 @@
  *
  * @method ArticlesQuery orderById($order = Criteria::ASC) Order by the id column
  * @method ArticlesQuery orderByTitle($order = Criteria::ASC) Order by the title column
- * @method ArticlesQuery orderByContenu($order = Criteria::ASC) Order by the contenu column
- * @method ArticlesQuery orderByLang($order = Criteria::ASC) Order by the lang column
+ * @method ArticlesQuery orderByContenuFr($order = Criteria::ASC) Order by the contenu_fr column
+ * @method ArticlesQuery orderByContenuEn($order = Criteria::ASC) Order by the contenu_en column
+ * @method ArticlesQuery orderByContenuDe($order = Criteria::ASC) Order by the contenu_de column
  *
  * @method ArticlesQuery groupById() Group by the id column
  * @method ArticlesQuery groupByTitle() Group by the title column
- * @method ArticlesQuery groupByContenu() Group by the contenu column
- * @method ArticlesQuery groupByLang() Group by the lang column
+ * @method ArticlesQuery groupByContenuFr() Group by the contenu_fr column
+ * @method ArticlesQuery groupByContenuEn() Group by the contenu_en column
+ * @method ArticlesQuery groupByContenuDe() Group by the contenu_de column
  *
  * @method ArticlesQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method ArticlesQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -24,13 +26,15 @@
  * @method Articles findOneOrCreate(PropelPDO $con = null) Return the first Articles matching the query, or a new Articles object populated from the query conditions when no match is found
  *
  * @method Articles findOneByTitle(string $title) Return the first Articles filtered by the title column
- * @method Articles findOneByContenu(string $contenu) Return the first Articles filtered by the contenu column
- * @method Articles findOneByLang(string $lang) Return the first Articles filtered by the lang column
+ * @method Articles findOneByContenuFr(string $contenu_fr) Return the first Articles filtered by the contenu_fr column
+ * @method Articles findOneByContenuEn(string $contenu_en) Return the first Articles filtered by the contenu_en column
+ * @method Articles findOneByContenuDe(string $contenu_de) Return the first Articles filtered by the contenu_de column
  *
  * @method array findById(int $id) Return Articles objects filtered by the id column
  * @method array findByTitle(string $title) Return Articles objects filtered by the title column
- * @method array findByContenu(string $contenu) Return Articles objects filtered by the contenu column
- * @method array findByLang(string $lang) Return Articles objects filtered by the lang column
+ * @method array findByContenuFr(string $contenu_fr) Return Articles objects filtered by the contenu_fr column
+ * @method array findByContenuEn(string $contenu_en) Return Articles objects filtered by the contenu_en column
+ * @method array findByContenuDe(string $contenu_de) Return Articles objects filtered by the contenu_de column
  *
  * @package    propel.generator.pollina.om
  */
@@ -134,7 +138,7 @@ abstract class BaseArticlesQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT `id`, `title`, `contenu`, `lang` FROM `articles` WHERE `id` = :p0';
+        $sql = 'SELECT `id`, `title`, `contenu_fr`, `contenu_en`, `contenu_de` FROM `articles` WHERE `id` = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -295,61 +299,90 @@ abstract class BaseArticlesQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the contenu column
+     * Filter the query on the contenu_fr column
      *
      * Example usage:
      * <code>
-     * $query->filterByContenu('fooValue');   // WHERE contenu = 'fooValue'
-     * $query->filterByContenu('%fooValue%'); // WHERE contenu LIKE '%fooValue%'
+     * $query->filterByContenuFr('fooValue');   // WHERE contenu_fr = 'fooValue'
+     * $query->filterByContenuFr('%fooValue%'); // WHERE contenu_fr LIKE '%fooValue%'
      * </code>
      *
-     * @param     string $contenu The value to use as filter.
+     * @param     string $contenuFr The value to use as filter.
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return ArticlesQuery The current query, for fluid interface
      */
-    public function filterByContenu($contenu = null, $comparison = null)
+    public function filterByContenuFr($contenuFr = null, $comparison = null)
     {
         if (null === $comparison) {
-            if (is_array($contenu)) {
+            if (is_array($contenuFr)) {
                 $comparison = Criteria::IN;
-            } elseif (preg_match('/[\%\*]/', $contenu)) {
-                $contenu = str_replace('*', '%', $contenu);
+            } elseif (preg_match('/[\%\*]/', $contenuFr)) {
+                $contenuFr = str_replace('*', '%', $contenuFr);
                 $comparison = Criteria::LIKE;
             }
         }
 
-        return $this->addUsingAlias(ArticlesPeer::CONTENU, $contenu, $comparison);
+        return $this->addUsingAlias(ArticlesPeer::CONTENU_FR, $contenuFr, $comparison);
     }
 
     /**
-     * Filter the query on the lang column
+     * Filter the query on the contenu_en column
      *
      * Example usage:
      * <code>
-     * $query->filterByLang('fooValue');   // WHERE lang = 'fooValue'
-     * $query->filterByLang('%fooValue%'); // WHERE lang LIKE '%fooValue%'
+     * $query->filterByContenuEn('fooValue');   // WHERE contenu_en = 'fooValue'
+     * $query->filterByContenuEn('%fooValue%'); // WHERE contenu_en LIKE '%fooValue%'
      * </code>
      *
-     * @param     string $lang The value to use as filter.
+     * @param     string $contenuEn The value to use as filter.
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return ArticlesQuery The current query, for fluid interface
      */
-    public function filterByLang($lang = null, $comparison = null)
+    public function filterByContenuEn($contenuEn = null, $comparison = null)
     {
         if (null === $comparison) {
-            if (is_array($lang)) {
+            if (is_array($contenuEn)) {
                 $comparison = Criteria::IN;
-            } elseif (preg_match('/[\%\*]/', $lang)) {
-                $lang = str_replace('*', '%', $lang);
+            } elseif (preg_match('/[\%\*]/', $contenuEn)) {
+                $contenuEn = str_replace('*', '%', $contenuEn);
                 $comparison = Criteria::LIKE;
             }
         }
 
-        return $this->addUsingAlias(ArticlesPeer::LANG, $lang, $comparison);
+        return $this->addUsingAlias(ArticlesPeer::CONTENU_EN, $contenuEn, $comparison);
+    }
+
+    /**
+     * Filter the query on the contenu_de column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByContenuDe('fooValue');   // WHERE contenu_de = 'fooValue'
+     * $query->filterByContenuDe('%fooValue%'); // WHERE contenu_de LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $contenuDe The value to use as filter.
+     *              Accepts wildcards (* and % trigger a LIKE)
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ArticlesQuery The current query, for fluid interface
+     */
+    public function filterByContenuDe($contenuDe = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($contenuDe)) {
+                $comparison = Criteria::IN;
+            } elseif (preg_match('/[\%\*]/', $contenuDe)) {
+                $contenuDe = str_replace('*', '%', $contenuDe);
+                $comparison = Criteria::LIKE;
+            }
+        }
+
+        return $this->addUsingAlias(ArticlesPeer::CONTENU_DE, $contenuDe, $comparison);
     }
 
     /**

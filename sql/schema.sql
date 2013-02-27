@@ -13,8 +13,9 @@ CREATE TABLE `articles`
 (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `title` VARCHAR(45) NOT NULL,
-    `contenu` VARCHAR(1000) NOT NULL,
-    `lang` VARCHAR(2) NOT NULL,
+    `contenu_fr` VARCHAR(1000) NOT NULL,
+    `contenu_en` VARCHAR(1000) NOT NULL,
+    `contenu_de` VARCHAR(1000) NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE=MyISAM;
 
@@ -55,7 +56,7 @@ DROP TABLE IF EXISTS `configuration`;
 CREATE TABLE `configuration`
 (
     `key` VARCHAR(45) NOT NULL,
-    `value` VARCHAR(100) NOT NULL,
+    `value` VARCHAR(300) NOT NULL,
     PRIMARY KEY (`key`)
 ) ENGINE=MyISAM;
 
