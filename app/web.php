@@ -16,7 +16,7 @@ $app = require __DIR__.'/bootstrap.php';
 $app->get('/', function() use ($app){
     $menus = MenuQuery::create()
         ->find();
-    print_r($menus);
+    //print_r($menus);
     return $app['twig']->render('template/home.twig', array(
         'menus'=>$menus,
     ));
