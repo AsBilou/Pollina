@@ -56,6 +56,9 @@ INSERT INTO `pollina`.`configuration` (`key`, `value`) VALUES ('twitter', 'https
 INSERT INTO `pollina`.`configuration` (`key`, `value`) VALUES ('gplus', 'https://plus.google.com/100292362665761057279');
 INSERT INTO `pollina`.`configuration` (`key`, `value`) VALUES ('rss', 'https://legorafi.wordpress.com/feed/');
 INSERT INTO `pollina`.`configuration` (`key`, `value`) VALUES ('carousel', 'image1.jpg/image2.jpg/image3.jpg');
-INSERT INTO `pollina`.`configuration` (`key`, `value`) VALUES ('description', 'La maitrise complète de l\'impression à la finition sur un même site ! <br> Nous sommes là pour répondre à toutes vos demandes et assurer vos produits en qualité et délais.');
+INSERT INTO `pollina`.`configuration` (`key`, `value`) VALUES ('description_fr', 'La maitrise complète de l\'impression à la finition sur un même site ! <br> Nous sommes là pour répondre à toutes vos demandes et assurer vos produits en qualité et délais.');
+INSERT INTO `pollina`.`configuration` (`key`, `value`) VALUES ('description_en', 'La maitrise complète de l\'impression à la finition sur un même site ! <br> Nous sommes là pour répondre à toutes vos demandes et assurer vos produits en qualité et délais.');
+INSERT INTO `pollina`.`configuration` (`key`, `value`) VALUES ('description_de', 'La maitrise complète de l\'impression à la finition sur un même site ! <br> Nous sommes là pour répondre à toutes vos demandes et assurer vos produits en qualité et délais.');
+
 
 COMMIT;
