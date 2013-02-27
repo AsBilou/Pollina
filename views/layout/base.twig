@@ -1,0 +1,163 @@
+
+<!DOCTYPE html >
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Pollina</title>
+	</head>
+	
+	<style type="text/css">
+                
+		html, body { 
+			height: 100%;
+			padding:0; margin:0;
+			font-size: 1.2em;
+
+			text-shadow: 1px 1px 0 #fff;
+			background-color: white;
+		}
+                
+		body {
+			height:1000px;
+		}
+
+		#header{position:absolute;
+                        height:50px;
+                        width:100%;
+                        background-color:green;
+                        z-index: 1
+                }
+                
+		#footer{position:absolute;
+                        height:50px;width:100%;
+                        background-color:green;
+                        top:1000px;
+                }
+                
+		#suiv{float:left;}
+		#pres{float:left;}
+
+		#container{width:100%;
+                           height:1000px;
+                           position:absolute;
+                           top:0%;
+                           background-color: blue;
+                           overflow: hidden;
+                }
+                
+		.article{width:100%;
+                         height:500px;
+                         position:relative;
+                         background-color: red;
+			min-height: 100px;
+			padding: 20px;
+			width: 100%;
+			background-color: red;
+			padding-top:50px;
+			opacity:0.5;
+			top:250px;}
+                
+		#menu {
+		    left: 300px;
+		    position: absolute;
+		    top: 250px;
+		    height: 200px
+		}
+                
+		.menu{height: 30px;
+                     width: 250px;
+                     background-color: black;
+                     z-index: 1;
+                     position: relative;
+                     display: block;
+                     margin-top: 5px;
+                }
+	</style>
+	
+	<body>
+		<div id="header">
+			header <div id="suiv" ><a herf="#"> suiv</a></div>-<div id="pres"><a herf="#"> pres  </a></div>
+		</div>
+		<div id="menu">
+			
+				<div class="menu" id="entreprise" ><a herf="#"> L'ENTREPRISE </a></div>
+				<div class="menu" id="metiers" ><a herf="#"> NOS METIERS </a></div>
+				<div class="menu" id="contact" ><a herf="#"> CONTACT  </a></div>
+				<div class="menu" id="client" ><a herf="#"> ESPACE CLIENT  </a></div>
+			
+		</div>
+			<div id="container">
+		
+				<div  id="1" class="article">
+					1
+				</div>
+				
+				<div  id="2" class="article" >
+					2
+				</div>
+				
+				<div  id="3" class="article" >
+					3
+				</div>
+
+				<div  id="4" class="article" >
+					4
+				</div>
+
+				<div  id="5" class="article" >
+					5
+				</div>
+
+				<div  id="6" class="article" >
+					6
+				</div>
+
+			</div>
+
+		<div id="footer" >
+			Footer
+		</div>
+		
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+
+		<script>
+
+			var numarticle=1;
+			var id = "#"+numarticle;
+			var numarticleMini = 1;
+			var numarticleMax = $('.article').length;
+			$(id).animate({ opacity: '1' }, 500);
+
+			$("#suiv").click(function() {
+
+				if(numarticle<numarticleMax){
+					$(".article").animate({ top: '-=570' }, 500);
+
+					numarticle++;
+					var id = "#"+numarticle;
+					var idmoins = "#"+(numarticle-1);
+					$(id).animate({ opacity: '1' }, 500);
+					$(idmoins).animate({ opacity: '0.5' }, 500);
+				}
+				
+			});
+
+			$("#pres").click(function() {
+
+				if(numarticle>numarticleMini){
+					$(".article").animate({ top: '+=570' }, 500);
+					numarticle--;
+					var id = "#"+numarticle;
+					var idmoins = "#"+(numarticle+1);
+					$(id).animate({ opacity: '1' }, 500);
+					$(idmoins).animate({ opacity: '0.5' }, 500);
+				}
+
+			});
+
+
+		</script>
+		
+	</body>
+</html>
+			
