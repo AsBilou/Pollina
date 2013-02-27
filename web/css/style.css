@@ -1,13 +1,22 @@
 		html, body { 
 			height: 100%;
-			padding:0; margin:0;
+			padding:0;
 			font-size: 1.2em;
-			background-color: #373737;
+                        background-color: white
+			
 		}
                 
 		body {
-			height:1580px;
+			margin:auto;
 		}
+                
+                #content{
+                    width:1400px;
+                    height:1580px;
+                    position:relative;
+                    background-color: #252525;
+                    
+                }
                 
 
 		#suiv{float:left;}
@@ -22,32 +31,98 @@
                 
 		.article{
                     width:100%;
-                    height:500px;
+                    height:695px;
                     position:relative;
-                    background-color: red;
                     min-height: 100px;
 		    padding: 20px;
-		    width: 100%;
-		    background-color: red;
+		    width: 100%; 
 		    padding-top:50px;
-		    opacity:0.5;
-		    top:400px;}
+		    opacity:0.05;
+		    top:400px;
+                }
+                
+                .article_left{
+                    
+                    width: 1323px;
+                    height: 624px;
+                    position: absolute;
+                    top:0;
+                    left:0;
+                    background-color: #DDDDDD;
+                    -webkit-border-radius: 0px 312px 312px 0px;
+                    border-radius: 0px 312px 312px 0px; 
+                }
+                .article_right{
+                    width: 1010px;
+                    height: 624px;
+                    position: absolute;
+                    top:0;
+                    right:0;
+                    background-color: #DDDDDD;
+                    -webkit-border-radius: 312px 0px 0px 312px ;
+                    border-radius: 312px 0px 0px 312px ;
+                }
                 
 		#menu {
 		    left: 300px;
 		    position: absolute;
 		    top: 340px;
-		    height: 200px
+		    height: 200px;
+                    width: 291px;
 		}
                 
-		.menu{height: 40px;
-                     width: 291px;
+		.menu{
+                     width: 100%;
+                     height: 40px;
                      background-color: black;
                      z-index: 1;
                      position: relative;
                      display: block;
-                     margin-top: 5px;
+                     margin-top: 2px;
+                     font-size: 17px;
                 }
+                .menu_title{
+                    width: 100%;
+                    height:100%;
+                    font-size: 17px;
+                    padding-top: 13px;
+                    padding-left: 20px;
+                    position: absolute;
+                }
+                
+                #menu_1{ background-color: #009EE0;color:white;}
+                #menu_2{background-color: #E2007A;color:white;}
+                #menu_3{ background-color: #EDFF00;color:black;}
+                #menu_4{background-color: #000000;color:white;}  
+                
+                #news{
+                     left: 300px;
+		     position: absolute;
+		     top: 531px;
+                     height: 291px;
+                     width: 291px;
+                     background-color: black;
+                     z-index: 1;
+                }
+                #news_content{
+                     padding-top: 29px;
+                     padding-left: 19px;
+                     font-size: 18px;
+                     color: white;
+                    
+                }
+                #news_title{ font-size: 22px; }
+                
+                #slide{
+                     left: 300px;
+		     position: absolute;
+		     top: 842px;
+                     height: 291px;
+                     width: 291px;
+                     background-color: black;
+                     z-index: 1;
+                }
+                
                 #header{
                         position:absolute;
                         width:100%;
