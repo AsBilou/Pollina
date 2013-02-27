@@ -28,6 +28,14 @@ $app->register(new Silex\Provider\TranslationServiceProvider(), array(
     'translator.messages' => array(),
 ));
 
+//Mise en route du service formulaire
+$app->register(new Silex\Provider\FormServiceProvider());
+$app->register(new Silex\Provider\ValidatorServiceProvider());
+$app->register(new Silex\Provider\UrlGeneratorServiceProvider());
+
+$app->register(new Silex\Provider\SwiftmailerServiceProvider());
+
+
 return $app;
 
 ?>
