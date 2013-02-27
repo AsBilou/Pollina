@@ -32,7 +32,7 @@ $app->get('/admin/article', function() use ($app){
     ));
 });
 
-$app->get('/admin/article/create', function() use ($app){
+$app->match('/admin/article/create', function() use ($app){
     return $app['twig']->render('template/admin.article_create.twig', array(
     ));
 });
@@ -42,7 +42,7 @@ $app->get('/admin/article/edit', function() use ($app){
     ));
 });
 
-$app->get('/admin/article/edit/{id}', function($id) use ($app){
+$app->match('/admin/article/edit/{id}', function($id) use ($app){
     return $app['twig']->render('template/admin.article_edit_detail.twig', array(
     ));
 });
