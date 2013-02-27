@@ -1,5 +1,92 @@
 {% extends 'layout/admin.base.twig' %}
 {% block content %}
-    <h2>Home</h2>
-
+    <h2>Aministration</h2>
+    <p>Il y a actualement {{ nbArticle }} article en ligne</p>
+    <p>Vos coordonées de contact sont : </p>
+    <table class="table-bordered table">
+        <thead>
+            <tr>
+                <th>
+                    #
+                </th>
+                <th>
+                    Valeur
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    {{ conf[0].key }}
+                </td>
+                <td>
+                    {{ conf[0].value }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ conf[1].key }}
+                </td>
+                <td>
+                    {{ conf[1].value }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ conf[2].key }}
+                </td>
+                <td>
+                    {{ conf[2].value }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ conf[3].key }}
+                </td>
+                <td>
+                    {{ conf[3].value }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ conf[4].key }}
+                </td>
+                <td>
+                    {{ conf[4].value }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ conf[5].key }}
+                </td>
+                <td>
+                    {{ conf[5].value }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ conf[6].key }}
+                </td>
+                <td>
+                    {{ conf[6].value }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ conf[7].key }}
+                </td>
+                <td>
+                    {{ conf[7].value }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ conf[8].key }}
+                </td>
+                <td>
+                    {{ conf[8].value }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
 {% endblock %}

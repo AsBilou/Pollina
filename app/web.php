@@ -31,7 +31,17 @@ $app->get('/{lang}/', function($lang) use ($app){
 });
 
 $app->get('/admin', function() use ($app){
+    //Récupere tout le contenu de la table configuration
+    $conf = ConfigurationQuery::create()
+        ->find();
+
+    //Récupere le nombre d'article sur le site
+    $nbArticle = ArticlesQuery::create()
+        ->count();
+
     return $app['twig']->render('template/admin.home.twig', array(
+        'conf'=>$conf,
+        'nbArticle'=>$nbArticle,
     ));
 });
 
