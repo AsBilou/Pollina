@@ -41,8 +41,8 @@ abstract class BaseAdminPeer
     /** the column name for the password field */
     const PASSWORD = 'admin.password';
 
-    /** the column name for the mail field */
-    const MAIL = 'admin.mail';
+    /** the column name for the email field */
+    const EMAIL = 'admin.email';
 
     /** The default string format for model objects of the related table **/
     const DEFAULT_STRING_FORMAT = 'YAML';
@@ -63,11 +63,11 @@ abstract class BaseAdminPeer
      * e.g. AdminPeer::$fieldNames[AdminPeer::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('Id', 'Login', 'Password', 'Mail', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'login', 'password', 'mail', ),
-        BasePeer::TYPE_COLNAME => array (AdminPeer::ID, AdminPeer::LOGIN, AdminPeer::PASSWORD, AdminPeer::MAIL, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID', 'LOGIN', 'PASSWORD', 'MAIL', ),
-        BasePeer::TYPE_FIELDNAME => array ('id', 'login', 'password', 'mail', ),
+        BasePeer::TYPE_PHPNAME => array ('Id', 'Login', 'Password', 'Email', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'login', 'password', 'email', ),
+        BasePeer::TYPE_COLNAME => array (AdminPeer::ID, AdminPeer::LOGIN, AdminPeer::PASSWORD, AdminPeer::EMAIL, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID', 'LOGIN', 'PASSWORD', 'EMAIL', ),
+        BasePeer::TYPE_FIELDNAME => array ('id', 'login', 'password', 'email', ),
         BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
     );
 
@@ -78,11 +78,11 @@ abstract class BaseAdminPeer
      * e.g. AdminPeer::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Login' => 1, 'Password' => 2, 'Mail' => 3, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'login' => 1, 'password' => 2, 'mail' => 3, ),
-        BasePeer::TYPE_COLNAME => array (AdminPeer::ID => 0, AdminPeer::LOGIN => 1, AdminPeer::PASSWORD => 2, AdminPeer::MAIL => 3, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'LOGIN' => 1, 'PASSWORD' => 2, 'MAIL' => 3, ),
-        BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'login' => 1, 'password' => 2, 'mail' => 3, ),
+        BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Login' => 1, 'Password' => 2, 'Email' => 3, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'login' => 1, 'password' => 2, 'email' => 3, ),
+        BasePeer::TYPE_COLNAME => array (AdminPeer::ID => 0, AdminPeer::LOGIN => 1, AdminPeer::PASSWORD => 2, AdminPeer::EMAIL => 3, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'LOGIN' => 1, 'PASSWORD' => 2, 'EMAIL' => 3, ),
+        BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'login' => 1, 'password' => 2, 'email' => 3, ),
         BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
     );
 
@@ -160,12 +160,12 @@ abstract class BaseAdminPeer
             $criteria->addSelectColumn(AdminPeer::ID);
             $criteria->addSelectColumn(AdminPeer::LOGIN);
             $criteria->addSelectColumn(AdminPeer::PASSWORD);
-            $criteria->addSelectColumn(AdminPeer::MAIL);
+            $criteria->addSelectColumn(AdminPeer::EMAIL);
         } else {
             $criteria->addSelectColumn($alias . '.id');
             $criteria->addSelectColumn($alias . '.login');
             $criteria->addSelectColumn($alias . '.password');
-            $criteria->addSelectColumn($alias . '.mail');
+            $criteria->addSelectColumn($alias . '.email');
         }
     }
 

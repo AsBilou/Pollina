@@ -41,7 +41,7 @@ class AdminTableMap extends TableMap
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
         $this->addColumn('login', 'Login', 'VARCHAR', true, 45, null);
         $this->addColumn('password', 'Password', 'VARCHAR', true, 45, null);
-        $this->addColumn('mail', 'Mail', 'VARCHAR', false, 100, null);
+        $this->addColumn('email', 'Email', 'VARCHAR', false, 100, null);
         // validators
     } // initialize()
 

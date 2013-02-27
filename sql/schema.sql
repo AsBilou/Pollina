@@ -14,7 +14,7 @@ CREATE TABLE `articles`
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `title` VARCHAR(45) NOT NULL,
     `contenu` VARCHAR(1000) NOT NULL,
-    `language` VARCHAR(2) NOT NULL,
+    `lang` VARCHAR(2) NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE=MyISAM;
 
@@ -29,7 +29,7 @@ CREATE TABLE `admin`
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `login` VARCHAR(45) NOT NULL,
     `password` VARCHAR(45) NOT NULL,
-    `mail` VARCHAR(100),
+    `email` VARCHAR(100),
     PRIMARY KEY (`id`)
 ) ENGINE=MyISAM;
 
@@ -42,7 +42,7 @@ DROP TABLE IF EXISTS `newsletter`;
 CREATE TABLE `newsletter`
 (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `mail` VARCHAR(100) NOT NULL,
+    `email` VARCHAR(100) NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE=MyISAM;
 
@@ -70,7 +70,7 @@ CREATE TABLE `menu`
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(45) NOT NULL,
     `parent` INTEGER,
-    `langugae` VARCHAR(2) NOT NULL,
+    `lang` VARCHAR(2) NOT NULL,
     PRIMARY KEY (`id`),
     INDEX `menu_FI_1` (`parent`)
 ) ENGINE=MyISAM;

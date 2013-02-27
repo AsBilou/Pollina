@@ -41,7 +41,7 @@ class ArticlesTableMap extends TableMap
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
         $this->addColumn('title', 'Title', 'VARCHAR', true, 45, null);
         $this->addColumn('contenu', 'Contenu', 'VARCHAR', true, 1000, null);
-        $this->addColumn('language', 'Language', 'VARCHAR', true, 2, null);
+        $this->addColumn('lang', 'Lang', 'VARCHAR', true, 2, null);
         // validators
     } // initialize()
 

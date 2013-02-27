@@ -39,7 +39,7 @@ class NewsletterTableMap extends TableMap
         $this->setUseIdGenerator(true);
         // columns
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
-        $this->addColumn('mail', 'Mail', 'VARCHAR', true, 100, null);
+        $this->addColumn('email', 'Email', 'VARCHAR', true, 100, null);
         // validators
     } // initialize()
 

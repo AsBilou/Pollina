@@ -41,8 +41,8 @@ abstract class BaseMenuPeer
     /** the column name for the parent field */
     const PARENT = 'menu.parent';
 
-    /** the column name for the langugae field */
-    const LANGUGAE = 'menu.langugae';
+    /** the column name for the lang field */
+    const LANG = 'menu.lang';
 
     /** The default string format for model objects of the related table **/
     const DEFAULT_STRING_FORMAT = 'YAML';
@@ -63,11 +63,11 @@ abstract class BaseMenuPeer
      * e.g. MenuPeer::$fieldNames[MenuPeer::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('Id', 'Name', 'Parent', 'Langugae', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'name', 'parent', 'langugae', ),
-        BasePeer::TYPE_COLNAME => array (MenuPeer::ID, MenuPeer::NAME, MenuPeer::PARENT, MenuPeer::LANGUGAE, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID', 'NAME', 'PARENT', 'LANGUGAE', ),
-        BasePeer::TYPE_FIELDNAME => array ('id', 'name', 'parent', 'langugae', ),
+        BasePeer::TYPE_PHPNAME => array ('Id', 'Name', 'Parent', 'Lang', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'name', 'parent', 'lang', ),
+        BasePeer::TYPE_COLNAME => array (MenuPeer::ID, MenuPeer::NAME, MenuPeer::PARENT, MenuPeer::LANG, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID', 'NAME', 'PARENT', 'LANG', ),
+        BasePeer::TYPE_FIELDNAME => array ('id', 'name', 'parent', 'lang', ),
         BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
     );
 
@@ -78,11 +78,11 @@ abstract class BaseMenuPeer
      * e.g. MenuPeer::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Name' => 1, 'Parent' => 2, 'Langugae' => 3, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'name' => 1, 'parent' => 2, 'langugae' => 3, ),
-        BasePeer::TYPE_COLNAME => array (MenuPeer::ID => 0, MenuPeer::NAME => 1, MenuPeer::PARENT => 2, MenuPeer::LANGUGAE => 3, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'NAME' => 1, 'PARENT' => 2, 'LANGUGAE' => 3, ),
-        BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'name' => 1, 'parent' => 2, 'langugae' => 3, ),
+        BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Name' => 1, 'Parent' => 2, 'Lang' => 3, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'name' => 1, 'parent' => 2, 'lang' => 3, ),
+        BasePeer::TYPE_COLNAME => array (MenuPeer::ID => 0, MenuPeer::NAME => 1, MenuPeer::PARENT => 2, MenuPeer::LANG => 3, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'NAME' => 1, 'PARENT' => 2, 'LANG' => 3, ),
+        BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'name' => 1, 'parent' => 2, 'lang' => 3, ),
         BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
     );
 
@@ -160,12 +160,12 @@ abstract class BaseMenuPeer
             $criteria->addSelectColumn(MenuPeer::ID);
             $criteria->addSelectColumn(MenuPeer::NAME);
             $criteria->addSelectColumn(MenuPeer::PARENT);
-            $criteria->addSelectColumn(MenuPeer::LANGUGAE);
+            $criteria->addSelectColumn(MenuPeer::LANG);
         } else {
             $criteria->addSelectColumn($alias . '.id');
             $criteria->addSelectColumn($alias . '.name');
             $criteria->addSelectColumn($alias . '.parent');
-            $criteria->addSelectColumn($alias . '.langugae');
+            $criteria->addSelectColumn($alias . '.lang');
         }
     }
 

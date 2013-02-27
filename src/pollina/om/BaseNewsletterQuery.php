@@ -7,10 +7,10 @@
  *
  *
  * @method NewsletterQuery orderById($order = Criteria::ASC) Order by the id column
- * @method NewsletterQuery orderByMail($order = Criteria::ASC) Order by the mail column
+ * @method NewsletterQuery orderByEmail($order = Criteria::ASC) Order by the email column
  *
  * @method NewsletterQuery groupById() Group by the id column
- * @method NewsletterQuery groupByMail() Group by the mail column
+ * @method NewsletterQuery groupByEmail() Group by the email column
  *
  * @method NewsletterQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method NewsletterQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -19,10 +19,10 @@
  * @method Newsletter findOne(PropelPDO $con = null) Return the first Newsletter matching the query
  * @method Newsletter findOneOrCreate(PropelPDO $con = null) Return the first Newsletter matching the query, or a new Newsletter object populated from the query conditions when no match is found
  *
- * @method Newsletter findOneByMail(string $mail) Return the first Newsletter filtered by the mail column
+ * @method Newsletter findOneByEmail(string $email) Return the first Newsletter filtered by the email column
  *
  * @method array findById(int $id) Return Newsletter objects filtered by the id column
- * @method array findByMail(string $mail) Return Newsletter objects filtered by the mail column
+ * @method array findByEmail(string $email) Return Newsletter objects filtered by the email column
  *
  * @package    propel.generator.pollina.om
  */
@@ -126,7 +126,7 @@ abstract class BaseNewsletterQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT `id`, `mail` FROM `newsletter` WHERE `id` = :p0';
+        $sql = 'SELECT `id`, `email` FROM `newsletter` WHERE `id` = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -258,32 +258,32 @@ abstract class BaseNewsletterQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the mail column
+     * Filter the query on the email column
      *
      * Example usage:
      * <code>
-     * $query->filterByMail('fooValue');   // WHERE mail = 'fooValue'
-     * $query->filterByMail('%fooValue%'); // WHERE mail LIKE '%fooValue%'
+     * $query->filterByEmail('fooValue');   // WHERE email = 'fooValue'
+     * $query->filterByEmail('%fooValue%'); // WHERE email LIKE '%fooValue%'
      * </code>
      *
-     * @param     string $mail The value to use as filter.
+     * @param     string $email The value to use as filter.
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return NewsletterQuery The current query, for fluid interface
      */
-    public function filterByMail($mail = null, $comparison = null)
+    public function filterByEmail($email = null, $comparison = null)
     {
         if (null === $comparison) {
-            if (is_array($mail)) {
+            if (is_array($email)) {
                 $comparison = Criteria::IN;
-            } elseif (preg_match('/[\%\*]/', $mail)) {
-                $mail = str_replace('*', '%', $mail);
+            } elseif (preg_match('/[\%\*]/', $email)) {
+                $email = str_replace('*', '%', $email);
                 $comparison = Criteria::LIKE;
             }
         }
 
-        return $this->addUsingAlias(NewsletterPeer::MAIL, $mail, $comparison);
+        return $this->addUsingAlias(NewsletterPeer::EMAIL, $email, $comparison);
     }
 
     /**

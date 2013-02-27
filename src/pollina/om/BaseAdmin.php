@@ -48,10 +48,10 @@ abstract class BaseAdmin extends BaseObject implements Persistent
     protected $password;
 
     /**
-     * The value for the mail field.
+     * The value for the email field.
      * @var        string
      */
-    protected $mail;
+    protected $email;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -104,13 +104,13 @@ abstract class BaseAdmin extends BaseObject implements Persistent
     }
 
     /**
-     * Get the [mail] column value.
+     * Get the [email] column value.
      *
      * @return string
      */
-    public function getMail()
+    public function getEmail()
     {
-        return $this->mail;
+        return $this->email;
     }
 
     /**
@@ -177,25 +177,25 @@ abstract class BaseAdmin extends BaseObject implements Persistent
     } // setPassword()
 
     /**
-     * Set the value of [mail] column.
+     * Set the value of [email] column.
      *
      * @param string $v new value
      * @return Admin The current object (for fluent API support)
      */
-    public function setMail($v)
+    public function setEmail($v)
     {
         if ($v !== null && is_numeric($v)) {
             $v = (string) $v;
         }
 
-        if ($this->mail !== $v) {
-            $this->mail = $v;
-            $this->modifiedColumns[] = AdminPeer::MAIL;
+        if ($this->email !== $v) {
+            $this->email = $v;
+            $this->modifiedColumns[] = AdminPeer::EMAIL;
         }
 
 
         return $this;
-    } // setMail()
+    } // setEmail()
 
     /**
      * Indicates whether the columns in this object are only set to default values.
@@ -232,7 +232,7 @@ abstract class BaseAdmin extends BaseObject implements Persistent
             $this->id = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
             $this->login = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
             $this->password = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
-            $this->mail = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
+            $this->email = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -462,8 +462,8 @@ abstract class BaseAdmin extends BaseObject implements Persistent
         if ($this->isColumnModified(AdminPeer::PASSWORD)) {
             $modifiedColumns[':p' . $index++]  = '`password`';
         }
-        if ($this->isColumnModified(AdminPeer::MAIL)) {
-            $modifiedColumns[':p' . $index++]  = '`mail`';
+        if ($this->isColumnModified(AdminPeer::EMAIL)) {
+            $modifiedColumns[':p' . $index++]  = '`email`';
         }
 
         $sql = sprintf(
@@ -485,8 +485,8 @@ abstract class BaseAdmin extends BaseObject implements Persistent
                     case '`password`':
                         $stmt->bindValue($identifier, $this->password, PDO::PARAM_STR);
                         break;
-                    case '`mail`':
-                        $stmt->bindValue($identifier, $this->mail, PDO::PARAM_STR);
+                    case '`email`':
+                        $stmt->bindValue($identifier, $this->email, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -632,7 +632,7 @@ abstract class BaseAdmin extends BaseObject implements Persistent
                 return $this->getPassword();
                 break;
             case 3:
-                return $this->getMail();
+                return $this->getEmail();
                 break;
             default:
                 return null;
@@ -665,7 +665,7 @@ abstract class BaseAdmin extends BaseObject implements Persistent
             $keys[0] => $this->getId(),
             $keys[1] => $this->getLogin(),
             $keys[2] => $this->getPassword(),
-            $keys[3] => $this->getMail(),
+            $keys[3] => $this->getEmail(),
         );
 
         return $result;
@@ -710,7 +710,7 @@ abstract class BaseAdmin extends BaseObject implements Persistent
                 $this->setPassword($value);
                 break;
             case 3:
-                $this->setMail($value);
+                $this->setEmail($value);
                 break;
         } // switch()
     }
@@ -739,7 +739,7 @@ abstract class BaseAdmin extends BaseObject implements Persistent
         if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
         if (array_key_exists($keys[1], $arr)) $this->setLogin($arr[$keys[1]]);
         if (array_key_exists($keys[2], $arr)) $this->setPassword($arr[$keys[2]]);
-        if (array_key_exists($keys[3], $arr)) $this->setMail($arr[$keys[3]]);
+        if (array_key_exists($keys[3], $arr)) $this->setEmail($arr[$keys[3]]);
     }
 
     /**
@@ -754,7 +754,7 @@ abstract class BaseAdmin extends BaseObject implements Persistent
         if ($this->isColumnModified(AdminPeer::ID)) $criteria->add(AdminPeer::ID, $this->id);
         if ($this->isColumnModified(AdminPeer::LOGIN)) $criteria->add(AdminPeer::LOGIN, $this->login);
         if ($this->isColumnModified(AdminPeer::PASSWORD)) $criteria->add(AdminPeer::PASSWORD, $this->password);
-        if ($this->isColumnModified(AdminPeer::MAIL)) $criteria->add(AdminPeer::MAIL, $this->mail);
+        if ($this->isColumnModified(AdminPeer::EMAIL)) $criteria->add(AdminPeer::EMAIL, $this->email);
 
         return $criteria;
     }
@@ -820,7 +820,7 @@ abstract class BaseAdmin extends BaseObject implements Persistent
     {
         $copyObj->setLogin($this->getLogin());
         $copyObj->setPassword($this->getPassword());
-        $copyObj->setMail($this->getMail());
+        $copyObj->setEmail($this->getEmail());
         if ($makeNew) {
             $copyObj->setNew(true);
             $copyObj->setId(NULL); // this is a auto-increment column, so set to default value
@@ -875,7 +875,7 @@ abstract class BaseAdmin extends BaseObject implements Persistent
         $this->id = null;
         $this->login = null;
         $this->password = null;
-        $this->mail = null;
+        $this->email = null;
         $this->alreadyInSave = false;
         $this->alreadyInValidation = false;
         $this->alreadyInClearAllReferencesDeep = false;

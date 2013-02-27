@@ -35,8 +35,8 @@ abstract class BaseNewsletterPeer
     /** the column name for the id field */
     const ID = 'newsletter.id';
 
-    /** the column name for the mail field */
-    const MAIL = 'newsletter.mail';
+    /** the column name for the email field */
+    const EMAIL = 'newsletter.email';
 
     /** The default string format for model objects of the related table **/
     const DEFAULT_STRING_FORMAT = 'YAML';
@@ -57,11 +57,11 @@ abstract class BaseNewsletterPeer
      * e.g. NewsletterPeer::$fieldNames[NewsletterPeer::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('Id', 'Mail', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'mail', ),
-        BasePeer::TYPE_COLNAME => array (NewsletterPeer::ID, NewsletterPeer::MAIL, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID', 'MAIL', ),
-        BasePeer::TYPE_FIELDNAME => array ('id', 'mail', ),
+        BasePeer::TYPE_PHPNAME => array ('Id', 'Email', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'email', ),
+        BasePeer::TYPE_COLNAME => array (NewsletterPeer::ID, NewsletterPeer::EMAIL, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID', 'EMAIL', ),
+        BasePeer::TYPE_FIELDNAME => array ('id', 'email', ),
         BasePeer::TYPE_NUM => array (0, 1, )
     );
 
@@ -72,11 +72,11 @@ abstract class BaseNewsletterPeer
      * e.g. NewsletterPeer::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Mail' => 1, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'mail' => 1, ),
-        BasePeer::TYPE_COLNAME => array (NewsletterPeer::ID => 0, NewsletterPeer::MAIL => 1, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'MAIL' => 1, ),
-        BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'mail' => 1, ),
+        BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Email' => 1, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'email' => 1, ),
+        BasePeer::TYPE_COLNAME => array (NewsletterPeer::ID => 0, NewsletterPeer::EMAIL => 1, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'EMAIL' => 1, ),
+        BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'email' => 1, ),
         BasePeer::TYPE_NUM => array (0, 1, )
     );
 
@@ -152,10 +152,10 @@ abstract class BaseNewsletterPeer
     {
         if (null === $alias) {
             $criteria->addSelectColumn(NewsletterPeer::ID);
-            $criteria->addSelectColumn(NewsletterPeer::MAIL);
+            $criteria->addSelectColumn(NewsletterPeer::EMAIL);
         } else {
             $criteria->addSelectColumn($alias . '.id');
-            $criteria->addSelectColumn($alias . '.mail');
+            $criteria->addSelectColumn($alias . '.email');
         }
     }
 

@@ -48,10 +48,10 @@ abstract class BaseArticles extends BaseObject implements Persistent
     protected $contenu;
 
     /**
-     * The value for the language field.
+     * The value for the lang field.
      * @var        string
      */
-    protected $language;
+    protected $lang;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -104,13 +104,13 @@ abstract class BaseArticles extends BaseObject implements Persistent
     }
 
     /**
-     * Get the [language] column value.
+     * Get the [lang] column value.
      *
      * @return string
      */
-    public function getLanguage()
+    public function getLang()
     {
-        return $this->language;
+        return $this->lang;
     }
 
     /**
@@ -177,25 +177,25 @@ abstract class BaseArticles extends BaseObject implements Persistent
     } // setContenu()
 
     /**
-     * Set the value of [language] column.
+     * Set the value of [lang] column.
      *
      * @param string $v new value
      * @return Articles The current object (for fluent API support)
      */
-    public function setLanguage($v)
+    public function setLang($v)
     {
         if ($v !== null && is_numeric($v)) {
             $v = (string) $v;
         }
 
-        if ($this->language !== $v) {
-            $this->language = $v;
-            $this->modifiedColumns[] = ArticlesPeer::LANGUAGE;
+        if ($this->lang !== $v) {
+            $this->lang = $v;
+            $this->modifiedColumns[] = ArticlesPeer::LANG;
         }
 
 
         return $this;
-    } // setLanguage()
+    } // setLang()
 
     /**
      * Indicates whether the columns in this object are only set to default values.
@@ -232,7 +232,7 @@ abstract class BaseArticles extends BaseObject implements Persistent
             $this->id = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
             $this->title = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
             $this->contenu = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
-            $this->language = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
+            $this->lang = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -462,8 +462,8 @@ abstract class BaseArticles extends BaseObject implements Persistent
         if ($this->isColumnModified(ArticlesPeer::CONTENU)) {
             $modifiedColumns[':p' . $index++]  = '`contenu`';
         }
-        if ($this->isColumnModified(ArticlesPeer::LANGUAGE)) {
-            $modifiedColumns[':p' . $index++]  = '`language`';
+        if ($this->isColumnModified(ArticlesPeer::LANG)) {
+            $modifiedColumns[':p' . $index++]  = '`lang`';
         }
 
         $sql = sprintf(
@@ -485,8 +485,8 @@ abstract class BaseArticles extends BaseObject implements Persistent
                     case '`contenu`':
                         $stmt->bindValue($identifier, $this->contenu, PDO::PARAM_STR);
                         break;
-                    case '`language`':
-                        $stmt->bindValue($identifier, $this->language, PDO::PARAM_STR);
+                    case '`lang`':
+                        $stmt->bindValue($identifier, $this->lang, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -632,7 +632,7 @@ abstract class BaseArticles extends BaseObject implements Persistent
                 return $this->getContenu();
                 break;
             case 3:
-                return $this->getLanguage();
+                return $this->getLang();
                 break;
             default:
                 return null;
@@ -665,7 +665,7 @@ abstract class BaseArticles extends BaseObject implements Persistent
             $keys[0] => $this->getId(),
             $keys[1] => $this->getTitle(),
             $keys[2] => $this->getContenu(),
-            $keys[3] => $this->getLanguage(),
+            $keys[3] => $this->getLang(),
         );
 
         return $result;
@@ -710,7 +710,7 @@ abstract class BaseArticles extends BaseObject implements Persistent
                 $this->setContenu($value);
                 break;
             case 3:
-                $this->setLanguage($value);
+                $this->setLang($value);
                 break;
         } // switch()
     }
@@ -739,7 +739,7 @@ abstract class BaseArticles extends BaseObject implements Persistent
         if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
         if (array_key_exists($keys[1], $arr)) $this->setTitle($arr[$keys[1]]);
         if (array_key_exists($keys[2], $arr)) $this->setContenu($arr[$keys[2]]);
-        if (array_key_exists($keys[3], $arr)) $this->setLanguage($arr[$keys[3]]);
+        if (array_key_exists($keys[3], $arr)) $this->setLang($arr[$keys[3]]);
     }
 
     /**
@@ -754,7 +754,7 @@ abstract class BaseArticles extends BaseObject implements Persistent
         if ($this->isColumnModified(ArticlesPeer::ID)) $criteria->add(ArticlesPeer::ID, $this->id);
         if ($this->isColumnModified(ArticlesPeer::TITLE)) $criteria->add(ArticlesPeer::TITLE, $this->title);
         if ($this->isColumnModified(ArticlesPeer::CONTENU)) $criteria->add(ArticlesPeer::CONTENU, $this->contenu);
-        if ($this->isColumnModified(ArticlesPeer::LANGUAGE)) $criteria->add(ArticlesPeer::LANGUAGE, $this->language);
+        if ($this->isColumnModified(ArticlesPeer::LANG)) $criteria->add(ArticlesPeer::LANG, $this->lang);
 
         return $criteria;
     }
@@ -820,7 +820,7 @@ abstract class BaseArticles extends BaseObject implements Persistent
     {
         $copyObj->setTitle($this->getTitle());
         $copyObj->setContenu($this->getContenu());
-        $copyObj->setLanguage($this->getLanguage());
+        $copyObj->setLang($this->getLang());
         if ($makeNew) {
             $copyObj->setNew(true);
             $copyObj->setId(NULL); // this is a auto-increment column, so set to default value
@@ -875,7 +875,7 @@ abstract class BaseArticles extends BaseObject implements Persistent
         $this->id = null;
         $this->title = null;
         $this->contenu = null;
-        $this->language = null;
+        $this->lang = null;
         $this->alreadyInSave = false;
         $this->alreadyInValidation = false;
         $this->alreadyInClearAllReferencesDeep = false;

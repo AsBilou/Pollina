@@ -9,12 +9,12 @@
  * @method MenuQuery orderById($order = Criteria::ASC) Order by the id column
  * @method MenuQuery orderByName($order = Criteria::ASC) Order by the name column
  * @method MenuQuery orderByParent($order = Criteria::ASC) Order by the parent column
- * @method MenuQuery orderByLangugae($order = Criteria::ASC) Order by the langugae column
+ * @method MenuQuery orderByLang($order = Criteria::ASC) Order by the lang column
  *
  * @method MenuQuery groupById() Group by the id column
  * @method MenuQuery groupByName() Group by the name column
  * @method MenuQuery groupByParent() Group by the parent column
- * @method MenuQuery groupByLangugae() Group by the langugae column
+ * @method MenuQuery groupByLang() Group by the lang column
  *
  * @method MenuQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method MenuQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -33,12 +33,12 @@
  *
  * @method Menu findOneByName(string $name) Return the first Menu filtered by the name column
  * @method Menu findOneByParent(int $parent) Return the first Menu filtered by the parent column
- * @method Menu findOneByLangugae(string $langugae) Return the first Menu filtered by the langugae column
+ * @method Menu findOneByLang(string $lang) Return the first Menu filtered by the lang column
  *
  * @method array findById(int $id) Return Menu objects filtered by the id column
  * @method array findByName(string $name) Return Menu objects filtered by the name column
  * @method array findByParent(int $parent) Return Menu objects filtered by the parent column
- * @method array findByLangugae(string $langugae) Return Menu objects filtered by the langugae column
+ * @method array findByLang(string $lang) Return Menu objects filtered by the lang column
  *
  * @package    propel.generator.pollina.om
  */
@@ -142,7 +142,7 @@ abstract class BaseMenuQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT `id`, `name`, `parent`, `langugae` FROM `menu` WHERE `id` = :p0';
+        $sql = 'SELECT `id`, `name`, `parent`, `lang` FROM `menu` WHERE `id` = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -347,32 +347,32 @@ abstract class BaseMenuQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the langugae column
+     * Filter the query on the lang column
      *
      * Example usage:
      * <code>
-     * $query->filterByLangugae('fooValue');   // WHERE langugae = 'fooValue'
-     * $query->filterByLangugae('%fooValue%'); // WHERE langugae LIKE '%fooValue%'
+     * $query->filterByLang('fooValue');   // WHERE lang = 'fooValue'
+     * $query->filterByLang('%fooValue%'); // WHERE lang LIKE '%fooValue%'
      * </code>
      *
-     * @param     string $langugae The value to use as filter.
+     * @param     string $lang The value to use as filter.
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return MenuQuery The current query, for fluid interface
      */
-    public function filterByLangugae($langugae = null, $comparison = null)
+    public function filterByLang($lang = null, $comparison = null)
     {
         if (null === $comparison) {
-            if (is_array($langugae)) {
+            if (is_array($lang)) {
                 $comparison = Criteria::IN;
-            } elseif (preg_match('/[\%\*]/', $langugae)) {
-                $langugae = str_replace('*', '%', $langugae);
+            } elseif (preg_match('/[\%\*]/', $lang)) {
+                $lang = str_replace('*', '%', $lang);
                 $comparison = Criteria::LIKE;
             }
         }
 
-        return $this->addUsingAlias(MenuPeer::LANGUGAE, $langugae, $comparison);
+        return $this->addUsingAlias(MenuPeer::LANG, $lang, $comparison);
     }
 
     /**

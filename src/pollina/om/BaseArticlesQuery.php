@@ -9,12 +9,12 @@
  * @method ArticlesQuery orderById($order = Criteria::ASC) Order by the id column
  * @method ArticlesQuery orderByTitle($order = Criteria::ASC) Order by the title column
  * @method ArticlesQuery orderByContenu($order = Criteria::ASC) Order by the contenu column
- * @method ArticlesQuery orderByLanguage($order = Criteria::ASC) Order by the language column
+ * @method ArticlesQuery orderByLang($order = Criteria::ASC) Order by the lang column
  *
  * @method ArticlesQuery groupById() Group by the id column
  * @method ArticlesQuery groupByTitle() Group by the title column
  * @method ArticlesQuery groupByContenu() Group by the contenu column
- * @method ArticlesQuery groupByLanguage() Group by the language column
+ * @method ArticlesQuery groupByLang() Group by the lang column
  *
  * @method ArticlesQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method ArticlesQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -25,12 +25,12 @@
  *
  * @method Articles findOneByTitle(string $title) Return the first Articles filtered by the title column
  * @method Articles findOneByContenu(string $contenu) Return the first Articles filtered by the contenu column
- * @method Articles findOneByLanguage(string $language) Return the first Articles filtered by the language column
+ * @method Articles findOneByLang(string $lang) Return the first Articles filtered by the lang column
  *
  * @method array findById(int $id) Return Articles objects filtered by the id column
  * @method array findByTitle(string $title) Return Articles objects filtered by the title column
  * @method array findByContenu(string $contenu) Return Articles objects filtered by the contenu column
- * @method array findByLanguage(string $language) Return Articles objects filtered by the language column
+ * @method array findByLang(string $lang) Return Articles objects filtered by the lang column
  *
  * @package    propel.generator.pollina.om
  */
@@ -134,7 +134,7 @@ abstract class BaseArticlesQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT `id`, `title`, `contenu`, `language` FROM `articles` WHERE `id` = :p0';
+        $sql = 'SELECT `id`, `title`, `contenu`, `lang` FROM `articles` WHERE `id` = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -324,32 +324,32 @@ abstract class BaseArticlesQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the language column
+     * Filter the query on the lang column
      *
      * Example usage:
      * <code>
-     * $query->filterByLanguage('fooValue');   // WHERE language = 'fooValue'
-     * $query->filterByLanguage('%fooValue%'); // WHERE language LIKE '%fooValue%'
+     * $query->filterByLang('fooValue');   // WHERE lang = 'fooValue'
+     * $query->filterByLang('%fooValue%'); // WHERE lang LIKE '%fooValue%'
      * </code>
      *
-     * @param     string $language The value to use as filter.
+     * @param     string $lang The value to use as filter.
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return ArticlesQuery The current query, for fluid interface
      */
-    public function filterByLanguage($language = null, $comparison = null)
+    public function filterByLang($lang = null, $comparison = null)
     {
         if (null === $comparison) {
-            if (is_array($language)) {
+            if (is_array($lang)) {
                 $comparison = Criteria::IN;
-            } elseif (preg_match('/[\%\*]/', $language)) {
-                $language = str_replace('*', '%', $language);
+            } elseif (preg_match('/[\%\*]/', $lang)) {
+                $lang = str_replace('*', '%', $lang);
                 $comparison = Criteria::LIKE;
             }
         }
 
-        return $this->addUsingAlias(ArticlesPeer::LANGUAGE, $language, $comparison);
+        return $this->addUsingAlias(ArticlesPeer::LANG, $lang, $comparison);
     }
 
     /**
