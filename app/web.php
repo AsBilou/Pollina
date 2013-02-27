@@ -119,13 +119,8 @@ $app->match('/admin/article/create', function() use ($app){
     ));
 });
 
-$app->get('/admin/article/edit', function() use ($app){
-    return $app['twig']->render('template/admin.article_edit.twig', array(
-    ));
-});
-
 $app->match('/admin/article/edit/{id}', function($id) use ($app){
-    return $app['twig']->render('template/admin.article_edit_detail.twig', array(
+    return $app['twig']->render('template/admin.article_edit.twig', array(
     ));
 });
 
