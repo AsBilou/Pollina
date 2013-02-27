@@ -69,6 +69,16 @@ $app->get('/contact', function() use ($app){
     ));
 });
 
+$app->get('/admin/login', function() use ($app){
+    return $app['twig']->render('template/admin.login.twig', array(
+    ));
+});
+
+$app->get('/admin/logout', function() use ($app){
+    return $app['twig']->render('template/admin.logout.twig', array(
+    ));
+});
+
 $app->get('/404', function() use ($app){
     return $app['twig']->render('template/404.twig', array(
     ));
