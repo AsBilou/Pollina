@@ -6,13 +6,34 @@
 
     <title></title>
 
-    <link rel="stylesheet" type="text/css" media="screen" href="/Pollina/web/css/bootstrap.css" />
-
+    <link rel="stylesheet" type="text/css" media="screen" href="../web/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../web/css/admin.style.css" />
     <!--[if IE 7]><![endif]-->
 </head>
 <body>
 
-<!-- Document -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+
+                <a class="brand" href="#">Administration</a>
+                <div class="nav-collapse in collapse" style="height: auto;">
+                    <ul class="nav">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#about">Article</a></li>
+                        <li><a href="#contact">Menu</a></li>
+                        <li><a href="#contact">Informations</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+    <div class="container">
+
+        <h1>Bootstrap starter template</h1>
+        <p>Use this document as a way to quick start any new project.<br> All you get is this message and a barebones HTML document.</p>
+
+    </div>
     {% block body %}
 
     {% endblock %}
