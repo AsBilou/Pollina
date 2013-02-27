@@ -1,8 +1,15 @@
 {% extends 'layout/admin.base.twig' %}
 {% block content %}
-    <h2>Article</h2>
+    <h2>Administration des articles</h2>
     {% for article in articles %}
-
-        <p>{{ article.contenu }}</p>
+        <h4>Article {{ article.id }}</h4>
+        <h6>Français</h6>
+        <p class="well">{{ article.contenuFr }}</p>
+        <h6>Anglais</h6>
+        <p class="well">{{ article.contenuEn }}</p>
+        <h6>Allemand</h6>
+        <p class="well">{{ article.contenuDe }}</p>
+        <a class="btn btn-warning" href="{{ app.request.basepath }}/admin/article/edit/{{ article.id }}">Editer</a>
+        <a class="btn btn-danger" href="{{ app.request.basepath }}/admin/article/delete/{{ article.id }}">Supprimer</a>
     {% endfor %}
 {% endblock %}
