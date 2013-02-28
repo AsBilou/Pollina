@@ -1,6 +1,7 @@
 {% extends 'layout/admin.base.twig' %}
 {% block content %}
     <h2>Administration des articles</h2>
+    <a class="btn btn-primary" href="{{ app.request.basepath }}/admin/article/create">Ajouter un article</a>
     {% for article in articles %}
         <h4>Article {{ article.id }}</h4>
         <h6>Français</h6>
