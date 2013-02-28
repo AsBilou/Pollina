@@ -15,17 +15,48 @@
 	
 	<body>
             <div id="content">
-		<div id="header">
-			<div id="img_header" > </div><div id="suiv" ><a herf="#"> suiv</a></div>-<div id="pres"><a herf="#"> pres  </a></div>
-		</div>
-		<div id="menu">
-			
-				<div class="menu" id="menu_1" ><a herf="#" class="menu_title" > L'ENTREPRISE </a></div>
-				<div class="menu" id="menu_2" ><a herf="#" class="menu_title" > NOS METIERS </a></div>
-				<div class="menu" id="menu_3" ><a herf="#" class="menu_title" > CONTACT  </a></div>
-				<div class="menu" id="menu_4" ><a herf="#" class="menu_title" > ESPACE CLIENT  </a></div>
-			
-		</div>
+		<header id="header">
+			<div id="img_header" > </div>
+                        
+                       
+		</header>
+                <nav id="nav_article" >
+                    <div id="prev_article" ></div>
+                    <div id="next_article" ></div>
+
+                </nav>
+		<nav id="menu">
+                    <ul id="ul_menu">
+                        <li><div class="menu"  ><a herf="#" id="menu_1" class="menu_title" > L'ENTREPRISE </a></div></li>
+                        <li>
+                            <div class="menu"  ><a herf="#" id="menu_2"class="menu_title" > NOS METIERS </a>
+
+                                <ul class="sous_menu" id="sous_menu_2">
+                                    
+                                    <li><a href="#">METIER 01</a>
+                                                                                <ul class="sous_sous_menu">
+                                                    <li><a href="#">Item 01</a></li>
+                                                    <li><a href="#">Item 02</a></li>
+                                                    <li><a href="#">Item 03</a></li>
+                                            </ul>
+                                            <div class="clear"></div></li>
+                                    <li><a href="#">METIER 02 </a>
+                                            <ul class="sous_sous_menu">
+                                                    <li><a href="#">Item 01</a></li>
+                                                    <li><a href="#">Item 02</a></li>
+                                                    <li><a href="#">Item 03</a></li>
+                                            </ul>
+                                            <div class="clear"></div>
+                                    </li>
+                                    <li><a href="#">METIER 03 </a></li>
+                                    
+                               </ul>
+                           </div>
+                        </li>
+                        <li><div class="menu"  ><a herf="#" id="menu_3" class="menu_title" > CONTACT  </a></div></li>
+                        <li><div class="menu"  ><a herf="#" id="menu_4" class="menu_title" > ESPACE CLIENT  </a></div></li>
+		    </ul>
+		</nav>
                 <div id="news">
                        <div id="news_content">
 			
@@ -34,49 +65,87 @@
                        </div>
 		</div>
                 <div id="slide">
-
+                    <div id="slideshowHolder" >
+                     <img src="{{app.request.basepath}}/img/img1.jpg" />
+                     <img src="{{app.request.basepath}}/img/img2.png" />
+                     <img src="{{app.request.basepath}}/img/img1.jpg" />
+                    </div>
 		</div>
 			<div id="container">
                                 {%block article%}
                                 {%endblock%}
+                                <div     class="article">
+                                    <div class="article_left">
+                                    </div>
+				</div>
                                 <div  id="0" class="article" >
-                                    <div class="article_right"></div>
+                                    <div class="article_right">
+                                        <article></article>
+                                    </div>
 				</div>
 				<div  id="1" class="article">
-                                    <div class="article_left"></div>
+                                    <div class="article_left">
+                                        <article></article>
+                                    
+                                    </div>
 				</div>
 				
 				<div  id="2" class="article" >
-                                    <div class="article_right"></div>
+                                    <div class="article_right">
+                                    <article></article>
+                                    </div>
 				</div>
 				
 				<div  id="3" class="article" >
-                                    <div class="article_left"></div>	
+                                    <div class="article_left">
+                                    <article></article>
+                                    </div>	
 				</div>
 
 				<div  id="4" class="article" >
-                                    <div class="article_right"></div>	
+                                    <div class="article_right">
+                                    <article></article>
+                                    </div>	
 				</div>
 
 				<div  id="5" class="article" >
-                                    <div class="article_left"></div>	
+                                    <div class="article_left">
+                                    <article></article>
+                                    </div>	
 				</div>
 
 				<div  id="6" class="article" >
-                                    <div class="article_right"></div>	
+                                    <div class="article_right">
+                                    <article></article>
+                                    </div>	
+				</div>
+                                <div   class="article" >
+                                    <div class="article_left"></div>	
 				</div>
 
 			</div>
 
-		<div id="footer">
-			<div id="img_footer" > </div>
-		</div>
+		<footer id="footer">
+                    <div id="img_footer" >
+                        <nav id="menu_footer"> L'entreprise - Nos métiers - Espace Client - Mentions légales - Plan du site - Contact</nav>
+                        <div id="social_footer">SUIVEZ-NOUS</div> 
+                        <div id="newsletter_footer">RESTEZ INFORME</div>
+                    </div>
+		</footer>
             </div>
-		
-		<script type="text/javascript" src="{{app.request.basepath}}/js/jquery.js"></script>
+	          
 
+	
+		<script type="text/javascript" src="{{app.request.basepath}}/js/jquery.js"></script>
+                <script type="text/javascript" src="{{app.request.basepath}}/js/jqFancyTransitions.1.8.js" ></script>
                 <script type="text/javascript" src="{{app.request.basepath}}/js/fonction.js"></script>
-		
+               
+                
+                
+
+                
+
+	
 	</body>
 </html>
 			
