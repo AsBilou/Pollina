@@ -53,35 +53,29 @@ $app->match('/admin/accueil', function(Request $request) use ($app){
 
     //echo $conf->get(0)->setValue('ZI de chasnais')->save();
 
-    $form = $app['form.factory']->createBuilder('form')
-        ->add('carousel','text',array(
-            'label'=>'Carousel (Mettre un champ multiple selection)',
-            'required'=>true,
-            'attr'=>array(
-                    'value'=>$conf->get(9)->getValue()
-                ),
-            'constraints'=>array(
-                    new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
-                )
-            ))
+    $formFr = $app['form.factory']->createBuilder('form')
         ->add('description_fr','textarea',array(
-            'label'=>'Description Français',
+            'label'=>' ',
             'required'=>true,
             'data'=>$conf->get(10)->getValue(),
             'constraints'=>array(
                     new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
                 )
             ))
+        ->getForm();
+    $formEn = $app['form.factory']->createBuilder('form')
         ->add('description_en','textarea',array(
-            'label'=>'Description Anglais',
+            'label'=>' ',
             'required'=>true,
             'data'=>$conf->get(11)->getValue(),
             'constraints'=>array(
                     new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
                 )
             ))
+        ->getForm();
+    $formDe = $app['form.factory']->createBuilder('form')
         ->add('description_de','textarea',array(
-            'label'=>'Description Allemand',
+            'label'=>' ',
             'required'=>true,
             'data'=>$conf->get(12)->getValue(),
             'constraints'=>array(
@@ -91,25 +85,57 @@ $app->match('/admin/accueil', function(Request $request) use ($app){
         ->getForm();
 
     if('POST'==$request->getMethod()){
-        $form->bind($request);
+        /*echo '<pre>';
+        print_r($request);
+        echo '</pre>';*/
+        $formFr->bind($request);
+        $formEn->bind($request);
+        $formDe->bind($request);
 
-        if($form->isValid()){
+        //Si le formulaire reçu est pour la langue française
+        if($formFr->isValid()){
             //Récuperation des données du formulaire
-            $data = $form->getData();
-
+            $data = $formFr->getData();
             //Mise a jour des information dans la table
-            $conf->get(9)->setValue($data['carousel']);
             $conf->get(10)->setValue($data['description_fr']);
+            //$conf->get(11)->setValue($data['description_en']);
+            //$conf->get(12)->setValue($data['description_de']);
+            $conf->save();
+            echo 'mise a jour FR OK';
+            return $app->redirect($app['url_generator']->generate('admin_ok'));
+        }
+
+        //Si le formulaire reçu est pour la langue française
+        if($formEn->isValid()){
+            //Récuperation des données du formulaire
+            $data = $formEn->getData();
+            //Mise a jour des information dans la table
+            //$conf->get(10)->setValue($data['description_fr']);
             $conf->get(11)->setValue($data['description_en']);
+            //$conf->get(12)->setValue($data['description_de']);
+            $conf->save();
+            echo 'mise a jour EN OK';
+            return $app->redirect($app['url_generator']->generate('admin_ok'));
+        }
+
+        //Si le formulaire reçu est pour la langue française
+        if($formDe->isValid()){
+            $data = $formDe->getData();
+            //Mise a jour des information dans la table
+            //$conf->get(10)->setValue($data['description_fr']);
+            //$conf->get(11)->setValue($data['description_en']);
             $conf->get(12)->setValue($data['description_de']);
             $conf->save();
-
+            echo 'mise a jour DE OK';
             return $app->redirect($app['url_generator']->generate('admin_ok'));
         }
     }
 
     return $app['twig']->render('template/admin.accueil.twig', array(
-        'form'=>$form->createView(),
+        'formFr'=>$formFr->createView(),
+        'formEn'=>$formEn->createView(),
+        'formDe'=>$formDe->createView(),
+        'conf'=>$conf,
     ));
 })->bind('form_accueil');
 
