@@ -46,13 +46,24 @@ $app->get('/admin', function() use ($app){
 });
 
 $app->match('/admin/accueil', function(Request $request) use ($app){
-
+    //Recupere le contenu du dossier contenant les images du carousel
+    $MyDirectory = opendir('img/carousel/') or die('Erreur');
+    $arrayPictures = array();
+    while($Entry = readdir($MyDirectory)) {
+        if($Entry != '.' && $Entry != '..' && !is_dir($MyDirectory.$Entry)){
+            array_push($arrayPictures,$Entry);
+        }
+    }
     //Récupere tout le contenu de la table configuration
     $conf = ConfigurationQuery::create()
         ->find();
 
-    //echo $conf->get(0)->setValue('ZI de chasnais')->save();
+    //On recupere les mimage deja présent dans le carousel
+    $arrayCarousel = array();
+    $arrayCarousel = $conf->get(9)->getValue();
+    $arrayCarousel = explode('/',$arrayCarousel);
 
+    //Création des formulaires
     $formFr = $app['form.factory']->createBuilder('form')
         ->add('description_fr','textarea',array(
             'label'=>' ',
@@ -85,9 +96,7 @@ $app->match('/admin/accueil', function(Request $request) use ($app){
         ->getForm();
 
     if('POST'==$request->getMethod()){
-        /*echo '<pre>';
-        print_r($request);
-        echo '</pre>';*/
+
         $formFr->bind($request);
         $formEn->bind($request);
         $formDe->bind($request);
@@ -98,10 +107,7 @@ $app->match('/admin/accueil', function(Request $request) use ($app){
             $data = $formFr->getData();
             //Mise a jour des information dans la table
             $conf->get(10)->setValue($data['description_fr']);
-            //$conf->get(11)->setValue($data['description_en']);
-            //$conf->get(12)->setValue($data['description_de']);
             $conf->save();
-            echo 'mise a jour FR OK';
             return $app->redirect($app['url_generator']->generate('admin_ok'));
         }
 
@@ -110,11 +116,8 @@ $app->match('/admin/accueil', function(Request $request) use ($app){
             //Récuperation des données du formulaire
             $data = $formEn->getData();
             //Mise a jour des information dans la table
-            //$conf->get(10)->setValue($data['description_fr']);
             $conf->get(11)->setValue($data['description_en']);
-            //$conf->get(12)->setValue($data['description_de']);
             $conf->save();
-            echo 'mise a jour EN OK';
             return $app->redirect($app['url_generator']->generate('admin_ok'));
         }
 
@@ -123,19 +126,20 @@ $app->match('/admin/accueil', function(Request $request) use ($app){
             //Récuperation des données du formulaire
             $data = $formDe->getData();
             //Mise a jour des information dans la table
-            //$conf->get(10)->setValue($data['description_fr']);
-            //$conf->get(11)->setValue($data['description_en']);
             $conf->get(12)->setValue($data['description_de']);
             $conf->save();
-            echo 'mise a jour DE OK';
             return $app->redirect($app['url_generator']->generate('admin_ok'));
         }
+
+        //Si le carousel est validé
     }
 
     return $app['twig']->render('template/admin.accueil.twig', array(
         'formFr'=>$formFr->createView(),
         'formEn'=>$formEn->createView(),
         'formDe'=>$formDe->createView(),
+        'pictures'=>$arrayPictures,
+        'carousel'=>$arrayCarousel,
         'conf'=>$conf,
     ));
 })->bind('form_accueil');
