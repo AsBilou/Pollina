@@ -161,6 +161,11 @@ $app->match('/admin/article/edit/{id}', function($id) use ($app){
     ));
 });
 
+$app->match('/admin/article/delete/{id}', function($id) use ($app){
+    return $app['twig']->render('template/admin.article_delete.twig', array(
+    ));
+});
+
 $app->get('/admin/menu', function() use ($app){
     return $app['twig']->render('template/admin.menu.twig', array(
     ));
