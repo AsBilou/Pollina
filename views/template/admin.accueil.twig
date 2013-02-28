@@ -1,8 +1,144 @@
 {% extends 'layout/admin.base.twig' %}
+
+{% block stylesheet %}
+    <link href="{{ app.request.basepath }}/css/select2.css" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
+    <div class="alert alert-block alert-info" style="display: none">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <h4 class="alert-heading">Oh snap! You got an error!</h4>
+        <p>Change this and that and try again. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum.</p>
+        <p>
+            <a class="btn btn-success validate" href="#">Valider</a> <a class="btn btn-danger cancel" href="#">Annuler</a>
+        </p>
+    </div>
     <h2>Accueil</h2>
-    <form novalidate action="{{ path('form_accueil') }}" method="post">
-        {{ form_widget(form) }}
-        <input type="submit" name="submit" />
+    <form id="formCar" novalidate action="{{ path('form_accueil') }}" method="post">
+        <h5>Carousel</h5>
+        <select id="e1" multiple="multiple" class="span5">
+            {% set counter = 0 %}
+            {% for picture in pictures %}
+                <option value="{{ counter }}" {% if picture in carousel %}}
+                                                    selected="selected"
+                                              {% endif %}>{{ picture }}</option>
+                {% set counter = counter +1 %}
+            {% endfor %}
+        </select>
+        <a class="click btn btn-primary" >Valider</a>
     </form>
+    <div class="clearfix"></div>
+    <h5>Description en Français</h5>
+    <p>{{ conf[10].value|raw}}</p>
+    <a href="#DescriptionFr" role="button" class="btn btn-warning" data-toggle="modal">Editer</a>
+    <h5>Description en Anglais</h5>
+    <p>{{ conf[11].value|raw}}</p>
+    <a href="#DescriptionEn" role="button" class="btn btn-warning" data-toggle="modal">Editer</a>
+    <h5>Description en Allemand</h5>
+    <p>{{ conf[12].value|raw}}</p>
+    <a href="#DescriptionDe" role="button" class="btn btn-warning" data-toggle="modal">Editer</a>
+
+    <!-- Modal -->
+    <div id="DescriptionFr" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Description en Français</h3>
+        </div>
+        <div class="modal-body">
+            <form id="formFr" novalidate action="{{ path('form_accueil') }}" method="post">
+                {{ form_widget(formFr) }}
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Annuler</button>
+            <button id="submitFR" class="btn btn-success">Sauvegarder</button>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="DescriptionEn" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Description en Anglais</h3>
+        </div>
+        <div class="modal-body">
+            <form id="formEn" novalidate action="{{ path('form_accueil') }}" method="post">
+                {{ form_widget(formEn) }}
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Annuler</button>
+            <button id="submitEN" class="btn btn-success">Sauvegarder</button>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="DescriptionDe" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Description en Allemand</h3>
+        </div>
+        <div class="modal-body">
+            <form id="formDe" novalidate action="{{ path('form_accueil') }}" method="post">
+                {{ form_widget(formDe) }}
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Annuler</button>
+            <button id="submitDE" class="btn btn-success">Sauvegarder</button>
+        </div>
+    </div>
+{% endblock %}
+{% block javascript %}
+    <script src="{{ app.request.basepath }}/js/tiny_mce/tiny_mce.js"></script>
+    <script src="{{ app.request.basepath }}/js/select2.js"></script>
+    <script type="text/javascript">
+        tinyMCE.init({
+            mode : "textareas"
+        });
+
+        $(document).ready(function() {
+            $("#e1").select2({ maximumSelectionSize: 3 });
+            $('.click').click(function(){
+                //$(".alert").alert();
+                $(".alert").fadeIn();
+            });
+            $('.cancel').click(function(){
+                //$(".alert").alert();
+                $(".alert").fadeOut();
+            });
+
+        });
+
+        $('#submitFR').on('click', function(e){
+            // We don't want this to act as a link so cancel the link action
+            e.preventDefault();
+            // Find form and submit it
+            $('#formFr').submit();
+        });
+
+        $('#submitEN').on('click', function(e){
+            // We don't want this to act as a link so cancel the link action
+            e.preventDefault();
+            // Find form and submit it
+            $('#formEn').submit();
+        });
+
+        $('#submitDE').on('click', function(e){
+            // We don't want this to act as a link so cancel the link action
+            e.preventDefault();
+            // Find form and submit it
+            $('#formDe').submit();
+        });
+
+        $('.validate').on('click', function(e){
+            // We don't want this to act as a link so cancel the link action
+            e.preventDefault();
+            // Find form and submit it
+            $('#formCar').submit();
+        });
+
+
+        console.log($.fn.select2.defaults);
+    </script>
 {% endblock %}

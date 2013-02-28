@@ -10,6 +10,9 @@
 
     <!-- Le styles -->
     <link href="{{ app.request.basepath }}/css/bootstrap.css" rel="stylesheet">
+    {% block stylesheet %}
+
+    {% endblock %}
     <style>
         body {
             padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
@@ -36,6 +39,7 @@
                     <li class=""><a href="{{ app.request.basepath }}/admin/article">Articles</a></li>
                     <li class=""><a href="{{ app.request.basepath }}/admin/menu">Menu</a></li>
                     <li class=""><a href="{{ app.request.basepath }}/admin/info">Informations</a></li>
+                    <li class=""><a href="{{ app.request.basepath }}/admin/carousel">Carousel</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
@@ -54,5 +58,8 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="{{ app.request.basepath }}/js/jquery.js"></script>
 <script src="{{ app.request.basepath }}/js/bootstrap.js"></script>
+{% block javascript %}
+
+{% endblock %}
 
 </body></html>

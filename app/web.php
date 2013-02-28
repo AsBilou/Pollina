@@ -31,31 +31,42 @@ $app->get('/{lang}/', function($lang) use ($app){
 });
 
 $app->get('/admin', function() use ($app){
-    return $app['twig']->render('template/admin.home.twig', array(
-    ));
-});
-
-$app->match('/admin/accueil', function(Request $request) use ($app){
-
     //Récupere tout le contenu de la table configuration
     $conf = ConfigurationQuery::create()
         ->find();
 
-    //echo $conf->get(0)->setValue('ZI de chasnais')->save();
+    //Récupere le nombre d'article sur le site
+    $nbArticle = ArticlesQuery::create()
+        ->count();
 
-    $form = $app['form.factory']->createBuilder('form')
-        ->add('carousel','text',array(
-            'label'=>'Carousel (Mettre un champ multiple selection)',
-            'required'=>true,
-            'attr'=>array(
-                    'value'=>$conf->get(9)->getValue()
-                ),
-            'constraints'=>array(
-                    new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
-                )
-            ))
-        ->add('description','textarea',array(
-            'label'=>'Description',
+    return $app['twig']->render('template/admin.home.twig', array(
+        'conf'=>$conf,
+        'nbArticle'=>$nbArticle,
+    ));
+});
+
+$app->match('/admin/accueil', function(Request $request) use ($app){
+    //Recupere le contenu du dossier contenant les images du carousel
+    $MyDirectory = opendir('img/carousel/') or die('Erreur');
+    $arrayPictures = array();
+    while($Entry = readdir($MyDirectory)) {
+        if($Entry != '.' && $Entry != '..' && !is_dir($MyDirectory.$Entry)){
+            array_push($arrayPictures,$Entry);
+        }
+    }
+    //Récupere tout le contenu de la table configuration
+    $conf = ConfigurationQuery::create()
+        ->find();
+
+    //On recupere les mimage deja présent dans le carousel
+    $arrayCarousel = array();
+    $arrayCarousel = $conf->get(9)->getValue();
+    $arrayCarousel = explode('/',$arrayCarousel);
+
+    //Création des formulaires
+    $formFr = $app['form.factory']->createBuilder('form')
+        ->add('description_fr','textarea',array(
+            'label'=>' ',
             'required'=>true,
             'data'=>$conf->get(10)->getValue(),
             'constraints'=>array(
@@ -63,25 +74,73 @@ $app->match('/admin/accueil', function(Request $request) use ($app){
                 )
             ))
         ->getForm();
+    $formEn = $app['form.factory']->createBuilder('form')
+        ->add('description_en','textarea',array(
+            'label'=>' ',
+            'required'=>true,
+            'data'=>$conf->get(11)->getValue(),
+            'constraints'=>array(
+                    new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
+                )
+            ))
+        ->getForm();
+    $formDe = $app['form.factory']->createBuilder('form')
+        ->add('description_de','textarea',array(
+            'label'=>' ',
+            'required'=>true,
+            'data'=>$conf->get(12)->getValue(),
+            'constraints'=>array(
+                    new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
+                )
+            ))
+        ->getForm();
 
     if('POST'==$request->getMethod()){
-        $form->bind($request);
 
-        if($form->isValid()){
+        $formFr->bind($request);
+        $formEn->bind($request);
+        $formDe->bind($request);
+
+        //Si le formulaire reçu est pour la langue française
+        if($formFr->isValid()){
             //Récuperation des données du formulaire
-            $data = $form->getData();
-
+            $data = $formFr->getData();
             //Mise a jour des information dans la table
-            $conf->get(9)->setValue($data['carousel']);
-            $conf->get(10)->setValue($data['description']);
+            $conf->get(10)->setValue($data['description_fr']);
             $conf->save();
-
             return $app->redirect($app['url_generator']->generate('admin_ok'));
         }
+
+        //Si le formulaire reçu est pour la langue française
+        if($formEn->isValid()){
+            //Récuperation des données du formulaire
+            $data = $formEn->getData();
+            //Mise a jour des information dans la table
+            $conf->get(11)->setValue($data['description_en']);
+            $conf->save();
+            return $app->redirect($app['url_generator']->generate('admin_ok'));
+        }
+
+        //Si le formulaire reçu est pour la langue française
+        if($formDe->isValid()){
+            //Récuperation des données du formulaire
+            $data = $formDe->getData();
+            //Mise a jour des information dans la table
+            $conf->get(12)->setValue($data['description_de']);
+            $conf->save();
+            return $app->redirect($app['url_generator']->generate('admin_ok'));
+        }
+
+        //Si le carousel est validé
     }
 
     return $app['twig']->render('template/admin.accueil.twig', array(
-        'form'=>$form->createView(),
+        'formFr'=>$formFr->createView(),
+        'formEn'=>$formEn->createView(),
+        'formDe'=>$formDe->createView(),
+        'pictures'=>$arrayPictures,
+        'carousel'=>$arrayCarousel,
+        'conf'=>$conf,
     ));
 })->bind('form_accueil');
 
@@ -101,13 +160,13 @@ $app->match('/admin/article/create', function() use ($app){
     ));
 });
 
-$app->get('/admin/article/edit', function() use ($app){
+$app->match('/admin/article/edit/{id}', function($id) use ($app){
     return $app['twig']->render('template/admin.article_edit.twig', array(
     ));
 });
 
-$app->match('/admin/article/edit/{id}', function($id) use ($app){
-    return $app['twig']->render('template/admin.article_edit_detail.twig', array(
+$app->match('/admin/article/delete/{id}', function($id) use ($app){
+    return $app['twig']->render('template/admin.article_delete.twig', array(
     ));
 });
 

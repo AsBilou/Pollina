@@ -4,6 +4,8 @@
         <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
         <column name="title" type="varchar" size="45" required="true" />
         <column name="contenu_fr" type="varchar" size="1000" required="true" />
+        <column name="contenu_en" type="varchar" size="1000" required="true" />
+        <column name="contenu_de" type="varchar" size="1000" required="true" />
     </table>
     <table name="admin" phpName="Admin">
         <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>

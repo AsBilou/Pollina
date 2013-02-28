@@ -24,13 +24,13 @@ abstract class BaseArticlesPeer
     const TM_CLASS = 'ArticlesTableMap';
 
     /** The total number of columns. */
-    const NUM_COLUMNS = 4;
+    const NUM_COLUMNS = 5;
 
     /** The number of lazy-loaded columns. */
     const NUM_LAZY_LOAD_COLUMNS = 0;
 
     /** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-    const NUM_HYDRATE_COLUMNS = 4;
+    const NUM_HYDRATE_COLUMNS = 5;
 
     /** the column name for the id field */
     const ID = 'articles.id';
@@ -38,11 +38,14 @@ abstract class BaseArticlesPeer
     /** the column name for the title field */
     const TITLE = 'articles.title';
 
-    /** the column name for the contenu field */
-    const CONTENU = 'articles.contenu';
+    /** the column name for the contenu_fr field */
+    const CONTENU_FR = 'articles.contenu_fr';
 
-    /** the column name for the lang field */
-    const LANG = 'articles.lang';
+    /** the column name for the contenu_en field */
+    const CONTENU_EN = 'articles.contenu_en';
+
+    /** the column name for the contenu_de field */
+    const CONTENU_DE = 'articles.contenu_de';
 
     /** The default string format for model objects of the related table **/
     const DEFAULT_STRING_FORMAT = 'YAML';
@@ -63,12 +66,12 @@ abstract class BaseArticlesPeer
      * e.g. ArticlesPeer::$fieldNames[ArticlesPeer::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('Id', 'Title', 'Contenu', 'Lang', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'title', 'contenu', 'lang', ),
-        BasePeer::TYPE_COLNAME => array (ArticlesPeer::ID, ArticlesPeer::TITLE, ArticlesPeer::CONTENU, ArticlesPeer::LANG, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID', 'TITLE', 'CONTENU', 'LANG', ),
-        BasePeer::TYPE_FIELDNAME => array ('id', 'title', 'contenu', 'lang', ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
+        BasePeer::TYPE_PHPNAME => array ('Id', 'Title', 'ContenuFr', 'ContenuEn', 'ContenuDe', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'title', 'contenuFr', 'contenuEn', 'contenuDe', ),
+        BasePeer::TYPE_COLNAME => array (ArticlesPeer::ID, ArticlesPeer::TITLE, ArticlesPeer::CONTENU_FR, ArticlesPeer::CONTENU_EN, ArticlesPeer::CONTENU_DE, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID', 'TITLE', 'CONTENU_FR', 'CONTENU_EN', 'CONTENU_DE', ),
+        BasePeer::TYPE_FIELDNAME => array ('id', 'title', 'contenu_fr', 'contenu_en', 'contenu_de', ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
     );
 
     /**
@@ -78,12 +81,12 @@ abstract class BaseArticlesPeer
      * e.g. ArticlesPeer::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Title' => 1, 'Contenu' => 2, 'Lang' => 3, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'title' => 1, 'contenu' => 2, 'lang' => 3, ),
-        BasePeer::TYPE_COLNAME => array (ArticlesPeer::ID => 0, ArticlesPeer::TITLE => 1, ArticlesPeer::CONTENU => 2, ArticlesPeer::LANG => 3, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'TITLE' => 1, 'CONTENU' => 2, 'LANG' => 3, ),
-        BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'title' => 1, 'contenu' => 2, 'lang' => 3, ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
+        BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Title' => 1, 'ContenuFr' => 2, 'ContenuEn' => 3, 'ContenuDe' => 4, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'title' => 1, 'contenuFr' => 2, 'contenuEn' => 3, 'contenuDe' => 4, ),
+        BasePeer::TYPE_COLNAME => array (ArticlesPeer::ID => 0, ArticlesPeer::TITLE => 1, ArticlesPeer::CONTENU_FR => 2, ArticlesPeer::CONTENU_EN => 3, ArticlesPeer::CONTENU_DE => 4, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'TITLE' => 1, 'CONTENU_FR' => 2, 'CONTENU_EN' => 3, 'CONTENU_DE' => 4, ),
+        BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'title' => 1, 'contenu_fr' => 2, 'contenu_en' => 3, 'contenu_de' => 4, ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
     );
 
     /**
@@ -159,13 +162,15 @@ abstract class BaseArticlesPeer
         if (null === $alias) {
             $criteria->addSelectColumn(ArticlesPeer::ID);
             $criteria->addSelectColumn(ArticlesPeer::TITLE);
-            $criteria->addSelectColumn(ArticlesPeer::CONTENU);
-            $criteria->addSelectColumn(ArticlesPeer::LANG);
+            $criteria->addSelectColumn(ArticlesPeer::CONTENU_FR);
+            $criteria->addSelectColumn(ArticlesPeer::CONTENU_EN);
+            $criteria->addSelectColumn(ArticlesPeer::CONTENU_DE);
         } else {
             $criteria->addSelectColumn($alias . '.id');
             $criteria->addSelectColumn($alias . '.title');
-            $criteria->addSelectColumn($alias . '.contenu');
-            $criteria->addSelectColumn($alias . '.lang');
+            $criteria->addSelectColumn($alias . '.contenu_fr');
+            $criteria->addSelectColumn($alias . '.contenu_en');
+            $criteria->addSelectColumn($alias . '.contenu_de');
         }
     }
 
