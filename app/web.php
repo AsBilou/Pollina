@@ -120,6 +120,7 @@ $app->match('/admin/accueil', function(Request $request) use ($app){
 
         //Si le formulaire reçu est pour la langue française
         if($formDe->isValid()){
+            //Récuperation des données du formulaire
             $data = $formDe->getData();
             //Mise a jour des information dans la table
             //$conf->get(10)->setValue($data['description_fr']);
