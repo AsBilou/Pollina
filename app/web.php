@@ -39,7 +39,7 @@ $app->get('/admin', function() use ($app){
     $nbArticle = ArticlesQuery::create()
         ->count();
 
-    return $app['twig']->render('template/admin.home.twig', array(
+    return $app['twig']->render('template/admin/home.twig', array(
         'conf'=>$conf,
         'nbArticle'=>$nbArticle,
     ));
@@ -122,7 +122,7 @@ $app->match('/admin/accueil', function(Request $request) use ($app){
         //Si le carousel est validé
     }
 
-    return $app['twig']->render('template/admin.accueil.twig', array(
+    return $app['twig']->render('template/admin/accueil.twig', array(
         'formFr'=>$formFr->createView(),
         'formEn'=>$formEn->createView(),
         'formDe'=>$formDe->createView(),
@@ -136,28 +136,28 @@ $app->get('/admin/article', function() use ($app){
         ->orderById()
         ->find();
     //Affichage de tous les articles
-    return $app['twig']->render('template/admin.article.twig', array(
+    return $app['twig']->render('template/admin/article.twig', array(
         'articles'=>$article,
     ));
 });
 
 $app->match('/admin/article/create', function() use ($app){
-    return $app['twig']->render('template/admin.article_create.twig', array(
+    return $app['twig']->render('template/admin/article_create.twig', array(
     ));
 });
 
 $app->match('/admin/article/edit/{id}', function($id) use ($app){
-    return $app['twig']->render('template/admin.article_edit.twig', array(
+    return $app['twig']->render('template/admin/article_edit.twig', array(
     ));
 });
 
 $app->match('/admin/article/delete/{id}', function($id) use ($app){
-    return $app['twig']->render('template/admin.article_delete.twig', array(
+    return $app['twig']->render('template/admin/article_delete.twig', array(
     ));
 });
 
 $app->get('/admin/menu', function() use ($app){
-    return $app['twig']->render('template/admin.menu.twig', array(
+    return $app['twig']->render('template/admin/menu.twig', array(
     ));
 });
 
@@ -182,12 +182,12 @@ $app->get('/{lang}/contact', function() use ($app){
 });
 
 $app->get('/admin/login', function() use ($app){
-    return $app['twig']->render('template/admin.login.twig', array(
+    return $app['twig']->render('template/admin/login.twig', array(
     ));
 });
 
 $app->get('/admin/logout', function() use ($app){
-    return $app['twig']->render('template/admin.logout.twig', array(
+    return $app['twig']->render('template/admin/logout.twig', array(
     ));
 });
 
@@ -315,12 +315,12 @@ $app->match('/admin/info', function(Request $request) use ($app){
         }
     }
 
-    return $app['twig']->render('template/admin.info.twig', array(
+    return $app['twig']->render('template/admin/info.twig', array(
         'form'=>$form->createView(),
     ));
 })->bind('form_conf');
 
-$app->match('/admin/carousel', function(Request $request) use ($app){
+$app->match('/admin/carousel/select', function(Request $request) use ($app){
     //Recupere le contenu du dossier contenant les images du carousel
     $MyDirectory = opendir('img/carousel/') or die('Erreur');
     $arrayPictures = array();
@@ -353,12 +353,27 @@ $app->match('/admin/carousel', function(Request $request) use ($app){
         }
     }
 
-    return $app['twig']->render('template/admin.carousel.twig', array(
+    return $app['twig']->render('template/admin/carousel_select.twig', array(
         'pictures'=>$arrayPictures,
         'carousel'=>$arrayCarousel,
         'conf'=>$conf,
     ));
 })->bind('form_car');
+
+$app->get('/admin/carousel/upload', function() use ($app){
+    return $app['twig']->render('template/admin/carousel_upload.twig', array(
+    ));
+});
+
+$app->get('/admin/carousel', function() use ($app){
+    return $app['twig']->render('template/admin/carousel.twig', array(
+    ));
+});
+
+$app->get('/admin/user', function() use ($app){
+    return $app['twig']->render('template/admin/user.twig', array(
+    ));
+});
 
 $app->get('/404', function() use ($app){
     return $app['twig']->render('template/404.twig', array(
@@ -366,12 +381,12 @@ $app->get('/404', function() use ($app){
 });
 
 $app->get('/admin/ok', function() use ($app){
-    return $app['twig']->render('template/admin.ok.twig', array(
+    return $app['twig']->render('template/admin/ok.twig', array(
     ));
 })->bind('admin_ok');
 
 $app->get('/admin/ko', function() use ($app){
-    return $app['twig']->render('template/admin.ko.twig', array(
+    return $app['twig']->render('template/admin/ko.twig', array(
     ));
 })->bind('admin_ko');
 

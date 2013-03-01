@@ -1,0 +1,8 @@
+{% extends 'layout/admin.base.twig' %}
+{% block content %}
+    <h2>Administration du Carousel</h2>
+    <h4>Aperçu du carousel</h4>
+    <img src="{{ app.request.basepath }}/img/carousel/image1.jpg">
+    <a class="btn btn-block btn-primary btn-large" href="{{ app.request.basepath }}/admin/carousel/select">Choisir les images</a><br>
+    <a class="btn btn-block btn-primary btn-large" href="{{ app.request.basepath }}/admin/carousel/upload">Téléverser des images</a>
+{% endblock %}
