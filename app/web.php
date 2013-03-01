@@ -21,12 +21,41 @@ $app = require __DIR__.'/bootstrap.php';
 });*/
 
 $app->get('/{lang}/', function($lang) use ($app){
+    //Recuperation du menu
     $menus = MenuQuery::create()
         ->find();
-    //print_r($menus);
+
+    //Recuperation de la description
+    switch($lang){
+        case 'fr':
+            $langDescription=10;
+            break;
+        case 'en':
+            $langDescription=11;
+            break;
+        case 'en':
+            $langDescription=12;
+            break;
+    }
+
+    //Récuperation des information
+    $conf = ConfigurationQuery::create()
+        ->find();
+
     return $app['twig']->render('template/home.twig', array(
         'menus'=>$menus,
         'lang'=>$lang,
+        'adresse'=>$conf->get(0)->getValue(),
+        'CP'=>$conf->get(1)->getValue(),
+        'city'=>$conf->get(2)->getValue(),
+        'phone'=>$conf->get(3)->getValue(),
+        'fax'=>$conf->get(4)->getValue(),
+        'facebook'=>$conf->get(5)->getValue(),
+        'twitter'=>$conf->get(6)->getValue(),
+        'gplus'=>$conf->get(7)->getValue(),
+        'rss'=>$conf->get(8)->getValue(),
+        'carousel'=>$conf->get(9)->getValue(),
+        'description'=>$conf->get($langDescription)->getValue(),
     ));
 });
 
@@ -501,7 +530,7 @@ $app->match('/admin/user/create', function(Request $request) use ($app){
                 //Création d'un nouvel objet administrateur
                 $admin = new Admin();
                 $admin->setEmail($data['email']);
-                $admin->setPassword($data['password']);
+                $admin->setPassword(md5($data['password']));
                 $admin->setLogin($data['login']);
                 $admin->save();
                 return $app->redirect($app['url_generator']->generate('admin_ok'));
