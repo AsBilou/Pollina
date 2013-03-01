@@ -1,0 +1,18 @@
+{% extends 'layout/admin.base.twig' %}
+{% block content %}
+    <h2>Création d'une nouvelle newsletter</h2>
+    <form id="form" novalidate action="{{ path('form_newsletter_create') }}" method="post">
+        {{ form_widget(form) }}
+        <input class="btn btn-success" value="Envoyer" type="submit">
+    </form>
+{% endblock %}
+{% block javascript %}
+    <script src="{{ app.request.basepath }}/js/tiny_mce/tiny_mce.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            tinyMCE.init({
+                mode : "textareas"
+            });
+        });
+    </script>
+{% endblock %}

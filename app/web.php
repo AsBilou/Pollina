@@ -369,7 +369,18 @@ $app->get('/admin/carousel/upload', function() use ($app){
 });
 
 $app->get('/admin/carousel', function() use ($app){
+
+    //récuperation des infos de configuration
+    $conf = ConfigurationQuery::create()
+        ->find();
+
+    //Récuperation des image du carousel
+    $carousel = $conf->get(9)->getValue();
+
+    $carousel = explode(',',$carousel);
+
     return $app['twig']->render('template/admin/carousel.twig', array(
+        'carousel'=>$carousel,
     ));
 });
 
@@ -441,6 +452,7 @@ $app->match('/admin/user/create', function(Request $request) use ($app){
             return $app->redirect($app['url_generator']->generate('admin_ko'));
 
         }
+
     }
 
     return $app['twig']->render('template/admin/user_create.twig', array(
@@ -450,11 +462,61 @@ $app->match('/admin/user/create', function(Request $request) use ($app){
 
 $app->get('/admin/newsletter', function() use ($app){
 
-
+    $user_news = NewsletterQuery::create()
+        ->find();
 
     return $app['twig']->render('template/admin/newsletter.twig', array(
+        'user_news'=>$user_news,
     ));
 });
+
+$app->match('/admin/newsletter/create', function(Request $request) use ($app){
+    //Récuperation de tous les inscrit a la newsletter
+    $user_news = NewsletterQuery::create()
+        ->find();
+    //Création du formulaire
+    $form = $app['form.factory']->createBuilder('form')
+        ->add('subject','text',array(
+        'label'=>'Sujet',
+        'required'=>true,
+        'attr' => array('placeholder' => 'Sujet de la newsletter'),
+        'constraints'=>array(
+            new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
+        )
+    ))
+        ->add('content','textarea',array(
+        'label'=>'Contenu',
+        'required'=>true,
+        'data' => 'Votre news',
+        'constraints'=>array(
+            new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
+        )
+    ))
+        ->getForm();
+
+    if('POST'==$request->getMethod()){
+        $form->bind($request);
+
+        if($form->isValid()){
+            //Récuperation des données du formulaire
+            $data = $form->getData();
+                //Création d'un nouvel objet administrateur
+                $admin = new Admin();
+                $admin->setEmail($data['email']);
+                $admin->setPassword($data['password']);
+                $admin->setLogin($data['login']);
+                $admin->save();
+                return $app->redirect($app['url_generator']->generate('newsletter_ok'));
+
+        }
+
+    }
+
+    return $app['twig']->render('template/admin/newsletter_create.twig', array(
+        'user_news'=>$user_news,
+        'form'=>$form->createView(),
+    ));
+})->bind('form_newsletter_create');
 
 $app->get('/admin/ok', function() use ($app){
     return $app['twig']->render('template/admin/ok.twig', array(
@@ -465,6 +527,11 @@ $app->get('/admin/ko', function() use ($app){
     return $app['twig']->render('template/admin/ko.twig', array(
     ));
 })->bind('admin_ko');
+
+$app->get('/newsletter/ok', function() use ($app){
+    return $app['twig']->render('template/admin/newsletter_ok.twig', array(
+    ));
+})->bind('newsletter_ok');
 
 $app->get('/404', function() use ($app){
     return $app['twig']->render('template/404.twig', array(
