@@ -1,4 +1,35 @@
 {% extends 'layout/admin.base.twig' %}
 {% block content %}
     <h2>Administration des administrateurs</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    #
+                </th>
+                <th>
+                    Identifiant
+                </th>
+                <th>
+                    Email
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>
+                    {{ user.id }}
+                </td>
+                <td>
+                    {{ user.login }}
+                </td>
+                <td>
+                    {{ user.email }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a class="btn btn-success" href="{{ app.request.basepath }}/admin/user/create">Ajouter</a>
 {% endblock %}

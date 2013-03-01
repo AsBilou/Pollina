@@ -374,7 +374,12 @@ $app->get('/admin/carousel', function() use ($app){
 });
 
 $app->get('/admin/user', function() use ($app){
+
+    $users = AdminQuery::create()
+        ->find();
+
     return $app['twig']->render('template/admin/user.twig', array(
+        'users'=>$users,
     ));
 });
 
