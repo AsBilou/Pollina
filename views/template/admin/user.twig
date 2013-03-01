@@ -13,6 +13,9 @@
                 <th>
                     Email
                 </th>
+                <th>
+                    Actions
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -26,6 +29,9 @@
                 </td>
                 <td>
                     {{ user.email }}
+                </td>
+                <td>
+                    <a class="btn btn-danger" href="{{ app.request.basepath }}/admin/user/delete/{{ user.id }}">delete</a>
                 </td>
             </tr>
         {% endfor %}

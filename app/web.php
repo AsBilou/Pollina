@@ -226,9 +226,14 @@ $app->match('/admin/news/edit/{id}', function($id) use ($app){
 });
 
 $app->match('/admin/news/delete/{id}', function($id) use ($app){
-    return $app['twig']->render('template/admin/article_delete.twig', array(
 
-    ));
+    $article = ArticlesQuery::create()->filterById($id)->find();
+    $article->delete();
+
+    return $app->redirect($app['url_generator']->generate('admin_ok'));
+
+    //return $app['twig']->render('template/admin/article_delete.twig', array(
+    //));
 });
 
 $app->get('/admin/menu', function() use ($app){
@@ -512,6 +517,15 @@ $app->match('/admin/user/create', function(Request $request) use ($app){
         'form'=>$form->createView(),
     ));
 })->bind('form_user_create');
+
+$app->match('/admin/user/delete/{id}', function($id) use ($app){
+
+    $user = AdminQuery::create()->filterById($id)->find();
+    $user->delete();
+
+    return $app->redirect($app['url_generator']->generate('admin_ok'));
+
+});
 
 $app->get('/admin/newsletter', function() use ($app){
 
