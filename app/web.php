@@ -320,7 +320,7 @@ $app->match('/admin/info', function(Request $request) use ($app){
     ));
 })->bind('form_conf');
 
-$app->get('/admin/carousel', function() use ($app){
+$app->match('/admin/carousel', function(Request $request) use ($app){
     //Recupere le contenu du dossier contenant les images du carousel
     $MyDirectory = opendir('img/carousel/') or die('Erreur');
     $arrayPictures = array();
@@ -336,16 +336,29 @@ $app->get('/admin/carousel', function() use ($app){
     //On recupere les mimage deja présent dans le carousel
     $arrayCarousel = array();
     $arrayCarousel = $conf->get(9)->getValue();
-    $arrayCarousel = explode('/',$arrayCarousel);
+    $arrayCarousel = explode(',',$arrayCarousel);
 
+    if('POST'==$request->getMethod()){
+        //recuperation des images selectionnées et envoyées en POST
+        $selectedPicture = $_POST['selected'];
+        //Si le formulaire contient bien des images a inclure
+        if(!empty($selectedPicture)){
+            $conf->get(9)->setValue($selectedPicture);
+            $conf->save();
 
+            return $app->redirect($app['url_generator']->generate('admin_ok'));
+        }
+        else{
+            return $app->redirect($app['url_generator']->generate('admin_ko'));
+        }
+    }
 
     return $app['twig']->render('template/admin.carousel.twig', array(
         'pictures'=>$arrayPictures,
         'carousel'=>$arrayCarousel,
         'conf'=>$conf,
     ));
-});
+})->bind('form_car');
 
 $app->get('/404', function() use ($app){
     return $app['twig']->render('template/404.twig', array(
@@ -356,6 +369,11 @@ $app->get('/admin/ok', function() use ($app){
     return $app['twig']->render('template/admin.ok.twig', array(
     ));
 })->bind('admin_ok');
+
+$app->get('/admin/ko', function() use ($app){
+    return $app['twig']->render('template/admin.ko.twig', array(
+    ));
+})->bind('admin_ko');
 
 return $app;
 

@@ -4,18 +4,19 @@
 {% endblock %}
 {% block content %}
     <h2>Administration du Carousel</h2>
-    <form id="formCar" novalidate action="{{ path('form_accueil') }}" method="post">
+    <form id="formCar" novalidate action="{{ path('form_car') }}" method="post">
         <h5>Carousel</h5>
         <select id="e1" multiple="multiple" class="span5">
             {% set counter = 0 %}
             {% for picture in pictures %}
-                <option value="{{ counter }}" {% if picture in carousel %}}
+                <option id="{{ counter }}" value="{{ picture }}" {% if picture in carousel %}}
                                                   selected="selected"
                                               {% endif %}>{{ picture }}</option>
                 {% set counter = counter +1 %}
             {% endfor %}
         </select>
-        <a class="click btn btn-primary" >Valider</a>
+        <input name="selected" type="text" id="selected" style="display: none" value="">
+        <a id="submitCar" class="btn btn-primary" >Valider</a>
     </form>
 {% endblock %}
 {% block javascript %}
@@ -26,11 +27,12 @@
 
             $("#e1").select2({ maximumSelectionSize: 3 });
 
-            $('#submitFR').on('click', function(e){
+            $('#submitCar').on('click', function(e){
                 // We don't want this to act as a link so cancel the link action
                 e.preventDefault();
                 // Find form and submit it
-                $('#formFr').submit();
+                $('#selected').val($("#e1").select2("val"));
+                $('#formCar').submit();
             });
         });
     </script>
