@@ -38,13 +38,13 @@ $app->get('/{lang}/', function($lang) use ($app){
             break;
     }
 
-    //Explode du contenu du carousel
-    $carousel = $conf->get(9)->getValue();
-    $carousel = explode(',',$carousel);
-
     //Récuperation des information
     $conf = ConfigurationQuery::create()
         ->find();
+
+    //Explode du contenu du carousel
+    $carousel = $conf->get(9)->getValue();
+    $carousel = explode(',',$carousel);
 
     return $app['twig']->render('template/home.twig', array(
         'menus'=>$menus,
