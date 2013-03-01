@@ -23,8 +23,10 @@
                     margin:auto;
                     
                 }
+                .clear{
+                    clear: both;
+                }
                 
-
 		#suiv{float:left;}
 		#pres{float:left;}
                 
@@ -281,22 +283,43 @@
                     font-size: 11px;
                     color:white;
                 }
+                
+                #info_footer{
+                    float: left;
+                    height: 70px;
+                    margin-left: 412px;
+                    margin-top: 80px;
+                    width: 120px;
+                    color:white;
+                    font-size: 13px;
+                }
                 #social_footer {
                     float: left;
                     height: 120px;
-                    margin-left: 600px;
+                    margin-left: 70px;
                     margin-top: 36px;
                     width: 170px;
                     color:white;
                     font-size: 18px;
                 }
+                .link_social_footer{
+                    float: left;
+                    font-size: 13px;
+                    margin-left: 5px;
+                    margin-top: 5px;
+                }
+                .img_social_footer{
+                    font-size: 13px;
+                    margin-bottom: 2px;
+                    float:left;
+                }
                 #newsletter_footer{
                     height: 120px;
-                    width: 195px;
-                    margin-left: 780px;
+                    width: 195px;;
                     margin-top: 36px;
                     color:white;
                     font-size: 18px;
+                    float: left;
                 }
                 #newsletter_footer p{
                     font-size: 13px;

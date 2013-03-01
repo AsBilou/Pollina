@@ -81,8 +81,8 @@
                     </div>
 		</div>
 			<div id="container">
-                                 {%block article%}
-                                        {%endblock%}
+                               {#  {%block article%}
+                                        {%endblock%}#}
                                 <div     class="article">
                                     <div class="article_left">
                                     </div>
@@ -145,13 +145,21 @@
                     <div id="img_footer" >
                         <nav id="menu_footer"> L'entreprise - Nos métiers - Espace Client - Mentions légales - Plan du site - Contact</nav>
                         
-                        <div id="social_footer">SUIVEZ-NOUS
-                            <a href="http://www.facebook.com"  title="facebook" target="_blank"><img src="{{app.request.basepath}}/img/footer_facebook.png" alt="facebook"  /></a>
-                            <a href="http://www.twitter.com"  title="twitter" target="_blank"><img src="{{app.request.basepath}}/img/footer_twitter.png" alt=""  /></a>
-                            <a href="http://www.google.com"  title="googleplus" target="_blank"><img src="{{app.request.basepath}}/img/footer_google.png" alt=""  /></a>
-                            <a href="http://www.rss.com"  title="rss" target="_blank"><img src="{{app.request.basepath}}/img/footer_rss.png" alt=""  /></a>
-                        </div> 
+                        <div id="info_footer">
+                            
+                        </div>
                         
+                        <div id="social_footer">SUIVEZ-NOUS
+                            <div >
+                                    <div class="img_social_footer"><a href="http://www.facebook.com"  title="facebook" target="_blank"><img src="{{app.request.basepath}}/img/footer_facebook.png" alt="facebook"  /></a></div> <span class="link_social_footer">Facebook</span>
+                                    <div class="clear"></div>
+                                    <div class="img_social_footer"><a href="http://www.twitter.com"  title="twitter" target="_blank"><img src="{{app.request.basepath}}/img/footer_twitter.png" alt=""  /></a></div> <span class="link_social_footer">Twitter</span>
+                                    <div class="clear"></div>
+                                    <div class="img_social_footer"><a href="http://www.google.com"  title="googleplus" target="_blank"><img src="{{app.request.basepath}}/img/footer_google.png" alt=""  /></a></div> <span class="link_social_footer">Google +</span>
+                                    <div class="clear"></div>
+                                    <div class="img_social_footer"><a href="http://www.rss.com"  title="rss" target="_blank"><img src="{{app.request.basepath}}/img/footer_rss.png" alt=""  /></a></div> <span class="link_social_footer">RSS</span>
+                            </div> 
+                        </div>
                         <div id="newsletter_footer">
                             <div>RESTEZ INFORME</div>
                             <p>Abonez-vous à notrenewsletter et restez informé de l'actualité de Pollina Imprimerie</p>

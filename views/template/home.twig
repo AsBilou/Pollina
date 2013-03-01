@@ -1,4 +1,19 @@
 {%extends "layout/base.twig" %}
-{%block article%}
 
+{%block article%}
+    {%for article in articles%}
+      <div  id="{{article.id}}" class="article" >
+          <div class="article_right">
+              <article>
+                  {{article.contenu}}
+               </article>
+          </div>
+      </div>
+      <div  id="1" class="article">
+          <div class="article_left">
+              <article>
+               </article>     
+          </div>
+      </div>    
+    {% endfor %}
 {%endblock%}
