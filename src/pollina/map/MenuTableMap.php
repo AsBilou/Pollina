@@ -39,9 +39,9 @@ class MenuTableMap extends TableMap
         $this->setUseIdGenerator(true);
         // columns
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
+        $this->addPrimaryKey('lang', 'Lang', 'VARCHAR', true, 2, null);
         $this->addColumn('name', 'Name', 'VARCHAR', true, 45, null);
         $this->addForeignKey('parent', 'Parent', 'INTEGER', 'menu', 'id', false, null, null);
-        $this->addColumn('lang', 'Lang', 'VARCHAR', true, 2, null);
         // validators
     } // initialize()
 

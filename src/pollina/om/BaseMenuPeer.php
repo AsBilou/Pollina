@@ -35,14 +35,14 @@ abstract class BaseMenuPeer
     /** the column name for the id field */
     const ID = 'menu.id';
 
+    /** the column name for the lang field */
+    const LANG = 'menu.lang';
+
     /** the column name for the name field */
     const NAME = 'menu.name';
 
     /** the column name for the parent field */
     const PARENT = 'menu.parent';
-
-    /** the column name for the lang field */
-    const LANG = 'menu.lang';
 
     /** The default string format for model objects of the related table **/
     const DEFAULT_STRING_FORMAT = 'YAML';
@@ -63,11 +63,11 @@ abstract class BaseMenuPeer
      * e.g. MenuPeer::$fieldNames[MenuPeer::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('Id', 'Name', 'Parent', 'Lang', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'name', 'parent', 'lang', ),
-        BasePeer::TYPE_COLNAME => array (MenuPeer::ID, MenuPeer::NAME, MenuPeer::PARENT, MenuPeer::LANG, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID', 'NAME', 'PARENT', 'LANG', ),
-        BasePeer::TYPE_FIELDNAME => array ('id', 'name', 'parent', 'lang', ),
+        BasePeer::TYPE_PHPNAME => array ('Id', 'Lang', 'Name', 'Parent', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'lang', 'name', 'parent', ),
+        BasePeer::TYPE_COLNAME => array (MenuPeer::ID, MenuPeer::LANG, MenuPeer::NAME, MenuPeer::PARENT, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID', 'LANG', 'NAME', 'PARENT', ),
+        BasePeer::TYPE_FIELDNAME => array ('id', 'lang', 'name', 'parent', ),
         BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
     );
 
@@ -78,11 +78,11 @@ abstract class BaseMenuPeer
      * e.g. MenuPeer::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Name' => 1, 'Parent' => 2, 'Lang' => 3, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'name' => 1, 'parent' => 2, 'lang' => 3, ),
-        BasePeer::TYPE_COLNAME => array (MenuPeer::ID => 0, MenuPeer::NAME => 1, MenuPeer::PARENT => 2, MenuPeer::LANG => 3, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'NAME' => 1, 'PARENT' => 2, 'LANG' => 3, ),
-        BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'name' => 1, 'parent' => 2, 'lang' => 3, ),
+        BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Lang' => 1, 'Name' => 2, 'Parent' => 3, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'lang' => 1, 'name' => 2, 'parent' => 3, ),
+        BasePeer::TYPE_COLNAME => array (MenuPeer::ID => 0, MenuPeer::LANG => 1, MenuPeer::NAME => 2, MenuPeer::PARENT => 3, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'LANG' => 1, 'NAME' => 2, 'PARENT' => 3, ),
+        BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'lang' => 1, 'name' => 2, 'parent' => 3, ),
         BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
     );
 
@@ -158,14 +158,14 @@ abstract class BaseMenuPeer
     {
         if (null === $alias) {
             $criteria->addSelectColumn(MenuPeer::ID);
+            $criteria->addSelectColumn(MenuPeer::LANG);
             $criteria->addSelectColumn(MenuPeer::NAME);
             $criteria->addSelectColumn(MenuPeer::PARENT);
-            $criteria->addSelectColumn(MenuPeer::LANG);
         } else {
             $criteria->addSelectColumn($alias . '.id');
+            $criteria->addSelectColumn($alias . '.lang');
             $criteria->addSelectColumn($alias . '.name');
             $criteria->addSelectColumn($alias . '.parent');
-            $criteria->addSelectColumn($alias . '.lang');
         }
     }
 
@@ -292,7 +292,7 @@ abstract class BaseMenuPeer
     {
         if (Propel::isInstancePoolingEnabled()) {
             if ($key === null) {
-                $key = (string) $obj->getId();
+                $key = serialize(array((string) $obj->getId(), (string) $obj->getLang()));
             } // if key === null
             MenuPeer::$instances[$key] = $obj;
         }
@@ -315,10 +315,10 @@ abstract class BaseMenuPeer
     {
         if (Propel::isInstancePoolingEnabled() && $value !== null) {
             if (is_object($value) && $value instanceof Menu) {
-                $key = (string) $value->getId();
-            } elseif (is_scalar($value)) {
+                $key = serialize(array((string) $value->getId(), (string) $value->getLang()));
+            } elseif (is_array($value) && count($value) === 2) {
                 // assume we've been passed a primary key
-                $key = (string) $value;
+                $key = serialize(array((string) $value[0], (string) $value[1]));
             } else {
                 $e = new PropelException("Invalid value passed to removeInstanceFromPool().  Expected primary key or Menu object; got " . (is_object($value) ? get_class($value) . ' object.' : var_export($value,true)));
                 throw $e;
@@ -387,11 +387,11 @@ abstract class BaseMenuPeer
     public static function getPrimaryKeyHashFromRow($row, $startcol = 0)
     {
         // If the PK cannot be derived from the row, return null.
-        if ($row[$startcol] === null) {
+        if ($row[$startcol] === null && $row[$startcol + 1] === null) {
             return null;
         }
 
-        return (string) $row[$startcol];
+        return serialize(array((string) $row[$startcol], (string) $row[$startcol + 1]));
     }
 
     /**
@@ -406,7 +406,7 @@ abstract class BaseMenuPeer
     public static function getPrimaryKeyFromRow($row, $startcol = 0)
     {
 
-        return (int) $row[$startcol];
+        return array((int) $row[$startcol], (string) $row[$startcol + 1]);
     }
 
     /**
@@ -668,6 +668,14 @@ abstract class BaseMenuPeer
                 $selectCriteria->setPrimaryTableName(MenuPeer::TABLE_NAME);
             }
 
+            $comparison = $criteria->getComparison(MenuPeer::LANG);
+            $value = $criteria->remove(MenuPeer::LANG);
+            if ($value) {
+                $selectCriteria->add(MenuPeer::LANG, $value, $comparison);
+            } else {
+                $selectCriteria->setPrimaryTableName(MenuPeer::TABLE_NAME);
+            }
+
         } else { // $values is Menu object
             $criteria = $values->buildCriteria(); // gets full criteria
             $selectCriteria = $values->buildPkeyCriteria(); // gets criteria w/ primary key(s)
@@ -742,10 +750,18 @@ abstract class BaseMenuPeer
             $criteria = $values->buildPkeyCriteria();
         } else { // it's a primary key, or an array of pks
             $criteria = new Criteria(MenuPeer::DATABASE_NAME);
-            $criteria->add(MenuPeer::ID, (array) $values, Criteria::IN);
-            // invalidate the cache for this object(s)
-            foreach ((array) $values as $singleval) {
-                MenuPeer::removeInstanceFromPool($singleval);
+            // primary key is composite; we therefore, expect
+            // the primary key passed to be an array of pkey values
+            if (count($values) == count($values, COUNT_RECURSIVE)) {
+                // array is not multi-dimensional
+                $values = array($values);
+            }
+            foreach ($values as $value) {
+                $criterion = $criteria->getNewCriterion(MenuPeer::ID, $value[0]);
+                $criterion->addAnd($criteria->getNewCriterion(MenuPeer::LANG, $value[1]));
+                $criteria->addOr($criterion);
+                // we can invalidate the cache for this single PK
+                MenuPeer::removeInstanceFromPool($value);
             }
         }
 
@@ -808,58 +824,28 @@ abstract class BaseMenuPeer
     }
 
     /**
-     * Retrieve a single object by pkey.
-     *
-     * @param      int $pk the primary key.
-     * @param      PropelPDO $con the connection to use
-     * @return Menu
+     * Retrieve object using using composite pkey values.
+     * @param   int $id
+     * @param   string $lang
+     * @param      PropelPDO $con
+     * @return   Menu
      */
-    public static function retrieveByPK($pk, PropelPDO $con = null)
-    {
-
-        if (null !== ($obj = MenuPeer::getInstanceFromPool((string) $pk))) {
-            return $obj;
+    public static function retrieveByPK($id, $lang, PropelPDO $con = null) {
+        $_instancePoolKey = serialize(array((string) $id, (string) $lang));
+         if (null !== ($obj = MenuPeer::getInstanceFromPool($_instancePoolKey))) {
+             return $obj;
         }
 
         if ($con === null) {
             $con = Propel::getConnection(MenuPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
-
         $criteria = new Criteria(MenuPeer::DATABASE_NAME);
-        $criteria->add(MenuPeer::ID, $pk);
-
+        $criteria->add(MenuPeer::ID, $id);
+        $criteria->add(MenuPeer::LANG, $lang);
         $v = MenuPeer::doSelect($criteria, $con);
 
-        return !empty($v) > 0 ? $v[0] : null;
+        return !empty($v) ? $v[0] : null;
     }
-
-    /**
-     * Retrieve multiple objects by pkey.
-     *
-     * @param      array $pks List of primary keys
-     * @param      PropelPDO $con the connection to use
-     * @return Menu[]
-     * @throws PropelException Any exceptions caught during processing will be
-     *		 rethrown wrapped into a PropelException.
-     */
-    public static function retrieveByPKs($pks, PropelPDO $con = null)
-    {
-        if ($con === null) {
-            $con = Propel::getConnection(MenuPeer::DATABASE_NAME, Propel::CONNECTION_READ);
-        }
-
-        $objs = null;
-        if (empty($pks)) {
-            $objs = array();
-        } else {
-            $criteria = new Criteria(MenuPeer::DATABASE_NAME);
-            $criteria->add(MenuPeer::ID, $pks, Criteria::IN);
-            $objs = MenuPeer::doSelect($criteria, $con);
-        }
-
-        return $objs;
-    }
-
 } // BaseMenuPeer
 
 // This is the static code needed to register the TableMap for this table with the main Propel class.

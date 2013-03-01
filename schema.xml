@@ -3,9 +3,9 @@
     <table name="articles" phpName="Articles">
         <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
         <column name="title" type="varchar" size="45" required="true" />
-        <column name="contenu_fr" type="varchar" size="1000" required="true" />
-        <column name="contenu_en" type="varchar" size="1000" required="true" />
-        <column name="contenu_de" type="varchar" size="1000" required="true" />
+        <column name="contenu_fr" type="varchar" size="2000" required="true" />
+        <column name="contenu_en" type="varchar" size="2000" required="true" />
+        <column name="contenu_de" type="varchar" size="2000" required="true" />
     </table>
     <table name="admin" phpName="Admin">
         <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
@@ -23,9 +23,9 @@
     </table>
     <table name="menu" phpName="Menu">
         <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="lang" type="varchar" size="2" required="true" primaryKey="true"/>
         <column name="name" type="varchar" size="45" required="true" />
         <column name="parent" type="integer" />
-        <column name="lang" type="varchar" size="2" required="true" />
         <foreign-key foreignTable="menu">
             <reference local="parent" foreign="id"/>
         </foreign-key>

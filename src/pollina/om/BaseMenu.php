@@ -36,6 +36,12 @@ abstract class BaseMenu extends BaseObject implements Persistent
     protected $id;
 
     /**
+     * The value for the lang field.
+     * @var        string
+     */
+    protected $lang;
+
+    /**
      * The value for the name field.
      * @var        string
      */
@@ -46,12 +52,6 @@ abstract class BaseMenu extends BaseObject implements Persistent
      * @var        int
      */
     protected $parent;
-
-    /**
-     * The value for the lang field.
-     * @var        string
-     */
-    protected $lang;
 
     /**
      * @var        Menu
@@ -101,6 +101,16 @@ abstract class BaseMenu extends BaseObject implements Persistent
     }
 
     /**
+     * Get the [lang] column value.
+     *
+     * @return string
+     */
+    public function getLang()
+    {
+        return $this->lang;
+    }
+
+    /**
      * Get the [name] column value.
      *
      * @return string
@@ -118,16 +128,6 @@ abstract class BaseMenu extends BaseObject implements Persistent
     public function getParent()
     {
         return $this->parent;
-    }
-
-    /**
-     * Get the [lang] column value.
-     *
-     * @return string
-     */
-    public function getLang()
-    {
-        return $this->lang;
     }
 
     /**
@@ -150,6 +150,27 @@ abstract class BaseMenu extends BaseObject implements Persistent
 
         return $this;
     } // setId()
+
+    /**
+     * Set the value of [lang] column.
+     *
+     * @param string $v new value
+     * @return Menu The current object (for fluent API support)
+     */
+    public function setLang($v)
+    {
+        if ($v !== null && is_numeric($v)) {
+            $v = (string) $v;
+        }
+
+        if ($this->lang !== $v) {
+            $this->lang = $v;
+            $this->modifiedColumns[] = MenuPeer::LANG;
+        }
+
+
+        return $this;
+    } // setLang()
 
     /**
      * Set the value of [name] column.
@@ -198,27 +219,6 @@ abstract class BaseMenu extends BaseObject implements Persistent
     } // setParent()
 
     /**
-     * Set the value of [lang] column.
-     *
-     * @param string $v new value
-     * @return Menu The current object (for fluent API support)
-     */
-    public function setLang($v)
-    {
-        if ($v !== null && is_numeric($v)) {
-            $v = (string) $v;
-        }
-
-        if ($this->lang !== $v) {
-            $this->lang = $v;
-            $this->modifiedColumns[] = MenuPeer::LANG;
-        }
-
-
-        return $this;
-    } // setLang()
-
-    /**
      * Indicates whether the columns in this object are only set to default values.
      *
      * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -251,9 +251,9 @@ abstract class BaseMenu extends BaseObject implements Persistent
         try {
 
             $this->id = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
-            $this->name = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
-            $this->parent = ($row[$startcol + 2] !== null) ? (int) $row[$startcol + 2] : null;
-            $this->lang = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
+            $this->lang = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
+            $this->name = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
+            $this->parent = ($row[$startcol + 3] !== null) ? (int) $row[$startcol + 3] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -513,14 +513,14 @@ abstract class BaseMenu extends BaseObject implements Persistent
         if ($this->isColumnModified(MenuPeer::ID)) {
             $modifiedColumns[':p' . $index++]  = '`id`';
         }
+        if ($this->isColumnModified(MenuPeer::LANG)) {
+            $modifiedColumns[':p' . $index++]  = '`lang`';
+        }
         if ($this->isColumnModified(MenuPeer::NAME)) {
             $modifiedColumns[':p' . $index++]  = '`name`';
         }
         if ($this->isColumnModified(MenuPeer::PARENT)) {
             $modifiedColumns[':p' . $index++]  = '`parent`';
-        }
-        if ($this->isColumnModified(MenuPeer::LANG)) {
-            $modifiedColumns[':p' . $index++]  = '`lang`';
         }
 
         $sql = sprintf(
@@ -536,14 +536,14 @@ abstract class BaseMenu extends BaseObject implements Persistent
                     case '`id`':
                         $stmt->bindValue($identifier, $this->id, PDO::PARAM_INT);
                         break;
+                    case '`lang`':
+                        $stmt->bindValue($identifier, $this->lang, PDO::PARAM_STR);
+                        break;
                     case '`name`':
                         $stmt->bindValue($identifier, $this->name, PDO::PARAM_STR);
                         break;
                     case '`parent`':
                         $stmt->bindValue($identifier, $this->parent, PDO::PARAM_INT);
-                        break;
-                    case '`lang`':
-                        $stmt->bindValue($identifier, $this->lang, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -703,13 +703,13 @@ abstract class BaseMenu extends BaseObject implements Persistent
                 return $this->getId();
                 break;
             case 1:
-                return $this->getName();
+                return $this->getLang();
                 break;
             case 2:
-                return $this->getParent();
+                return $this->getName();
                 break;
             case 3:
-                return $this->getLang();
+                return $this->getParent();
                 break;
             default:
                 return null;
@@ -734,16 +734,16 @@ abstract class BaseMenu extends BaseObject implements Persistent
      */
     public function toArray($keyType = BasePeer::TYPE_FIELDNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array(), $includeForeignObjects = false)
     {
-        if (isset($alreadyDumpedObjects['Menu'][$this->getPrimaryKey()])) {
+        if (isset($alreadyDumpedObjects['Menu'][serialize($this->getPrimaryKey())])) {
             return '*RECURSION*';
         }
-        $alreadyDumpedObjects['Menu'][$this->getPrimaryKey()] = true;
+        $alreadyDumpedObjects['Menu'][serialize($this->getPrimaryKey())] = true;
         $keys = MenuPeer::getFieldNames($keyType);
         $result = array(
             $keys[0] => $this->getId(),
-            $keys[1] => $this->getName(),
-            $keys[2] => $this->getParent(),
-            $keys[3] => $this->getLang(),
+            $keys[1] => $this->getLang(),
+            $keys[2] => $this->getName(),
+            $keys[3] => $this->getParent(),
         );
         if ($includeForeignObjects) {
             if (null !== $this->aMenuRelatedByParent) {
@@ -790,13 +790,13 @@ abstract class BaseMenu extends BaseObject implements Persistent
                 $this->setId($value);
                 break;
             case 1:
-                $this->setName($value);
+                $this->setLang($value);
                 break;
             case 2:
-                $this->setParent($value);
+                $this->setName($value);
                 break;
             case 3:
-                $this->setLang($value);
+                $this->setParent($value);
                 break;
         } // switch()
     }
@@ -823,9 +823,9 @@ abstract class BaseMenu extends BaseObject implements Persistent
         $keys = MenuPeer::getFieldNames($keyType);
 
         if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
-        if (array_key_exists($keys[1], $arr)) $this->setName($arr[$keys[1]]);
-        if (array_key_exists($keys[2], $arr)) $this->setParent($arr[$keys[2]]);
-        if (array_key_exists($keys[3], $arr)) $this->setLang($arr[$keys[3]]);
+        if (array_key_exists($keys[1], $arr)) $this->setLang($arr[$keys[1]]);
+        if (array_key_exists($keys[2], $arr)) $this->setName($arr[$keys[2]]);
+        if (array_key_exists($keys[3], $arr)) $this->setParent($arr[$keys[3]]);
     }
 
     /**
@@ -838,9 +838,9 @@ abstract class BaseMenu extends BaseObject implements Persistent
         $criteria = new Criteria(MenuPeer::DATABASE_NAME);
 
         if ($this->isColumnModified(MenuPeer::ID)) $criteria->add(MenuPeer::ID, $this->id);
+        if ($this->isColumnModified(MenuPeer::LANG)) $criteria->add(MenuPeer::LANG, $this->lang);
         if ($this->isColumnModified(MenuPeer::NAME)) $criteria->add(MenuPeer::NAME, $this->name);
         if ($this->isColumnModified(MenuPeer::PARENT)) $criteria->add(MenuPeer::PARENT, $this->parent);
-        if ($this->isColumnModified(MenuPeer::LANG)) $criteria->add(MenuPeer::LANG, $this->lang);
 
         return $criteria;
     }
@@ -857,28 +857,35 @@ abstract class BaseMenu extends BaseObject implements Persistent
     {
         $criteria = new Criteria(MenuPeer::DATABASE_NAME);
         $criteria->add(MenuPeer::ID, $this->id);
+        $criteria->add(MenuPeer::LANG, $this->lang);
 
         return $criteria;
     }
 
     /**
-     * Returns the primary key for this object (row).
-     * @return int
+     * Returns the composite primary key for this object.
+     * The array elements will be in same order as specified in XML.
+     * @return array
      */
     public function getPrimaryKey()
     {
-        return $this->getId();
+        $pks = array();
+        $pks[0] = $this->getId();
+        $pks[1] = $this->getLang();
+
+        return $pks;
     }
 
     /**
-     * Generic method to set the primary key (id column).
+     * Set the [composite] primary key.
      *
-     * @param  int $key Primary key.
+     * @param array $keys The elements of the composite key (order must match the order in XML file).
      * @return void
      */
-    public function setPrimaryKey($key)
+    public function setPrimaryKey($keys)
     {
-        $this->setId($key);
+        $this->setId($keys[0]);
+        $this->setLang($keys[1]);
     }
 
     /**
@@ -888,7 +895,7 @@ abstract class BaseMenu extends BaseObject implements Persistent
     public function isPrimaryKeyNull()
     {
 
-        return null === $this->getId();
+        return (null === $this->getId()) && (null === $this->getLang());
     }
 
     /**
@@ -904,9 +911,9 @@ abstract class BaseMenu extends BaseObject implements Persistent
      */
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
+        $copyObj->setLang($this->getLang());
         $copyObj->setName($this->getName());
         $copyObj->setParent($this->getParent());
-        $copyObj->setLang($this->getLang());
 
         if ($deepCopy && !$this->startCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -1010,7 +1017,9 @@ abstract class BaseMenu extends BaseObject implements Persistent
     public function getMenuRelatedByParent(PropelPDO $con = null, $doQuery = true)
     {
         if ($this->aMenuRelatedByParent === null && ($this->parent !== null) && $doQuery) {
-            $this->aMenuRelatedByParent = MenuQuery::create()->findPk($this->parent, $con);
+            $this->aMenuRelatedByParent = MenuQuery::create()
+                ->filterByMenuRelatedById($this) // here
+                ->findOne($con);
             /* The following can be used additionally to
                 guarantee the related object contains a reference
                 to this object.  This level of coupling may, however, be
@@ -1263,9 +1272,9 @@ abstract class BaseMenu extends BaseObject implements Persistent
     public function clear()
     {
         $this->id = null;
+        $this->lang = null;
         $this->name = null;
         $this->parent = null;
-        $this->lang = null;
         $this->alreadyInSave = false;
         $this->alreadyInValidation = false;
         $this->alreadyInClearAllReferencesDeep = false;

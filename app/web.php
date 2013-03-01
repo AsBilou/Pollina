@@ -261,7 +261,7 @@ $app->match('/admin/news/edit/{id}', function(Request $request,$id) use ($app){
         ->add('title','text',array(
         'label'=>'Sujet',
         'required'=>true,
-        'attr' => array('placeholder' => 'Sujet de l\'article'),
+        'attr' => array('placeholder' => 'Sujet de l\'article','value'=>$article->get(0)->getTitle()),
         'constraints'=>array(
             new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
         )
@@ -298,12 +298,13 @@ $app->match('/admin/news/edit/{id}', function(Request $request,$id) use ($app){
         if($form->isValid()){
             //Récuperation des données du formulaire
             $data = $form->getData();
+
             //Création d'un nouvel objet administrateur
-            $admin = new Admin();
-            $admin->setEmail($data['email']);
-            $admin->setPassword($data['password']);
-            $admin->setLogin($data['login']);
-            $admin->save();
+            $article->get(0)->setTitle($data['title']);
+            $article->get(0)->setContenuFr($data['contenu_fr']);
+            $article->get(0)->setContenuEn($data['contenu_en']);
+            $article->get(0)->setContenuDe($data['contenu_de']);
+            $article->save();
             return $app->redirect($app['url_generator']->generate('admin_ok'));
 
         }

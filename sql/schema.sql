@@ -13,9 +13,9 @@ CREATE TABLE `articles`
 (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `title` VARCHAR(45) NOT NULL,
-    `contenu_fr` VARCHAR(1000) NOT NULL,
-    `contenu_en` VARCHAR(1000) NOT NULL,
-    `contenu_de` VARCHAR(1000) NOT NULL,
+    `contenu_fr` VARCHAR(2000) NOT NULL,
+    `contenu_en` VARCHAR(2000) NOT NULL,
+    `contenu_de` VARCHAR(2000) NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE=MyISAM;
 
@@ -69,10 +69,10 @@ DROP TABLE IF EXISTS `menu`;
 CREATE TABLE `menu`
 (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `lang` VARCHAR(2) NOT NULL,
     `name` VARCHAR(45) NOT NULL,
     `parent` INTEGER,
-    `lang` VARCHAR(2) NOT NULL,
-    PRIMARY KEY (`id`),
+    PRIMARY KEY (`id`,`lang`),
     INDEX `menu_FI_1` (`parent`)
 ) ENGINE=MyISAM;
 
