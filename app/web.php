@@ -30,6 +30,27 @@ $app->get('/{lang}/', function($lang) use ($app){
     ));
 });
 
+$app->get('/{lang}/article', function() use ($app){
+
+    return $app['twig']->render('template/article.twig', array(
+        'lang'=>$lang,
+    ));
+});
+
+$app->get('/{lang}/article/{id}', function($id) use ($app){
+
+    return $app['twig']->render('template/article_detail.twig', array(
+        'id_article'=>$id,
+        'lang'=>$lang,
+    ));
+});
+
+$app->get('/{lang}/contact', function() use ($app){
+    return $app['twig']->render('template/contact.twig', array(
+        'lang'=>$lang,
+    ));
+});
+
 $app->get('/admin', function() use ($app){
     //Récupere tout le contenu de la table configuration
     $conf = ConfigurationQuery::create()
@@ -130,7 +151,7 @@ $app->match('/admin/accueil', function(Request $request) use ($app){
     ));
 })->bind('form_accueil');
 
-$app->get('/admin/article', function() use ($app){
+$app->get('/admin/news', function() use ($app){
     //Récuperation de tous les artciles présent dans la base de données
     $article = ArticlesQuery::create()
         ->orderById()
@@ -141,18 +162,19 @@ $app->get('/admin/article', function() use ($app){
     ));
 });
 
-$app->match('/admin/article/create', function() use ($app){
+$app->match('/admin/news/create', function() use ($app){
     return $app['twig']->render('template/admin/article_create.twig', array(
     ));
 });
 
-$app->match('/admin/article/edit/{id}', function($id) use ($app){
+$app->match('/admin/news/edit/{id}', function($id) use ($app){
     return $app['twig']->render('template/admin/article_edit.twig', array(
     ));
 });
 
-$app->match('/admin/article/delete/{id}', function($id) use ($app){
+$app->match('/admin/news/delete/{id}', function($id) use ($app){
     return $app['twig']->render('template/admin/article_delete.twig', array(
+
     ));
 });
 
@@ -161,25 +183,6 @@ $app->get('/admin/menu', function() use ($app){
     ));
 });
 
-$app->get('/{lang}/article', function() use ($app){
-    return $app['twig']->render('template/article.twig', array(
-        'lang'=>$lang,
-    ));
-});
-
-$app->get('/{lang}/article/{id}', function($id) use ($app){
-
-    return $app['twig']->render('template/article_detail.twig', array(
-        'id_article'=>$id,
-        'lang'=>$lang,
-    ));
-});
-
-$app->get('/{lang}/contact', function() use ($app){
-    return $app['twig']->render('template/contact.twig', array(
-        'lang'=>$lang,
-    ));
-});
 
 $app->get('/admin/login', function() use ($app){
     return $app['twig']->render('template/admin/login.twig', array(
@@ -375,8 +378,6 @@ $app->get('/admin/user', function() use ($app){
     ));
 });
 
-$app->get('/404', function() use ($app){
-    return $app['twig']->render('template/404.twig', array(
 $app->match('/admin/user/create', function(Request $request) use ($app){
 
     $form = $app['form.factory']->createBuilder('form')
@@ -459,6 +460,12 @@ $app->get('/admin/ko', function() use ($app){
     return $app['twig']->render('template/admin/ko.twig', array(
     ));
 })->bind('admin_ko');
+
+$app->get('/404', function() use ($app){
+    return $app['twig']->render('template/404.twig', array(
+    ));
+});
+
 
 return $app;
 
