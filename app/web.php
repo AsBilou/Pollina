@@ -46,22 +46,10 @@ $app->get('/admin', function() use ($app){
 });
 
 $app->match('/admin/accueil', function(Request $request) use ($app){
-    //Recupere le contenu du dossier contenant les images du carousel
-    $MyDirectory = opendir('img/carousel/') or die('Erreur');
-    $arrayPictures = array();
-    while($Entry = readdir($MyDirectory)) {
-        if($Entry != '.' && $Entry != '..' && !is_dir($MyDirectory.$Entry)){
-            array_push($arrayPictures,$Entry);
-        }
-    }
+
     //Récupere tout le contenu de la table configuration
     $conf = ConfigurationQuery::create()
         ->find();
-
-    //On recupere les mimage deja présent dans le carousel
-    $arrayCarousel = array();
-    $arrayCarousel = $conf->get(9)->getValue();
-    $arrayCarousel = explode('/',$arrayCarousel);
 
     //Création des formulaires
     $formFr = $app['form.factory']->createBuilder('form')
@@ -138,8 +126,6 @@ $app->match('/admin/accueil', function(Request $request) use ($app){
         'formFr'=>$formFr->createView(),
         'formEn'=>$formEn->createView(),
         'formDe'=>$formDe->createView(),
-        'pictures'=>$arrayPictures,
-        'carousel'=>$arrayCarousel,
         'conf'=>$conf,
     ));
 })->bind('form_accueil');
@@ -333,6 +319,33 @@ $app->match('/admin/info', function(Request $request) use ($app){
         'form'=>$form->createView(),
     ));
 })->bind('form_conf');
+
+$app->get('/admin/carousel', function() use ($app){
+    //Recupere le contenu du dossier contenant les images du carousel
+    $MyDirectory = opendir('img/carousel/') or die('Erreur');
+    $arrayPictures = array();
+    while($Entry = readdir($MyDirectory)) {
+        if($Entry != '.' && $Entry != '..' && !is_dir($MyDirectory.$Entry)){
+            array_push($arrayPictures,$Entry);
+        }
+    }
+    //Récupere tout le contenu de la table configuration
+    $conf = ConfigurationQuery::create()
+        ->find();
+
+    //On recupere les mimage deja présent dans le carousel
+    $arrayCarousel = array();
+    $arrayCarousel = $conf->get(9)->getValue();
+    $arrayCarousel = explode('/',$arrayCarousel);
+
+
+
+    return $app['twig']->render('template/admin.carousel.twig', array(
+        'pictures'=>$arrayPictures,
+        'carousel'=>$arrayCarousel,
+        'conf'=>$conf,
+    ));
+});
 
 $app->get('/404', function() use ($app){
     return $app['twig']->render('template/404.twig', array(
