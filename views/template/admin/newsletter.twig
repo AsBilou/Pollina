@@ -1,0 +1,30 @@
+{% extends 'layout/admin.base.twig' %}
+{% block content %}
+    <h2>Administration Newsletter</h2>
+    <h6>Liste des utilisateur inscrit à la newsletter</h6>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    #
+                </th>
+                <th>
+                    adresse
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in user_news %}
+            <tr>
+                <td>
+                    {{ user.id }}
+                </td>
+                <td>
+                    {{ user.email }}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

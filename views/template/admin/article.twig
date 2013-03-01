@@ -1,7 +1,7 @@
 {% extends 'layout/admin.base.twig' %}
 {% block content %}
     <h2>Administration des articles</h2>
-    <a class="btn btn-primary" href="{{ app.request.basepath }}/admin/article/create">Ajouter un article</a>
+    <a class="btn btn-primary" href="{{ path('form_news_create') }}">Ajouter un article</a>
     {% for article in articles %}
         <h4>Article {{ article.id }}</h4>
         <h6>Français</h6>
@@ -10,7 +10,7 @@
         <p class="well"> {{ article.contenuEn }}</p>
         <h6>Allemand</h6>
         <p class="well">{{ article.contenuDe }}</p>
-        <a class="btn btn-warning" href="{{ app.request.basepath }}/admin/article/edit/{{ article.id }}">Editer</a>
-        <a class="btn btn-danger" href="{{ app.request.basepath }}/admin/article/delete/{{ article.id }}">Supprimer</a>
+        <a class="btn btn-warning" href="{{ app.request.basepath }}/admin/news/edit/{{ article.id }}">Editer</a>
+        <a class="btn btn-danger" href="{{ app.request.basepath }}/admin/news/delete/{{ article.id }}">Supprimer</a>
     {% endfor %}
 {% endblock %}

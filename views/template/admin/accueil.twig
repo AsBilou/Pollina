@@ -1,33 +1,6 @@
 {% extends 'layout/admin.base.twig' %}
-
-{% block stylesheet %}
-    <link href="{{ app.request.basepath }}/css/select2.css" rel="stylesheet">
-{% endblock %}
-
 {% block content %}
-    <div class="alert alert-block alert-info" style="display: none">
-        <button type="button" class="close" data-dismiss="alert">×</button>
-        <h4 class="alert-heading">Oh snap! You got an error!</h4>
-        <p>Change this and that and try again. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum.</p>
-        <p>
-            <a class="btn btn-success validate" href="#">Valider</a> <a class="btn btn-danger cancel" href="#">Annuler</a>
-        </p>
-    </div>
-    <h2>Accueil</h2>
-    <form id="formCar" novalidate action="{{ path('form_accueil') }}" method="post">
-        <h5>Carousel</h5>
-        <select id="e1" multiple="multiple" class="span5">
-            {% set counter = 0 %}
-            {% for picture in pictures %}
-                <option value="{{ counter }}" {% if picture in carousel %}}
-                                                    selected="selected"
-                                              {% endif %}>{{ picture }}</option>
-                {% set counter = counter +1 %}
-            {% endfor %}
-        </select>
-        <a class="click btn btn-primary" >Valider</a>
-    </form>
-    <div class="clearfix"></div>
+    <h2>Description</h2>
     <h5>Description en Français</h5>
     <p>{{ conf[10].value|raw}}</p>
     <a href="#DescriptionFr" role="button" class="btn btn-warning" data-toggle="modal">Editer</a>
@@ -93,52 +66,41 @@
     <script src="{{ app.request.basepath }}/js/tiny_mce/tiny_mce.js"></script>
     <script src="{{ app.request.basepath }}/js/select2.js"></script>
     <script type="text/javascript">
-        tinyMCE.init({
-            mode : "textareas"
-        });
 
         $(document).ready(function() {
+            tinyMCE.init({
+                mode : "textareas"
+            });
+
             $("#e1").select2({ maximumSelectionSize: 3 });
-            $('.click').click(function(){
-                //$(".alert").alert();
-                $(".alert").fadeIn();
+
+            $('#submitFR').on('click', function(e){
+                // We don't want this to act as a link so cancel the link action
+                e.preventDefault();
+                // Find form and submit it
+                $('#formFr').submit();
             });
-            $('.cancel').click(function(){
-                //$(".alert").alert();
-                $(".alert").fadeOut();
+
+            $('#submitEN').on('click', function(e){
+                // We don't want this to act as a link so cancel the link action
+                e.preventDefault();
+                // Find form and submit it
+                $('#formEn').submit();
             });
 
+            $('#submitDE').on('click', function(e){
+                // We don't want this to act as a link so cancel the link action
+                e.preventDefault();
+                // Find form and submit it
+                $('#formDe').submit();
+            });
+
+            $('.validate').on('click', function(e){
+                // We don't want this to act as a link so cancel the link action
+                e.preventDefault();
+                // Find form and submit it
+                $('#formCar').submit();
+            });
         });
-
-        $('#submitFR').on('click', function(e){
-            // We don't want this to act as a link so cancel the link action
-            e.preventDefault();
-            // Find form and submit it
-            $('#formFr').submit();
-        });
-
-        $('#submitEN').on('click', function(e){
-            // We don't want this to act as a link so cancel the link action
-            e.preventDefault();
-            // Find form and submit it
-            $('#formEn').submit();
-        });
-
-        $('#submitDE').on('click', function(e){
-            // We don't want this to act as a link so cancel the link action
-            e.preventDefault();
-            // Find form and submit it
-            $('#formDe').submit();
-        });
-
-        $('.validate').on('click', function(e){
-            // We don't want this to act as a link so cancel the link action
-            e.preventDefault();
-            // Find form and submit it
-            $('#formCar').submit();
-        });
-
-
-        console.log($.fn.select2.defaults);
     </script>
 {% endblock %}

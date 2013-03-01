@@ -35,11 +35,32 @@
             <a class="brand" href="{{ app.request.basepath }}/admin">Administration</a>
             <div class="nav-collapse collapse">
                 <ul class="nav">
-                    <li class=""><a href="{{ app.request.basepath }}/admin/accueil">Accueil</a></li>
-                    <li class=""><a href="{{ app.request.basepath }}/admin/article">Articles</a></li>
+                    <li class=""><a href="{{ app.request.basepath }}/admin/accueil">Description</a></li>
+                    <li class=""><a href="{{ app.request.basepath }}/admin/news">Articles</a></li>
                     <li class=""><a href="{{ app.request.basepath }}/admin/menu">Menu</a></li>
                     <li class=""><a href="{{ app.request.basepath }}/admin/info">Informations</a></li>
-                    <li class=""><a href="{{ app.request.basepath }}/admin/carousel">Carousel</a></li>
+                    <li class="dropdown">
+                        <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Carousel <b class="caret"></b></a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ app.request.basepath }}/admin/carousel">Accueil</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ app.request.basepath }}/admin/carousel/select">Choisir image</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ app.request.basepath }}/admin/carousel/upload">Téléverser image</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a id="drop2" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Utilisateurs <b class="caret"></b></a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="drop2">
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ app.request.basepath }}/admin/user">Accueil</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ app.request.basepath }}/admin/user/create">Ajouter</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a id="drop3" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Newsletter <b class="caret"></b></a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ app.request.basepath }}/admin/newsletter">Accueil</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ app.request.basepath }}/admin/newsletter/create">Nouvelle newsletter</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>

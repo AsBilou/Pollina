@@ -1,0 +1,39 @@
+{% extends 'layout/admin.base.twig' %}
+{% block stylesheet %}
+    <link href="{{ app.request.basepath }}/css/select2.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+    <h2>Selectionnez les images du carousel</h2>
+    <form id="formCar" novalidate action="{{ path('form_car') }}" method="post">
+        <h5>Carousel</h5>
+        <select id="e1" multiple="multiple" class="span5">
+            {% set counter = 0 %}
+            {% for picture in pictures %}
+                <option id="{{ counter }}" value="{{ picture }}" {% if picture in carousel %}}
+                                                  selected="selected"
+                                              {% endif %}>{{ picture }}</option>
+                {% set counter = counter +1 %}
+            {% endfor %}
+        </select>
+        <input name="selected" type="text" id="selected" style="display: none" value="">
+        <a id="submitCar" class="btn btn-primary" >Valider</a>
+    </form>
+{% endblock %}
+{% block javascript %}
+    <script src="{{ app.request.basepath }}/js/select2.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+
+            $("#e1").select2({ maximumSelectionSize: 3 });
+
+            $('#submitCar').on('click', function(e){
+                // We don't want this to act as a link so cancel the link action
+                e.preventDefault();
+                // Find form and submit it
+                $('#selected').val($("#e1").select2("val"));
+                $('#formCar').submit();
+            });
+        });
+    </script>
+{% endblock %}
