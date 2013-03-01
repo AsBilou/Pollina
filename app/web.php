@@ -162,8 +162,61 @@ $app->get('/admin/news', function() use ($app){
     ));
 });
 
-$app->match('/admin/news/create', function() use ($app){
+$app->match('/admin/news/create', function(Request $request) use ($app){
+
+    //Création du formulaire
+    $form = $app['form.factory']->createBuilder('form')
+        ->add('title','text',array(
+        'label'=>'Titre',
+        'required'=>true,
+        'constraints'=>array(
+            new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
+        )
+    ))
+        ->add('content_fr','textarea',array(
+        'label'=>'Article en Français.',
+        'required'=>true,
+        'constraints'=>array(
+            new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
+        )
+    ))
+        ->add('content_en','textarea',array(
+        'label'=>'Article en Anglais.',
+        'required'=>true,
+        'constraints'=>array(
+            new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
+        )
+    ))
+        ->add('content_de','textarea',array(
+        'label'=>'Article en Allemand.',
+        'required'=>true,
+        'constraints'=>array(
+            new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
+        )
+    ))
+        ->getForm();
+
+    if('POST'==$request->getMethod()){
+        $form->bind($request);
+
+        if($form->isValid()){
+            //Récuperation des données du formulaire
+            $data = $form->getData();
+            //Création d'un nouvel objet administrateur
+            $article = new Articles();
+            $article->setContenuFr($data['content_fr']);
+            $article->setContenuEn($data['content_en']);
+            $article->setContenuDe($data['content_de']);
+            $article->save();
+
+            return $app->redirect($app['url_generator']->generate('admin_ok'));
+
+        }
+
+    }
+
     return $app['twig']->render('template/admin/article_create.twig', array(
+        'form'=>$form->createView(),
     ));
 })->bind('form_news_create');
 
