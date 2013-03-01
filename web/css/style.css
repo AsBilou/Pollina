@@ -31,24 +31,92 @@
                 #menu_lang{
                     position:absolute;
                     top:20px;
-                    right:75px;
-                    width: 60px;
+                    right:85px;
+                    width: 40px;
                     height:180px;
                     border-radius: 10px;
                     background-color: white;
-                    opacity:0.05;
-                    
+                    background: rgba(255,255,255,0.05) ; 
+                    padding-top :6px;
                 }
-                #menu_lang img{
-                    flaot:left;
+                #menu_lang a{
+                    width: 100%;
+                    height: 100%;
                 }
+                
+                #lang_fr:hover{
+                    width: 30px;
+                    height:30px;
+                    margin-left: 5px;
+                    margin-right: 5px;
+                    margin-top:4px;
+                    background-image:url(/Pollina/web/img/fr_true.png);
+                }
+                #lang_fr{
+                    width: 26px;
+                    height:27px;
+                    margin-left: 7px;
+                    margin-right: 7px;
+                    margin-top:7px;
+                    background-image:url(/Pollina/web/img/fr_false.png);
+                }
+                #lang_en:hover{
+                    width: 30px;
+                    height:30px;
+                    margin-left: 5px;
+                    margin-right: 5px;
+                    margin-top:4px;
+                    background-image:url(/Pollina/web/img/en_true.png);
+                }
+                #lang_en{
+                    width: 26px;
+                    height:27px;
+                    margin-left: 7px;
+                    margin-right: 7px;
+                    margin-top:7px;
+                    background-image:url(/Pollina/web/img/en_false.png);
+                }
+                #lang_de:hover{
+                    width: 30px;
+                    height:30px;
+                    margin-left: 5px;
+                    margin-right: 5px;
+                    margin-top:4px;
+                    background-image:url(/Pollina/web/img/de_true.png);
+                }
+                #lang_de{
+                    width: 26px;
+                    height:27px;
+                    margin-left: 7px;
+                    margin-right: 7px;
+                    margin-top:7px;
+                    background-image:url(/Pollina/web/img/de_false.png);
+                }
+                #menu_fb{
+                    height: 19px;
+                    margin-left: 14px;
+                    margin-right: 14px;
+                    margin-top: 12px;
+                    width: 9px;
+                    background-image:url(/Pollina/web/img/menu_fb.png);
+                }
+                
+                #menu_twitter {
+                    background-image: url("/Pollina/web/img/menu_twitter.png");
+                    height: 18px;
+                    margin-left: 7px;
+                    margin-right: 7px;
+                    margin-top: 13px;
+                    width: 26px;
+                }
+                
+
                 #g-plus{
                     position:absolute;
                     top:210px;
                     right:70px;
                     width: 60px;
                     height:70px;
-  
                 }
 
 		#container{
@@ -224,11 +292,35 @@
                 }
                 #newsletter_footer{
                     height: 120px;
-                    width: 170px;
+                    width: 195px;
                     margin-left: 780px;
                     margin-top: 36px;
                     color:white;
                     font-size: 18px;
+                }
+                #newsletter_footer p{
+                    font-size: 13px;
+                    padding-right: 30px;
+                }
+                #newsletter_footer input{
+                        background-color: #515151;
+                        background-image: url("/Pollina/web/img/input_newsletter.png");
+                        border:1px;
+                        font-size: 13px;
+                        height: 34px;
+                        padding-left: 10px;
+                        width: 140px;
+                        float: left;
+                        color:#C2C2C2;
+                }
+                #newsletter_footer button{
+                        background-color: #515151;
+                        background-image: url("/Pollina/web/img/button_newsletter.png");
+                        border: 0 none;
+                        height: 33px;
+                        width: 33px;
+                        float: left;
+                        margin-left: 5px;
                 }
                 #img_footer{
                     float: right;
