@@ -253,8 +253,66 @@ $app->match('/admin/news/create', function(Request $request) use ($app){
     ));
 })->bind('form_news_create');
 
-$app->match('/admin/news/edit/{id}', function($id) use ($app){
+$app->match('/admin/news/edit/{id}', function(Request $request,$id) use ($app){
+    //On récupere l'article
+    $article = ArticlesQuery::create()->filterById($id)->find();
+    //Création du formulaire
+    $form = $app['form.factory']->createBuilder('form')
+        ->add('title','text',array(
+        'label'=>'Sujet',
+        'required'=>true,
+        'attr' => array('placeholder' => 'Sujet de l\'article'),
+        'constraints'=>array(
+            new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
+        )
+    ))
+        ->add('contenu_fr','textarea',array(
+        'label'=>'Version Française',
+        'required'=>true,
+        'data' => $article->get(0)->getContenuFr(),
+        'constraints'=>array(
+            new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
+        )
+    ))
+        ->add('contenu_en','textarea',array(
+        'label'=>'Version Française',
+        'required'=>true,
+        'data' => $article->get(0)->getContenuEn(),
+        'constraints'=>array(
+        new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
+    )
+    ))
+        ->add('contenu_de','textarea',array(
+        'label'=>'Version Française',
+        'required'=>true,
+        'data' => $article->get(0)->getContenuDe(),
+        'constraints'=>array(
+        new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
+    )
+    ))
+        ->getForm();
+
+    if('POST'==$request->getMethod()){
+        $form->bind($request);
+
+        if($form->isValid()){
+            //Récuperation des données du formulaire
+            $data = $form->getData();
+            //Création d'un nouvel objet administrateur
+            $admin = new Admin();
+            $admin->setEmail($data['email']);
+            $admin->setPassword($data['password']);
+            $admin->setLogin($data['login']);
+            $admin->save();
+            return $app->redirect($app['url_generator']->generate('admin_ok'));
+
+        }
+
+    }
+
     return $app['twig']->render('template/admin/article_edit.twig', array(
+        'form'=>$form->createView(),
+        'id'=>$id,
     ));
 });
 

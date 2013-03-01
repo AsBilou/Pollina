@@ -1,0 +1,18 @@
+{% extends 'layout/admin.base.twig' %}
+{% block content %}
+    <h2>Édition de l'article {{ id }}</h2>
+    <form id="form" novalidate action="{{ app.request.basepath }}/admin/news/edit/{{ id }}" method="post">
+        {{ form_widget(form) }}
+        <input class="btn btn-success" value="Envoyer" type="submit">
+    </form>
+{% endblock %}
+{% block javascript %}
+    <script src="{{ app.request.basepath }}/js/tiny_mce/tiny_mce.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            tinyMCE.init({
+                mode : "textareas"
+            });
+        });
+    </script>
+{% endblock %}
