@@ -1,12 +1,29 @@
 
-                
+                @font-face {
+                      font-family: FengardoNeue_Black;
+                      src: url('/Pollina/web/font/Fengardo_Neue/FengardoNeue_Black.otf');
+              }
+                @font-face {
+                      font-family: FengardoNeue_Regular;
+                      src: url('/Pollina/web/font/Fengardo_Neue/FengardoNeue_Regular.otf');
+              }
+                @font-face {
+                      font-family: Myriadopro_regular;
+                      src: url('/Pollina/web/font/myriad-pro/MYRIADPRO-REGULAR.OTF');
+              }
+
+
+
+              
                 
                 
                html, body { 
                     height:1480px;
                     padding:0;
                     font-size: 1.2em;
-                    background-color: white
+                    background-color: white;
+                    font-family: FengardoNeue_Regular, sans-serif;
+                    font-size: 13px;
 			
 		}
                 
@@ -141,6 +158,16 @@
 		    top:-275px;
                 }
                 
+                .text_article{
+                    
+                    margin-top:140px;
+                    margin-left:180px;
+                    width: 620px;
+                    line-height: 22px;
+                    color: #777777;
+                    
+                }
+                
                 .article_left{
                     width: 1323px;
                     height: 624px;
@@ -209,7 +236,7 @@
                 }
                 #menu ul {
                      padding: 0;
-                     margin-top:0;
+                     margin-top:0;list-style-type: none; 
                 }
                 #sous_menu_2{   
                     height: 40px;
@@ -222,6 +249,7 @@
                    padding-top: 13px;
                    position: absolute;
                    width: 271px;
+                   
                 }
                 
                 #menu_1{ background-color: #009EE0;color:white;}
@@ -242,8 +270,8 @@
                      padding-top: 29px;
                      padding-left: 19px;
                      font-size: 18px;
-                     color: white;
-                    
+                     color: white;  
+                     padding-right: 19px;
                 }
                 
                 #slide{
@@ -287,7 +315,7 @@
                     float: left;
                     height: 70px;
                     margin-left: 412px;
-                    margin-top: 80px;
+                    margin-top: 5px;
                     width: 120px;
                     color:white;
                     font-size: 13px;
@@ -324,6 +352,8 @@
                     font-size: 13px;
                     padding-right: 30px;
                 }
+                .titre_footer{font-family: FengardoNeue_Black, sans-serif;}
+                
                 #newsletter_footer input{
                         background-color: #515151;
                         background-image: url("/Pollina/web/img/input_newsletter.png");

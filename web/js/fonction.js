@@ -50,7 +50,8 @@ $(document).ready(function(){
 
 $(document).ready(function () {	
 	$('.sous_menu li').click(
-		function () {
+               
+		function () { alert("coucou");
 			$('ul', this).stop().slideDown(100);
 		}, 
 		function () {
