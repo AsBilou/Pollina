@@ -377,6 +377,76 @@ $app->get('/admin/user', function() use ($app){
 
 $app->get('/404', function() use ($app){
     return $app['twig']->render('template/404.twig', array(
+$app->match('/admin/user/create', function(Request $request) use ($app){
+
+    $form = $app['form.factory']->createBuilder('form')
+        ->add('login','text',array(
+            'label'=>'Identifiant',
+            'required'=>true,
+            'attr' => array('placeholder' => 'pierre'),
+            'constraints'=>array(
+                    new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
+                )
+        ))
+        ->add('email','email',array(
+            'label'=>'Email',
+            'required'=>true,
+            'attr' => array('placeholder' => 'pierredupond@pollina.fr'),
+            'constraints'=>array(
+                    new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
+                )
+            ))
+        ->add('password','password',array(
+            'label'=>'Mot de passe',
+            'required'=>true,
+            'attr' => array('placeholder' => '5 caractères minimum'),
+            'constraints'=>array(
+                    new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
+                    new Assert\Min(5)
+                )
+            ))
+        ->add('verif_pass','password',array(
+            'label'=>'Verification',
+            'required'=>true,
+            'attr' => array('placeholder' => '5 caractères minimum'),
+            'constraints'=>array(
+                    new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
+                    new Assert\Min(5)
+                )
+            ))
+        ->getForm();
+
+    if('POST'==$request->getMethod()){
+        $form->bind($request);
+
+        if($form->isValid()){
+            //Récuperation des données du formulaire
+            $data = $form->getData();
+            if($data['password']==$data['verif_pass']){
+                //Création d'un nouvel objet administrateur
+                $admin = new Admin();
+                $admin->setEmail($data['email']);
+                $admin->setPassword($data['password']);
+                $admin->setLogin($data['login']);
+                $admin->save();
+                return $app->redirect($app['url_generator']->generate('admin_ok'));
+
+            }
+            return $app->redirect($app['url_generator']->generate('admin_ko'));
+
+        }
+    }
+
+    return $app['twig']->render('template/admin/user_create.twig', array(
+        'form'=>$form->createView(),
+    ));
+})->bind('form_user_create');
+
+$app->get('/admin/newsletter', function() use ($app){
+
+
+
+    return $app['twig']->render('template/admin/newsletter.twig', array(
     ));
 });
 
