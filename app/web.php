@@ -165,7 +165,7 @@ $app->get('/admin/news', function() use ($app){
 $app->match('/admin/news/create', function() use ($app){
     return $app['twig']->render('template/admin/article_create.twig', array(
     ));
-});
+})->bind('form_news_create');
 
 $app->match('/admin/news/edit/{id}', function($id) use ($app){
     return $app['twig']->render('template/admin/article_edit.twig', array(
