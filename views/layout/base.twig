@@ -4,27 +4,31 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Pollina</title>
+                
+                <link rel="stylesheet" type="text/css" media="screen" href="{{app.request.basepath}}/css/style.css" />
 	</head>
-	
-	<style type="text/css">
-                
-                
-	</style>
-        
-        <link rel="stylesheet" type="text/css" media="screen" href="{{app.request.basepath}}/css/style.css" />
-	
+
+
 	<body>
             <div id="content">
 		<header id="header">
-			<div id="img_header" > </div>
-                        
+                    <div id="img_header" > </div>
+                    <div id="menu_lang">
+                        <img src="{{app.request.basepath}}/img/fr_true.png" alt="" />
+                        <img src="{{app.request.basepath}}/img/en_false.png" alt="" />
+                        <img src="{{app.request.basepath}}/img/de_false.png" alt="" />
+                    </div> 
+                    <div id="g-plus">
+                        <div  class="g-plusone" data-size="tall"></div>
+                    </div> 
                        
 		</header>
+                    
                 <nav id="nav_article" >
                     <div id="prev_article" ></div>
                     <div id="next_article" ></div>
-
                 </nav>
+                    
 		<nav id="menu">
                     <ul id="ul_menu">
                         <li><div class="menu"  ><a herf="#" id="menu_1" class="menu_title" > L'ENTREPRISE </a></div></li>
@@ -66,9 +70,9 @@
 		</div>
                 <div id="slide">
                     <div id="slideshowHolder" >
-                     <img src="{{app.request.basepath}}/img/img1.jpg" />
-                     <img src="{{app.request.basepath}}/img/img2.png" />
-                     <img src="{{app.request.basepath}}/img/img1.jpg" />
+                     <img src="{{app.request.basepath}}/img/img1.jpg" alt="" />
+                     <img src="{{app.request.basepath}}/img/img2.png" alt="" />
+                     <img src="{{app.request.basepath}}/img/img1.jpg" alt="" />
                     </div>
 		</div>
 			<div id="container">
@@ -139,6 +143,10 @@
 		<script type="text/javascript" src="{{app.request.basepath}}/js/jquery.js"></script>
                 <script type="text/javascript" src="{{app.request.basepath}}/js/jqFancyTransitions.1.8.js" ></script>
                 <script type="text/javascript" src="{{app.request.basepath}}/js/fonction.js"></script>
+                <script type="text/javascript" src="https://apis.google.com/js/plusone.js">
+                    {lang: 'fr'}
+                </script>
+
                
                 
                 

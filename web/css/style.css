@@ -27,6 +27,29 @@
 
 		#suiv{float:left;}
 		#pres{float:left;}
+                
+                #menu_lang{
+                    position:absolute;
+                    top:20px;
+                    right:75px;
+                    width: 60px;
+                    height:180px;
+                    border-radius: 10px;
+                    background-color: white;
+                    opacity:0.05;
+                    
+                }
+                #menu_lang img{
+                    flaot:left;
+                }
+                #g-plus{
+                    position:absolute;
+                    top:210px;
+                    right:70px;
+                    width: 60px;
+                    height:70px;
+  
+                }
 
 		#container{
                     width:100%;
