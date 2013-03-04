@@ -24,28 +24,25 @@ abstract class BaseArticlesPeer
     const TM_CLASS = 'ArticlesTableMap';
 
     /** The total number of columns. */
-    const NUM_COLUMNS = 5;
+    const NUM_COLUMNS = 4;
 
     /** The number of lazy-loaded columns. */
     const NUM_LAZY_LOAD_COLUMNS = 0;
 
     /** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-    const NUM_HYDRATE_COLUMNS = 5;
+    const NUM_HYDRATE_COLUMNS = 4;
 
     /** the column name for the id field */
     const ID = 'articles.id';
 
+    /** the column name for the lang field */
+    const LANG = 'articles.lang';
+
     /** the column name for the title field */
     const TITLE = 'articles.title';
 
-    /** the column name for the contenu_fr field */
-    const CONTENU_FR = 'articles.contenu_fr';
-
-    /** the column name for the contenu_en field */
-    const CONTENU_EN = 'articles.contenu_en';
-
-    /** the column name for the contenu_de field */
-    const CONTENU_DE = 'articles.contenu_de';
+    /** the column name for the contenu field */
+    const CONTENU = 'articles.contenu';
 
     /** The default string format for model objects of the related table **/
     const DEFAULT_STRING_FORMAT = 'YAML';
@@ -66,12 +63,12 @@ abstract class BaseArticlesPeer
      * e.g. ArticlesPeer::$fieldNames[ArticlesPeer::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('Id', 'Title', 'ContenuFr', 'ContenuEn', 'ContenuDe', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'title', 'contenuFr', 'contenuEn', 'contenuDe', ),
-        BasePeer::TYPE_COLNAME => array (ArticlesPeer::ID, ArticlesPeer::TITLE, ArticlesPeer::CONTENU_FR, ArticlesPeer::CONTENU_EN, ArticlesPeer::CONTENU_DE, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID', 'TITLE', 'CONTENU_FR', 'CONTENU_EN', 'CONTENU_DE', ),
-        BasePeer::TYPE_FIELDNAME => array ('id', 'title', 'contenu_fr', 'contenu_en', 'contenu_de', ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
+        BasePeer::TYPE_PHPNAME => array ('Id', 'Lang', 'Title', 'Contenu', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'lang', 'title', 'contenu', ),
+        BasePeer::TYPE_COLNAME => array (ArticlesPeer::ID, ArticlesPeer::LANG, ArticlesPeer::TITLE, ArticlesPeer::CONTENU, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID', 'LANG', 'TITLE', 'CONTENU', ),
+        BasePeer::TYPE_FIELDNAME => array ('id', 'lang', 'title', 'contenu', ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
     );
 
     /**
@@ -81,12 +78,12 @@ abstract class BaseArticlesPeer
      * e.g. ArticlesPeer::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Title' => 1, 'ContenuFr' => 2, 'ContenuEn' => 3, 'ContenuDe' => 4, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'title' => 1, 'contenuFr' => 2, 'contenuEn' => 3, 'contenuDe' => 4, ),
-        BasePeer::TYPE_COLNAME => array (ArticlesPeer::ID => 0, ArticlesPeer::TITLE => 1, ArticlesPeer::CONTENU_FR => 2, ArticlesPeer::CONTENU_EN => 3, ArticlesPeer::CONTENU_DE => 4, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'TITLE' => 1, 'CONTENU_FR' => 2, 'CONTENU_EN' => 3, 'CONTENU_DE' => 4, ),
-        BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'title' => 1, 'contenu_fr' => 2, 'contenu_en' => 3, 'contenu_de' => 4, ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
+        BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Lang' => 1, 'Title' => 2, 'Contenu' => 3, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'lang' => 1, 'title' => 2, 'contenu' => 3, ),
+        BasePeer::TYPE_COLNAME => array (ArticlesPeer::ID => 0, ArticlesPeer::LANG => 1, ArticlesPeer::TITLE => 2, ArticlesPeer::CONTENU => 3, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'LANG' => 1, 'TITLE' => 2, 'CONTENU' => 3, ),
+        BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'lang' => 1, 'title' => 2, 'contenu' => 3, ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
     );
 
     /**
@@ -161,16 +158,14 @@ abstract class BaseArticlesPeer
     {
         if (null === $alias) {
             $criteria->addSelectColumn(ArticlesPeer::ID);
+            $criteria->addSelectColumn(ArticlesPeer::LANG);
             $criteria->addSelectColumn(ArticlesPeer::TITLE);
-            $criteria->addSelectColumn(ArticlesPeer::CONTENU_FR);
-            $criteria->addSelectColumn(ArticlesPeer::CONTENU_EN);
-            $criteria->addSelectColumn(ArticlesPeer::CONTENU_DE);
+            $criteria->addSelectColumn(ArticlesPeer::CONTENU);
         } else {
             $criteria->addSelectColumn($alias . '.id');
+            $criteria->addSelectColumn($alias . '.lang');
             $criteria->addSelectColumn($alias . '.title');
-            $criteria->addSelectColumn($alias . '.contenu_fr');
-            $criteria->addSelectColumn($alias . '.contenu_en');
-            $criteria->addSelectColumn($alias . '.contenu_de');
+            $criteria->addSelectColumn($alias . '.contenu');
         }
     }
 
@@ -297,7 +292,7 @@ abstract class BaseArticlesPeer
     {
         if (Propel::isInstancePoolingEnabled()) {
             if ($key === null) {
-                $key = (string) $obj->getId();
+                $key = serialize(array((string) $obj->getId(), (string) $obj->getLang()));
             } // if key === null
             ArticlesPeer::$instances[$key] = $obj;
         }
@@ -320,10 +315,10 @@ abstract class BaseArticlesPeer
     {
         if (Propel::isInstancePoolingEnabled() && $value !== null) {
             if (is_object($value) && $value instanceof Articles) {
-                $key = (string) $value->getId();
-            } elseif (is_scalar($value)) {
+                $key = serialize(array((string) $value->getId(), (string) $value->getLang()));
+            } elseif (is_array($value) && count($value) === 2) {
                 // assume we've been passed a primary key
-                $key = (string) $value;
+                $key = serialize(array((string) $value[0], (string) $value[1]));
             } else {
                 $e = new PropelException("Invalid value passed to removeInstanceFromPool().  Expected primary key or Articles object; got " . (is_object($value) ? get_class($value) . ' object.' : var_export($value,true)));
                 throw $e;
@@ -392,11 +387,11 @@ abstract class BaseArticlesPeer
     public static function getPrimaryKeyHashFromRow($row, $startcol = 0)
     {
         // If the PK cannot be derived from the row, return null.
-        if ($row[$startcol] === null) {
+        if ($row[$startcol] === null && $row[$startcol + 1] === null) {
             return null;
         }
 
-        return (string) $row[$startcol];
+        return serialize(array((string) $row[$startcol], (string) $row[$startcol + 1]));
     }
 
     /**
@@ -411,7 +406,7 @@ abstract class BaseArticlesPeer
     public static function getPrimaryKeyFromRow($row, $startcol = 0)
     {
 
-        return (int) $row[$startcol];
+        return array((int) $row[$startcol], (string) $row[$startcol + 1]);
     }
 
     /**
@@ -578,6 +573,14 @@ abstract class BaseArticlesPeer
                 $selectCriteria->setPrimaryTableName(ArticlesPeer::TABLE_NAME);
             }
 
+            $comparison = $criteria->getComparison(ArticlesPeer::LANG);
+            $value = $criteria->remove(ArticlesPeer::LANG);
+            if ($value) {
+                $selectCriteria->add(ArticlesPeer::LANG, $value, $comparison);
+            } else {
+                $selectCriteria->setPrimaryTableName(ArticlesPeer::TABLE_NAME);
+            }
+
         } else { // $values is Articles object
             $criteria = $values->buildCriteria(); // gets full criteria
             $selectCriteria = $values->buildPkeyCriteria(); // gets criteria w/ primary key(s)
@@ -652,10 +655,18 @@ abstract class BaseArticlesPeer
             $criteria = $values->buildPkeyCriteria();
         } else { // it's a primary key, or an array of pks
             $criteria = new Criteria(ArticlesPeer::DATABASE_NAME);
-            $criteria->add(ArticlesPeer::ID, (array) $values, Criteria::IN);
-            // invalidate the cache for this object(s)
-            foreach ((array) $values as $singleval) {
-                ArticlesPeer::removeInstanceFromPool($singleval);
+            // primary key is composite; we therefore, expect
+            // the primary key passed to be an array of pkey values
+            if (count($values) == count($values, COUNT_RECURSIVE)) {
+                // array is not multi-dimensional
+                $values = array($values);
+            }
+            foreach ($values as $value) {
+                $criterion = $criteria->getNewCriterion(ArticlesPeer::ID, $value[0]);
+                $criterion->addAnd($criteria->getNewCriterion(ArticlesPeer::LANG, $value[1]));
+                $criteria->addOr($criterion);
+                // we can invalidate the cache for this single PK
+                ArticlesPeer::removeInstanceFromPool($value);
             }
         }
 
@@ -718,58 +729,28 @@ abstract class BaseArticlesPeer
     }
 
     /**
-     * Retrieve a single object by pkey.
-     *
-     * @param      int $pk the primary key.
-     * @param      PropelPDO $con the connection to use
-     * @return Articles
+     * Retrieve object using using composite pkey values.
+     * @param   int $id
+     * @param   string $lang
+     * @param      PropelPDO $con
+     * @return   Articles
      */
-    public static function retrieveByPK($pk, PropelPDO $con = null)
-    {
-
-        if (null !== ($obj = ArticlesPeer::getInstanceFromPool((string) $pk))) {
-            return $obj;
+    public static function retrieveByPK($id, $lang, PropelPDO $con = null) {
+        $_instancePoolKey = serialize(array((string) $id, (string) $lang));
+         if (null !== ($obj = ArticlesPeer::getInstanceFromPool($_instancePoolKey))) {
+             return $obj;
         }
 
         if ($con === null) {
             $con = Propel::getConnection(ArticlesPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
-
         $criteria = new Criteria(ArticlesPeer::DATABASE_NAME);
-        $criteria->add(ArticlesPeer::ID, $pk);
-
+        $criteria->add(ArticlesPeer::ID, $id);
+        $criteria->add(ArticlesPeer::LANG, $lang);
         $v = ArticlesPeer::doSelect($criteria, $con);
 
-        return !empty($v) > 0 ? $v[0] : null;
+        return !empty($v) ? $v[0] : null;
     }
-
-    /**
-     * Retrieve multiple objects by pkey.
-     *
-     * @param      array $pks List of primary keys
-     * @param      PropelPDO $con the connection to use
-     * @return Articles[]
-     * @throws PropelException Any exceptions caught during processing will be
-     *		 rethrown wrapped into a PropelException.
-     */
-    public static function retrieveByPKs($pks, PropelPDO $con = null)
-    {
-        if ($con === null) {
-            $con = Propel::getConnection(ArticlesPeer::DATABASE_NAME, Propel::CONNECTION_READ);
-        }
-
-        $objs = null;
-        if (empty($pks)) {
-            $objs = array();
-        } else {
-            $criteria = new Criteria(ArticlesPeer::DATABASE_NAME);
-            $criteria->add(ArticlesPeer::ID, $pks, Criteria::IN);
-            $objs = ArticlesPeer::doSelect($criteria, $con);
-        }
-
-        return $objs;
-    }
-
 } // BaseArticlesPeer
 
 // This is the static code needed to register the TableMap for this table with the main Propel class.

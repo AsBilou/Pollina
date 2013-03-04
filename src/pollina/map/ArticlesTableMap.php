@@ -39,10 +39,9 @@ class ArticlesTableMap extends TableMap
         $this->setUseIdGenerator(true);
         // columns
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
+        $this->addPrimaryKey('lang', 'Lang', 'VARCHAR', true, 2, null);
         $this->addColumn('title', 'Title', 'VARCHAR', true, 45, null);
-        $this->addColumn('contenu_fr', 'ContenuFr', 'VARCHAR', true, 2000, null);
-        $this->addColumn('contenu_en', 'ContenuEn', 'VARCHAR', true, 2000, null);
-        $this->addColumn('contenu_de', 'ContenuDe', 'VARCHAR', true, 2000, null);
+        $this->addColumn('contenu', 'Contenu', 'VARCHAR', true, 2000, null);
         // validators
     } // initialize()
 

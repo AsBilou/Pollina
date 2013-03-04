@@ -7,16 +7,14 @@
  *
  *
  * @method ArticlesQuery orderById($order = Criteria::ASC) Order by the id column
+ * @method ArticlesQuery orderByLang($order = Criteria::ASC) Order by the lang column
  * @method ArticlesQuery orderByTitle($order = Criteria::ASC) Order by the title column
- * @method ArticlesQuery orderByContenuFr($order = Criteria::ASC) Order by the contenu_fr column
- * @method ArticlesQuery orderByContenuEn($order = Criteria::ASC) Order by the contenu_en column
- * @method ArticlesQuery orderByContenuDe($order = Criteria::ASC) Order by the contenu_de column
+ * @method ArticlesQuery orderByContenu($order = Criteria::ASC) Order by the contenu column
  *
  * @method ArticlesQuery groupById() Group by the id column
+ * @method ArticlesQuery groupByLang() Group by the lang column
  * @method ArticlesQuery groupByTitle() Group by the title column
- * @method ArticlesQuery groupByContenuFr() Group by the contenu_fr column
- * @method ArticlesQuery groupByContenuEn() Group by the contenu_en column
- * @method ArticlesQuery groupByContenuDe() Group by the contenu_de column
+ * @method ArticlesQuery groupByContenu() Group by the contenu column
  *
  * @method ArticlesQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method ArticlesQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -25,16 +23,15 @@
  * @method Articles findOne(PropelPDO $con = null) Return the first Articles matching the query
  * @method Articles findOneOrCreate(PropelPDO $con = null) Return the first Articles matching the query, or a new Articles object populated from the query conditions when no match is found
  *
+ * @method Articles findOneById(int $id) Return the first Articles filtered by the id column
+ * @method Articles findOneByLang(string $lang) Return the first Articles filtered by the lang column
  * @method Articles findOneByTitle(string $title) Return the first Articles filtered by the title column
- * @method Articles findOneByContenuFr(string $contenu_fr) Return the first Articles filtered by the contenu_fr column
- * @method Articles findOneByContenuEn(string $contenu_en) Return the first Articles filtered by the contenu_en column
- * @method Articles findOneByContenuDe(string $contenu_de) Return the first Articles filtered by the contenu_de column
+ * @method Articles findOneByContenu(string $contenu) Return the first Articles filtered by the contenu column
  *
  * @method array findById(int $id) Return Articles objects filtered by the id column
+ * @method array findByLang(string $lang) Return Articles objects filtered by the lang column
  * @method array findByTitle(string $title) Return Articles objects filtered by the title column
- * @method array findByContenuFr(string $contenu_fr) Return Articles objects filtered by the contenu_fr column
- * @method array findByContenuEn(string $contenu_en) Return Articles objects filtered by the contenu_en column
- * @method array findByContenuDe(string $contenu_de) Return Articles objects filtered by the contenu_de column
+ * @method array findByContenu(string $contenu) Return Articles objects filtered by the contenu column
  *
  * @package    propel.generator.pollina.om
  */
@@ -82,10 +79,11 @@ abstract class BaseArticlesQuery extends ModelCriteria
      * Go fast if the query is untouched.
      *
      * <code>
-     * $obj  = $c->findPk(12, $con);
+     * $obj = $c->findPk(array(12, 34), $con);
      * </code>
      *
-     * @param mixed $key Primary key to use for the query
+     * @param array $key Primary key to use for the query
+                         A Primary key composition: [$id, $lang]
      * @param     PropelPDO $con an optional connection object
      *
      * @return   Articles|Articles[]|mixed the result, formatted by the current formatter
@@ -95,7 +93,7 @@ abstract class BaseArticlesQuery extends ModelCriteria
         if ($key === null) {
             return null;
         }
-        if ((null !== ($obj = ArticlesPeer::getInstanceFromPool((string) $key))) && !$this->formatter) {
+        if ((null !== ($obj = ArticlesPeer::getInstanceFromPool(serialize(array((string) $key[0], (string) $key[1]))))) && !$this->formatter) {
             // the object is alredy in the instance pool
             return $obj;
         }
@@ -113,20 +111,6 @@ abstract class BaseArticlesQuery extends ModelCriteria
     }
 
     /**
-     * Alias of findPk to use instance pooling
-     *
-     * @param     mixed $key Primary key to use for the query
-     * @param     PropelPDO $con A connection object
-     *
-     * @return                 Articles A model object, or null if the key is not found
-     * @throws PropelException
-     */
-     public function findOneById($key, $con = null)
-     {
-        return $this->findPk($key, $con);
-     }
-
-    /**
      * Find object by primary key using raw SQL to go fast.
      * Bypass doSelect() and the object formatter by using generated code.
      *
@@ -138,10 +122,11 @@ abstract class BaseArticlesQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT `id`, `title`, `contenu_fr`, `contenu_en`, `contenu_de` FROM `articles` WHERE `id` = :p0';
+        $sql = 'SELECT `id`, `lang`, `title`, `contenu` FROM `articles` WHERE `id` = :p0 AND `lang` = :p1';
         try {
             $stmt = $con->prepare($sql);
-            $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
+            $stmt->bindValue(':p0', $key[0], PDO::PARAM_INT);
+            $stmt->bindValue(':p1', $key[1], PDO::PARAM_STR);
             $stmt->execute();
         } catch (Exception $e) {
             Propel::log($e->getMessage(), Propel::LOG_ERR);
@@ -151,7 +136,7 @@ abstract class BaseArticlesQuery extends ModelCriteria
         if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
             $obj = new Articles();
             $obj->hydrate($row);
-            ArticlesPeer::addInstanceToPool($obj, (string) $key);
+            ArticlesPeer::addInstanceToPool($obj, serialize(array((string) $key[0], (string) $key[1])));
         }
         $stmt->closeCursor();
 
@@ -180,7 +165,7 @@ abstract class BaseArticlesQuery extends ModelCriteria
     /**
      * Find objects by primary key
      * <code>
-     * $objs = $c->findPks(array(12, 56, 832), $con);
+     * $objs = $c->findPks(array(array(12, 56), array(832, 123), array(123, 456)), $con);
      * </code>
      * @param     array $keys Primary keys to use for the query
      * @param     PropelPDO $con an optional connection object
@@ -210,8 +195,10 @@ abstract class BaseArticlesQuery extends ModelCriteria
      */
     public function filterByPrimaryKey($key)
     {
+        $this->addUsingAlias(ArticlesPeer::ID, $key[0], Criteria::EQUAL);
+        $this->addUsingAlias(ArticlesPeer::LANG, $key[1], Criteria::EQUAL);
 
-        return $this->addUsingAlias(ArticlesPeer::ID, $key, Criteria::EQUAL);
+        return $this;
     }
 
     /**
@@ -223,8 +210,17 @@ abstract class BaseArticlesQuery extends ModelCriteria
      */
     public function filterByPrimaryKeys($keys)
     {
+        if (empty($keys)) {
+            return $this->add(null, '1<>1', Criteria::CUSTOM);
+        }
+        foreach ($keys as $key) {
+            $cton0 = $this->getNewCriterion(ArticlesPeer::ID, $key[0], Criteria::EQUAL);
+            $cton1 = $this->getNewCriterion(ArticlesPeer::LANG, $key[1], Criteria::EQUAL);
+            $cton0->addAnd($cton1);
+            $this->addOr($cton0);
+        }
 
-        return $this->addUsingAlias(ArticlesPeer::ID, $keys, Criteria::IN);
+        return $this;
     }
 
     /**
@@ -270,6 +266,35 @@ abstract class BaseArticlesQuery extends ModelCriteria
     }
 
     /**
+     * Filter the query on the lang column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByLang('fooValue');   // WHERE lang = 'fooValue'
+     * $query->filterByLang('%fooValue%'); // WHERE lang LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $lang The value to use as filter.
+     *              Accepts wildcards (* and % trigger a LIKE)
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ArticlesQuery The current query, for fluid interface
+     */
+    public function filterByLang($lang = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($lang)) {
+                $comparison = Criteria::IN;
+            } elseif (preg_match('/[\%\*]/', $lang)) {
+                $lang = str_replace('*', '%', $lang);
+                $comparison = Criteria::LIKE;
+            }
+        }
+
+        return $this->addUsingAlias(ArticlesPeer::LANG, $lang, $comparison);
+    }
+
+    /**
      * Filter the query on the title column
      *
      * Example usage:
@@ -299,90 +324,32 @@ abstract class BaseArticlesQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the contenu_fr column
+     * Filter the query on the contenu column
      *
      * Example usage:
      * <code>
-     * $query->filterByContenuFr('fooValue');   // WHERE contenu_fr = 'fooValue'
-     * $query->filterByContenuFr('%fooValue%'); // WHERE contenu_fr LIKE '%fooValue%'
+     * $query->filterByContenu('fooValue');   // WHERE contenu = 'fooValue'
+     * $query->filterByContenu('%fooValue%'); // WHERE contenu LIKE '%fooValue%'
      * </code>
      *
-     * @param     string $contenuFr The value to use as filter.
+     * @param     string $contenu The value to use as filter.
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return ArticlesQuery The current query, for fluid interface
      */
-    public function filterByContenuFr($contenuFr = null, $comparison = null)
+    public function filterByContenu($contenu = null, $comparison = null)
     {
         if (null === $comparison) {
-            if (is_array($contenuFr)) {
+            if (is_array($contenu)) {
                 $comparison = Criteria::IN;
-            } elseif (preg_match('/[\%\*]/', $contenuFr)) {
-                $contenuFr = str_replace('*', '%', $contenuFr);
+            } elseif (preg_match('/[\%\*]/', $contenu)) {
+                $contenu = str_replace('*', '%', $contenu);
                 $comparison = Criteria::LIKE;
             }
         }
 
-        return $this->addUsingAlias(ArticlesPeer::CONTENU_FR, $contenuFr, $comparison);
-    }
-
-    /**
-     * Filter the query on the contenu_en column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByContenuEn('fooValue');   // WHERE contenu_en = 'fooValue'
-     * $query->filterByContenuEn('%fooValue%'); // WHERE contenu_en LIKE '%fooValue%'
-     * </code>
-     *
-     * @param     string $contenuEn The value to use as filter.
-     *              Accepts wildcards (* and % trigger a LIKE)
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return ArticlesQuery The current query, for fluid interface
-     */
-    public function filterByContenuEn($contenuEn = null, $comparison = null)
-    {
-        if (null === $comparison) {
-            if (is_array($contenuEn)) {
-                $comparison = Criteria::IN;
-            } elseif (preg_match('/[\%\*]/', $contenuEn)) {
-                $contenuEn = str_replace('*', '%', $contenuEn);
-                $comparison = Criteria::LIKE;
-            }
-        }
-
-        return $this->addUsingAlias(ArticlesPeer::CONTENU_EN, $contenuEn, $comparison);
-    }
-
-    /**
-     * Filter the query on the contenu_de column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByContenuDe('fooValue');   // WHERE contenu_de = 'fooValue'
-     * $query->filterByContenuDe('%fooValue%'); // WHERE contenu_de LIKE '%fooValue%'
-     * </code>
-     *
-     * @param     string $contenuDe The value to use as filter.
-     *              Accepts wildcards (* and % trigger a LIKE)
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return ArticlesQuery The current query, for fluid interface
-     */
-    public function filterByContenuDe($contenuDe = null, $comparison = null)
-    {
-        if (null === $comparison) {
-            if (is_array($contenuDe)) {
-                $comparison = Criteria::IN;
-            } elseif (preg_match('/[\%\*]/', $contenuDe)) {
-                $contenuDe = str_replace('*', '%', $contenuDe);
-                $comparison = Criteria::LIKE;
-            }
-        }
-
-        return $this->addUsingAlias(ArticlesPeer::CONTENU_DE, $contenuDe, $comparison);
+        return $this->addUsingAlias(ArticlesPeer::CONTENU, $contenu, $comparison);
     }
 
     /**
@@ -395,7 +362,9 @@ abstract class BaseArticlesQuery extends ModelCriteria
     public function prune($articles = null)
     {
         if ($articles) {
-            $this->addUsingAlias(ArticlesPeer::ID, $articles->getId(), Criteria::NOT_EQUAL);
+            $this->addCond('pruneCond0', $this->getAliasedColName(ArticlesPeer::ID), $articles->getId(), Criteria::NOT_EQUAL);
+            $this->addCond('pruneCond1', $this->getAliasedColName(ArticlesPeer::LANG), $articles->getLang(), Criteria::NOT_EQUAL);
+            $this->combine(array('pruneCond0', 'pruneCond1'), Criteria::LOGICAL_OR);
         }
 
         return $this;

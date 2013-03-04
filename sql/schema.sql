@@ -12,11 +12,10 @@ DROP TABLE IF EXISTS `articles`;
 CREATE TABLE `articles`
 (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `lang` VARCHAR(2) NOT NULL,
     `title` VARCHAR(45) NOT NULL,
-    `contenu_fr` VARCHAR(2000) NOT NULL,
-    `contenu_en` VARCHAR(2000) NOT NULL,
-    `contenu_de` VARCHAR(2000) NOT NULL,
-    PRIMARY KEY (`id`)
+    `contenu` VARCHAR(2000) NOT NULL,
+    PRIMARY KEY (`id`,`lang`)
 ) ENGINE=MyISAM;
 
 -- ---------------------------------------------------------------------

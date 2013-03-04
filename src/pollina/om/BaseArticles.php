@@ -36,28 +36,22 @@ abstract class BaseArticles extends BaseObject implements Persistent
     protected $id;
 
     /**
+     * The value for the lang field.
+     * @var        string
+     */
+    protected $lang;
+
+    /**
      * The value for the title field.
      * @var        string
      */
     protected $title;
 
     /**
-     * The value for the contenu_fr field.
+     * The value for the contenu field.
      * @var        string
      */
-    protected $contenu_fr;
-
-    /**
-     * The value for the contenu_en field.
-     * @var        string
-     */
-    protected $contenu_en;
-
-    /**
-     * The value for the contenu_de field.
-     * @var        string
-     */
-    protected $contenu_de;
+    protected $contenu;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -90,6 +84,16 @@ abstract class BaseArticles extends BaseObject implements Persistent
     }
 
     /**
+     * Get the [lang] column value.
+     *
+     * @return string
+     */
+    public function getLang()
+    {
+        return $this->lang;
+    }
+
+    /**
      * Get the [title] column value.
      *
      * @return string
@@ -100,33 +104,13 @@ abstract class BaseArticles extends BaseObject implements Persistent
     }
 
     /**
-     * Get the [contenu_fr] column value.
+     * Get the [contenu] column value.
      *
      * @return string
      */
-    public function getContenuFr()
+    public function getContenu()
     {
-        return $this->contenu_fr;
-    }
-
-    /**
-     * Get the [contenu_en] column value.
-     *
-     * @return string
-     */
-    public function getContenuEn()
-    {
-        return $this->contenu_en;
-    }
-
-    /**
-     * Get the [contenu_de] column value.
-     *
-     * @return string
-     */
-    public function getContenuDe()
-    {
-        return $this->contenu_de;
+        return $this->contenu;
     }
 
     /**
@@ -151,6 +135,27 @@ abstract class BaseArticles extends BaseObject implements Persistent
     } // setId()
 
     /**
+     * Set the value of [lang] column.
+     *
+     * @param string $v new value
+     * @return Articles The current object (for fluent API support)
+     */
+    public function setLang($v)
+    {
+        if ($v !== null && is_numeric($v)) {
+            $v = (string) $v;
+        }
+
+        if ($this->lang !== $v) {
+            $this->lang = $v;
+            $this->modifiedColumns[] = ArticlesPeer::LANG;
+        }
+
+
+        return $this;
+    } // setLang()
+
+    /**
      * Set the value of [title] column.
      *
      * @param string $v new value
@@ -172,67 +177,25 @@ abstract class BaseArticles extends BaseObject implements Persistent
     } // setTitle()
 
     /**
-     * Set the value of [contenu_fr] column.
+     * Set the value of [contenu] column.
      *
      * @param string $v new value
      * @return Articles The current object (for fluent API support)
      */
-    public function setContenuFr($v)
+    public function setContenu($v)
     {
         if ($v !== null && is_numeric($v)) {
             $v = (string) $v;
         }
 
-        if ($this->contenu_fr !== $v) {
-            $this->contenu_fr = $v;
-            $this->modifiedColumns[] = ArticlesPeer::CONTENU_FR;
+        if ($this->contenu !== $v) {
+            $this->contenu = $v;
+            $this->modifiedColumns[] = ArticlesPeer::CONTENU;
         }
 
 
         return $this;
-    } // setContenuFr()
-
-    /**
-     * Set the value of [contenu_en] column.
-     *
-     * @param string $v new value
-     * @return Articles The current object (for fluent API support)
-     */
-    public function setContenuEn($v)
-    {
-        if ($v !== null && is_numeric($v)) {
-            $v = (string) $v;
-        }
-
-        if ($this->contenu_en !== $v) {
-            $this->contenu_en = $v;
-            $this->modifiedColumns[] = ArticlesPeer::CONTENU_EN;
-        }
-
-
-        return $this;
-    } // setContenuEn()
-
-    /**
-     * Set the value of [contenu_de] column.
-     *
-     * @param string $v new value
-     * @return Articles The current object (for fluent API support)
-     */
-    public function setContenuDe($v)
-    {
-        if ($v !== null && is_numeric($v)) {
-            $v = (string) $v;
-        }
-
-        if ($this->contenu_de !== $v) {
-            $this->contenu_de = $v;
-            $this->modifiedColumns[] = ArticlesPeer::CONTENU_DE;
-        }
-
-
-        return $this;
-    } // setContenuDe()
+    } // setContenu()
 
     /**
      * Indicates whether the columns in this object are only set to default values.
@@ -267,10 +230,9 @@ abstract class BaseArticles extends BaseObject implements Persistent
         try {
 
             $this->id = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
-            $this->title = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
-            $this->contenu_fr = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
-            $this->contenu_en = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
-            $this->contenu_de = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
+            $this->lang = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
+            $this->title = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
+            $this->contenu = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -279,7 +241,7 @@ abstract class BaseArticles extends BaseObject implements Persistent
                 $this->ensureConsistency();
             }
             $this->postHydrate($row, $startcol, $rehydrate);
-            return $startcol + 5; // 5 = ArticlesPeer::NUM_HYDRATE_COLUMNS.
+            return $startcol + 4; // 4 = ArticlesPeer::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException("Error populating Articles object", $e);
@@ -494,17 +456,14 @@ abstract class BaseArticles extends BaseObject implements Persistent
         if ($this->isColumnModified(ArticlesPeer::ID)) {
             $modifiedColumns[':p' . $index++]  = '`id`';
         }
+        if ($this->isColumnModified(ArticlesPeer::LANG)) {
+            $modifiedColumns[':p' . $index++]  = '`lang`';
+        }
         if ($this->isColumnModified(ArticlesPeer::TITLE)) {
             $modifiedColumns[':p' . $index++]  = '`title`';
         }
-        if ($this->isColumnModified(ArticlesPeer::CONTENU_FR)) {
-            $modifiedColumns[':p' . $index++]  = '`contenu_fr`';
-        }
-        if ($this->isColumnModified(ArticlesPeer::CONTENU_EN)) {
-            $modifiedColumns[':p' . $index++]  = '`contenu_en`';
-        }
-        if ($this->isColumnModified(ArticlesPeer::CONTENU_DE)) {
-            $modifiedColumns[':p' . $index++]  = '`contenu_de`';
+        if ($this->isColumnModified(ArticlesPeer::CONTENU)) {
+            $modifiedColumns[':p' . $index++]  = '`contenu`';
         }
 
         $sql = sprintf(
@@ -520,17 +479,14 @@ abstract class BaseArticles extends BaseObject implements Persistent
                     case '`id`':
                         $stmt->bindValue($identifier, $this->id, PDO::PARAM_INT);
                         break;
+                    case '`lang`':
+                        $stmt->bindValue($identifier, $this->lang, PDO::PARAM_STR);
+                        break;
                     case '`title`':
                         $stmt->bindValue($identifier, $this->title, PDO::PARAM_STR);
                         break;
-                    case '`contenu_fr`':
-                        $stmt->bindValue($identifier, $this->contenu_fr, PDO::PARAM_STR);
-                        break;
-                    case '`contenu_en`':
-                        $stmt->bindValue($identifier, $this->contenu_en, PDO::PARAM_STR);
-                        break;
-                    case '`contenu_de`':
-                        $stmt->bindValue($identifier, $this->contenu_de, PDO::PARAM_STR);
+                    case '`contenu`':
+                        $stmt->bindValue($identifier, $this->contenu, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -670,16 +626,13 @@ abstract class BaseArticles extends BaseObject implements Persistent
                 return $this->getId();
                 break;
             case 1:
-                return $this->getTitle();
+                return $this->getLang();
                 break;
             case 2:
-                return $this->getContenuFr();
+                return $this->getTitle();
                 break;
             case 3:
-                return $this->getContenuEn();
-                break;
-            case 4:
-                return $this->getContenuDe();
+                return $this->getContenu();
                 break;
             default:
                 return null;
@@ -703,17 +656,16 @@ abstract class BaseArticles extends BaseObject implements Persistent
      */
     public function toArray($keyType = BasePeer::TYPE_FIELDNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array())
     {
-        if (isset($alreadyDumpedObjects['Articles'][$this->getPrimaryKey()])) {
+        if (isset($alreadyDumpedObjects['Articles'][serialize($this->getPrimaryKey())])) {
             return '*RECURSION*';
         }
-        $alreadyDumpedObjects['Articles'][$this->getPrimaryKey()] = true;
+        $alreadyDumpedObjects['Articles'][serialize($this->getPrimaryKey())] = true;
         $keys = ArticlesPeer::getFieldNames($keyType);
         $result = array(
             $keys[0] => $this->getId(),
-            $keys[1] => $this->getTitle(),
-            $keys[2] => $this->getContenuFr(),
-            $keys[3] => $this->getContenuEn(),
-            $keys[4] => $this->getContenuDe(),
+            $keys[1] => $this->getLang(),
+            $keys[2] => $this->getTitle(),
+            $keys[3] => $this->getContenu(),
         );
 
         return $result;
@@ -752,16 +704,13 @@ abstract class BaseArticles extends BaseObject implements Persistent
                 $this->setId($value);
                 break;
             case 1:
-                $this->setTitle($value);
+                $this->setLang($value);
                 break;
             case 2:
-                $this->setContenuFr($value);
+                $this->setTitle($value);
                 break;
             case 3:
-                $this->setContenuEn($value);
-                break;
-            case 4:
-                $this->setContenuDe($value);
+                $this->setContenu($value);
                 break;
         } // switch()
     }
@@ -788,10 +737,9 @@ abstract class BaseArticles extends BaseObject implements Persistent
         $keys = ArticlesPeer::getFieldNames($keyType);
 
         if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
-        if (array_key_exists($keys[1], $arr)) $this->setTitle($arr[$keys[1]]);
-        if (array_key_exists($keys[2], $arr)) $this->setContenuFr($arr[$keys[2]]);
-        if (array_key_exists($keys[3], $arr)) $this->setContenuEn($arr[$keys[3]]);
-        if (array_key_exists($keys[4], $arr)) $this->setContenuDe($arr[$keys[4]]);
+        if (array_key_exists($keys[1], $arr)) $this->setLang($arr[$keys[1]]);
+        if (array_key_exists($keys[2], $arr)) $this->setTitle($arr[$keys[2]]);
+        if (array_key_exists($keys[3], $arr)) $this->setContenu($arr[$keys[3]]);
     }
 
     /**
@@ -804,10 +752,9 @@ abstract class BaseArticles extends BaseObject implements Persistent
         $criteria = new Criteria(ArticlesPeer::DATABASE_NAME);
 
         if ($this->isColumnModified(ArticlesPeer::ID)) $criteria->add(ArticlesPeer::ID, $this->id);
+        if ($this->isColumnModified(ArticlesPeer::LANG)) $criteria->add(ArticlesPeer::LANG, $this->lang);
         if ($this->isColumnModified(ArticlesPeer::TITLE)) $criteria->add(ArticlesPeer::TITLE, $this->title);
-        if ($this->isColumnModified(ArticlesPeer::CONTENU_FR)) $criteria->add(ArticlesPeer::CONTENU_FR, $this->contenu_fr);
-        if ($this->isColumnModified(ArticlesPeer::CONTENU_EN)) $criteria->add(ArticlesPeer::CONTENU_EN, $this->contenu_en);
-        if ($this->isColumnModified(ArticlesPeer::CONTENU_DE)) $criteria->add(ArticlesPeer::CONTENU_DE, $this->contenu_de);
+        if ($this->isColumnModified(ArticlesPeer::CONTENU)) $criteria->add(ArticlesPeer::CONTENU, $this->contenu);
 
         return $criteria;
     }
@@ -824,28 +771,35 @@ abstract class BaseArticles extends BaseObject implements Persistent
     {
         $criteria = new Criteria(ArticlesPeer::DATABASE_NAME);
         $criteria->add(ArticlesPeer::ID, $this->id);
+        $criteria->add(ArticlesPeer::LANG, $this->lang);
 
         return $criteria;
     }
 
     /**
-     * Returns the primary key for this object (row).
-     * @return int
+     * Returns the composite primary key for this object.
+     * The array elements will be in same order as specified in XML.
+     * @return array
      */
     public function getPrimaryKey()
     {
-        return $this->getId();
+        $pks = array();
+        $pks[0] = $this->getId();
+        $pks[1] = $this->getLang();
+
+        return $pks;
     }
 
     /**
-     * Generic method to set the primary key (id column).
+     * Set the [composite] primary key.
      *
-     * @param  int $key Primary key.
+     * @param array $keys The elements of the composite key (order must match the order in XML file).
      * @return void
      */
-    public function setPrimaryKey($key)
+    public function setPrimaryKey($keys)
     {
-        $this->setId($key);
+        $this->setId($keys[0]);
+        $this->setLang($keys[1]);
     }
 
     /**
@@ -855,7 +809,7 @@ abstract class BaseArticles extends BaseObject implements Persistent
     public function isPrimaryKeyNull()
     {
 
-        return null === $this->getId();
+        return (null === $this->getId()) && (null === $this->getLang());
     }
 
     /**
@@ -871,10 +825,9 @@ abstract class BaseArticles extends BaseObject implements Persistent
      */
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
+        $copyObj->setLang($this->getLang());
         $copyObj->setTitle($this->getTitle());
-        $copyObj->setContenuFr($this->getContenuFr());
-        $copyObj->setContenuEn($this->getContenuEn());
-        $copyObj->setContenuDe($this->getContenuDe());
+        $copyObj->setContenu($this->getContenu());
         if ($makeNew) {
             $copyObj->setNew(true);
             $copyObj->setId(NULL); // this is a auto-increment column, so set to default value
@@ -927,10 +880,9 @@ abstract class BaseArticles extends BaseObject implements Persistent
     public function clear()
     {
         $this->id = null;
+        $this->lang = null;
         $this->title = null;
-        $this->contenu_fr = null;
-        $this->contenu_en = null;
-        $this->contenu_de = null;
+        $this->contenu = null;
         $this->alreadyInSave = false;
         $this->alreadyInValidation = false;
         $this->alreadyInClearAllReferencesDeep = false;
