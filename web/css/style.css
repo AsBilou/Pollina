@@ -1,460 +1,458 @@
 
-                @font-face {
-                      font-family: FengardoNeue_Black;
-                      src: url('/Pollina/web/font/Fengardo_Neue/FengardoNeue_Black.otf');
-              }
-                @font-face {
-                      font-family: FengardoNeue_Regular;
-                      src: url('/Pollina/web/font/Fengardo_Neue/FengardoNeue_Regular.otf');
-              }
-                @font-face {
-                      font-family: Myriadopro_regular;
-                      src: url('/Pollina/web/font/myriad-pro/MYRIADPRO-REGULAR.OTF');
-              }
+@font-face {
+  font-family: FengardoNeue_Black;
+  src: url('/Pollina/web/font/Fengardo_Neue/FengardoNeue_Black.otf');
+}
+@font-face {
+  font-family: FengardoNeue_Regular;
+  src: url('/Pollina/web/font/Fengardo_Neue/FengardoNeue_Regular.otf');
+}
+@font-face {
+  font-family: Myriadopro_regular;
+  src: url('/Pollina/web/font/myriad-pro/MYRIADPRO-REGULAR.OTF');
+}
 
 
 
               
                 
                 
-               html, body { 
-                    height:1480px;
-                    padding:0;
-                    font-size: 1.2em;
-                    background-color: white;
-                    font-family: FengardoNeue_Regular, sans-serif;
-                    font-size: 13px;
-			
-		}
+html, body {
+    height:1480px;
+    padding:0;
+    font-size: 1.2em;
+    background-color: white;
+    font-family: FengardoNeue_Regular, sans-serif;
+    font-size: 13px;
+}
                 
-                body {
-                    background-color: #252525;
-                    margin: 0
-                }
+body {
+    background-color: #252525;
+    margin: 0
+}
                 
-                #content{
-                    width:1400px;
-                    height:1480px;
-                    position:relative;
-                    background-color: #252525;
-                    margin:auto;
-                    
-                }
-                .clear{
-                    clear: both;
-                }
+#content{
+    width:1400px;
+    height:1480px;
+    position:relative;
+    background-color: #252525;
+    margin:auto;
+}
+.clear{
+    clear: both;
+}
                 
-		#suiv{float:left;}
-		#pres{float:left;}
-                
-                #menu_lang{
-                    position:absolute;
-                    top:20px;
-                    right:85px;
-                    width: 40px;
-                    height:180px;
-                    border-radius: 10px;
-                    background-color: white;
-                    background: rgba(255,255,255,0.05) ; 
-                    padding-top :6px;
-                }
+#suiv{float:left;}
+#pres{float:left;}
 
-                
-                #lang_fr:hover{
-                    width: 30px;
-                    height:30px;
-                    margin-left: 5px;
-                    margin-right: 5px;
-                    margin-top:4px;
-                    background-image:url(/Pollina/web/img/fr_true.png);
-                    display: block;
-                }
-                #lang_fr{
-                    width: 26px;
-                    height:27px;
-                    margin-left: 7px;
-                    margin-right: 7px;
-                    margin-top:7px;
-                    background-image:url(/Pollina/web/img/fr_false.png);
-                    display: block;
-                }
-                #lang_en:hover{
-                    width: 30px;
-                    height:30px;
-                    margin-left: 5px;
-                    margin-right: 5px;
-                    margin-top:4px;
-                    background-image:url(/Pollina/web/img/en_true.png);
-                    display: block;
-                }
-                #lang_en{
-                    width: 26px;
-                    height:27px;
-                    margin-left: 7px;
-                    margin-right: 7px;
-                    margin-top:7px;
-                    background-image:url(/Pollina/web/img/en_false.png);
-                    display: block;
-                }
-                #lang_de:hover{
-                    width: 30px;
-                    height:30px;
-                    margin-left: 5px;
-                    margin-right: 5px;
-                    margin-top:4px;
-                    background-image:url(/Pollina/web/img/de_true.png);
-                    display: block;
-                }
-                #lang_de{
-                    width: 26px;
-                    height:27px;
-                    margin-left: 7px;
-                    margin-right: 7px;
-                    margin-top:7px;
-                    background-image:url(/Pollina/web/img/de_false.png);
-                    display: block;
-                }
-                #menu_fb{
-                    height: 19px;
-                    margin-left: 14px;
-                    margin-right: 14px;
-                    margin-top: 12px;
-                    width: 9px;
-                    background-image:url(/Pollina/web/img/menu_fb.png);
-                }
-                
-                #menu_twitter {
-                    background-image: url("/Pollina/web/img/menu_twitter.png");
-                    height: 18px;
-                    margin-left: 7px;
-                    margin-right: 7px;
-                    margin-top: 13px;
-                    width: 26px;
-                }
-                
+#menu_lang{
+    position:absolute;
+    top:20px;
+    right:85px;
+    width: 40px;
+    height:180px;
+    border-radius: 10px;
+    background-color: white;
+    background: rgba(255,255,255,0.05) ;
+    padding-top :6px;
+}
 
-                #g-plus{
-                    position:absolute;
-                    top:210px;
-                    right:70px;
-                    width: 60px;
-                    height:70px;
-                }
 
-		#container{
-                    width:100%;
-                    height:1480px;
-                    position:absolute;
-                    top:0;
-                    overflow: hidden;
-                }
+#lang_fr:hover{
+    width: 30px;
+    height:30px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top:4px;
+    background-image:url(/Pollina/web/img/fr_true.png);
+    display: block;
+}
+#lang_fr{
+    width: 26px;
+    height:27px;
+    margin-left: 7px;
+    margin-right: 7px;
+    margin-top:7px;
+    background-image:url(/Pollina/web/img/fr_false.png);
+    display: block;
+}
+#lang_en:hover{
+    width: 30px;
+    height:30px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top:4px;
+    background-image:url(/Pollina/web/img/en_true.png);
+    display: block;
+}
+#lang_en{
+    width: 26px;
+    height:27px;
+    margin-left: 7px;
+    margin-right: 7px;
+    margin-top:7px;
+    background-image:url(/Pollina/web/img/en_false.png);
+    display: block;
+}
+#lang_de:hover{
+    width: 30px;
+    height:30px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top:4px;
+    background-image:url(/Pollina/web/img/de_true.png);
+    display: block;
+}
+#lang_de{
+    width: 26px;
+    height:27px;
+    margin-left: 7px;
+    margin-right: 7px;
+    margin-top:7px;
+    background-image:url(/Pollina/web/img/de_false.png);
+    display: block;
+}
+#menu_fb{
+    height: 19px;
+    margin-left: 14px;
+    margin-right: 14px;
+    margin-top: 12px;
+    width: 9px;
+    background-image:url(/Pollina/web/img/menu_fb.png);
+}
+
+#menu_twitter {
+    background-image: url("/Pollina/web/img/menu_twitter.png");
+    height: 18px;
+    margin-left: 7px;
+    margin-right: 7px;
+    margin-top: 13px;
+    width: 26px;
+}
+
+
+#g-plus{
+    position:absolute;
+    top:210px;
+    right:70px;
+    width: 60px;
+    height:70px;
+}
+
+#container{
+    width:100%;
+    height:1480px;
+    position:absolute;
+    top:0;
+    overflow: hidden;
+}
+
+.article{
+    width:100%;
+    height:675px;
+    position:relative;
+    min-height: 100px;
+    padding: 20px;
+    width: 100%;
+    padding: 0px;
+    opacity:0.05;
+    top:-275px;
+}
                 
-		.article{
-                    width:100%;
-                    height:675px;
-                    position:relative;
-                    min-height: 100px;
-		    padding: 20px;
-		    width: 100%; 
-		    padding: 0px;
-		    opacity:0.05;
-		    top:-275px;
-                }
+.text_article{
+
+    margin-top:140px;
+    margin-left:180px;
+    width: 620px;
+    line-height: 22px;
+    color: #777777;
+
+}
+
+.article_left{
+    width: 1323px;
+    height: 624px;
+    position: absolute;
+    top:0;
+    left:0;
+    background-color: #DDDDDD;
+    -webkit-border-radius: 0px 312px 312px 0px;
+    border-radius: 0px 312px 312px 0px;
+}
+.article_right{
+    width: 1010px;
+    height: 624px;
+    position: absolute;
+    top:0;
+    right:0;
+    background-color: #DDDDDD;
+    -webkit-border-radius: 312px 0px 0px 312px ;
+    border-radius: 312px 0px 0px 312px ;
+}
+
+#nav_article{
+    position:absolute;
+    left:1110px;
+    top:360px;
+    width:81px;
+    height:81px;
+    background-image:url(/Pollina/web/img/nav_article.png);
+    z-index: 1;
+}
+#prev_article{
+    width: 100%;
+    height: 50%;
+}
+#next_article{
+    width: 100%;
+    height: 50%;
+}
+#menu {
+
+    left: 210px;
+    position: absolute;
+    top: 340px;
+    height: 166px;
+    width: 691px;
+}
+
+.menu{
+    height: 40px;
+    z-index: 1;
+    position: relative;
+    display: block;
+    margin-top: 2px;
+    font-size: 17px;
+}
+.menu a{
+     height: 25px;
+     z-index: 1;
+     position: relative;
+     display: block;
+     margin-top: 2px;
+     font-size: 17px;
+}
+.menu ul li {
+    display: inline;
+}
+#menu ul {
+     padding: 0;
+     margin-top:0;list-style-type: none;
+}
+#sous_menu_2{
+    height: 40px;
+    margin-top: -38px !important;
+}
+.menu_title {
+   font-size: 17px;
+   height: 20px;
+   padding-left: 20px;
+   padding-top: 13px;
+   position: absolute;
+   width: 271px;
+
+}
                 
-                .text_article{
-                    
-                    margin-top:140px;
-                    margin-left:180px;
-                    width: 620px;
-                    line-height: 22px;
-                    color: #777777;
-                    
-                }
+#menu_1{ background-color: #009EE0;color:white;}
+#menu_2{background-color: #E2007A;color:white;}
+#menu_3{ background-color: #EDFF00;color:black;}
+#menu_4{background-color: #000000;color:white;}
+
+#news{
+     left: 210px;
+    position: absolute;
+    top: 531px;
+     height: 291px;
+     width: 291px;
+     background-color: black;
+     z-index: 1;
+}
+#news_content{
+     padding-top: 29px;
+     padding-left: 19px;
+     font-size: 18px;
+     color: white;
+     padding-right: 19px;
+}
                 
-                .article_left{
-                    width: 1323px;
-                    height: 624px;
-                    position: absolute;
-                    top:0;
-                    left:0;
-                    background-color: #DDDDDD;
-                    -webkit-border-radius: 0px 312px 312px 0px;
-                    border-radius: 0px 312px 312px 0px; 
-                }
-                .article_right{
-                    width: 1010px;
-                    height: 624px;
-                    position: absolute;
-                    top:0;
-                    right:0;
-                    background-color: #DDDDDD;
-                    -webkit-border-radius: 312px 0px 0px 312px ;
-                    border-radius: 312px 0px 0px 312px ;
-                }
-                
-                #nav_article{
-                    position:absolute;
-                    left:1110px;
-                    top:360px;
-                    width:81px;
-                    height:81px;
-                    background-image:url(/Pollina/web/img/nav_article.png);
-                    z-index: 1;
-                }
-                #prev_article{
-                    width: 100%;
-                    height: 50%;  
-                }
-                #next_article{
-                    width: 100%;
-                    height: 50%;
-                }
-		#menu {
-                    
-		    left: 210px;
-		    position: absolute;
-		    top: 340px;
-		    height: 166px;
-                    width: 691px;
-		}
-                
-		.menu{
-                     height: 40px;
-                     z-index: 1;
-                     position: relative;
-                     display: block;
-                     margin-top: 2px;
-                     font-size: 17px;
-                }
-                .menu a{
-                     height: 25px;
-                     z-index: 1;
-                     position: relative;
-                     display: block;
-                     margin-top: 2px;
-                     font-size: 17px;
-                }
-                .menu ul li {
-                    display: inline;
-                }
-                #menu ul {
-                     padding: 0;
-                     margin-top:0;list-style-type: none; 
-                }
-                #sous_menu_2{   
-                    height: 40px;
-                    margin-top: -38px !important;
-                }
-                .menu_title {
-                   font-size: 17px;
-                   height: 20px;
-                   padding-left: 20px;
-                   padding-top: 13px;
-                   position: absolute;
-                   width: 271px;
-                   
-                }
-                
-                #menu_1{ background-color: #009EE0;color:white;}
-                #menu_2{background-color: #E2007A;color:white;}
-                #menu_3{ background-color: #EDFF00;color:black;}
-                #menu_4{background-color: #000000;color:white;}  
-                
-                #news{
-                     left: 210px;
-		     position: absolute;
-		     top: 531px;
-                     height: 291px;
-                     width: 291px;
-                     background-color: black;
-                     z-index: 1;
-                }
-                #news_content{
-                     padding-top: 29px;
-                     padding-left: 19px;
-                     font-size: 18px;
-                     color: white;  
-                     padding-right: 19px;
-                }
-                
-                #slide{
-                     left: 210px;
-		     position: absolute;
-		     top: 842px;
-                     height: 291px;
-                     width: 291px;
-                     background-color: black;
-                     z-index: 1;
-                }
-                
-                #header{
-                        position:absolute;
-                        width:100%;
-                        z-index: 1
-                }
-                #img_header{
-                    width:1123px;
-                    height:491px;
-                    background-image:url(/Pollina/web/img/header_logo.png);
-                }
-                
-               #footer{
-                   position:absolute;
-                   height:327px;
-                   width:100%;
-                   top:1153px;
-                }
-                
-                #menu_footer {
-                    height: 19px;
-                    margin-left: 450px;
-                    margin-top: 10px;
-                    width: 390px;
-                    font-size: 11px;
-                    color:white;
-                }
-                
-                #info_footer{
-                    float: left;
-                    height: 70px;
-                    margin-left: 412px;
-                    margin-top: 5px;
-                    width: 120px;
-                    color:white;
-                    font-size: 13px;
-                }
-                #social_footer {
-                    float: left;
-                    height: 120px;
-                    margin-left: 70px;
-                    margin-top: 36px;
-                    width: 170px;
-                    color:white;
-                    font-size: 18px;
-                }
-                .link_social_footer{
-                    float: left;
-                    font-size: 13px;
-                    margin-left: 5px;
-                    margin-top: 5px;
-                }
-                .img_social_footer{
-                    font-size: 13px;
-                    margin-bottom: 2px;
-                    float:left;
-                }
-                #newsletter_footer{
-                    height: 120px;
-                    width: 195px;;
-                    margin-top: 36px;
-                    color:white;
-                    font-size: 18px;
-                    float: left;
-                }
-                #newsletter_footer p{
-                    font-size: 13px;
-                    padding-right: 30px;
-                }
-                .titre_footer{font-family: FengardoNeue_Black, sans-serif;}
-                
-                #newsletter_footer input{
-                        background-color: #515151;
-                        background-image: url("/Pollina/web/img/input_newsletter.png");
-                        border:1px;
-                        font-size: 13px;
-                        height: 34px;
-                        padding-left: 10px;
-                        width: 140px;
-                        float: left;
-                        color:#C2C2C2;
-                }
-                #newsletter_footer button{
-                        background-color: #515151;
-                        background-image: url("/Pollina/web/img/button_newsletter.png");
-                        border: 0 none;
-                        height: 33px;
-                        width: 33px;
-                        float: left;
-                        margin-left: 5px;
-                }
-                #img_footer{
-                    float: right;
-                    width:1190px;
-                    height:327px;
-                    background-image:url(/Pollina/web/img/footer_logo.png);
-                }
-                
-                .nav {
-                    margin:0; 
-                    padding:0; 
-                    list-style:none;
-                }	
+#slide{
+    left: 210px;
+    position: absolute;
+    top: 842px;
+    height: 291px;
+    width: 291px;
+    background-color: black;
+    z-index: 1;
+}
+
+#header{
+    position:absolute;
+    width:100%;
+    z-index: 1;
+}
+#img_header{
+    width:1123px;
+    height:491px;
+    background-image:url(/Pollina/web/img/header_logo.png);
+}
+
+#footer{
+   position:absolute;
+   height:327px;
+   width:100%;
+   top:1153px;
+}
+
+#menu_footer {
+    height: 19px;
+    margin-left: 450px;
+    margin-top: 10px;
+    width: 400px;
+    font-size: 11px;
+    color:white;
+}
+
+#info_footer{
+    float: left;
+    height: 70px;
+    margin-left: 412px;
+    margin-top: 55px;
+    width: 120px;
+    color:white;
+    font-size: 13px;
+}
+#social_footer {
+    float: left;
+    height: 120px;
+    margin-left: 70px;
+    margin-top: 36px;
+    width: 170px;
+    color:white;
+    font-size: 18px;
+}
+.link_social_footer{
+    float: left;
+    font-size: 13px;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+.img_social_footer{
+    font-size: 13px;
+    margin-bottom: 2px;
+    float:left;
+}
+#newsletter_footer{
+    height: 120px;
+    width: 195px;;
+    margin-top: 36px;
+    color:white;
+    font-size: 18px;
+    float: left;
+}
+#newsletter_footer p{
+    font-size: 13px;
+    padding-right: 30px;
+}
+.titre_footer{font-family: FengardoNeue_Black, sans-serif;}
+
+#newsletter_footer input{
+    background-color: #515151;
+    background-image: url("/Pollina/web/img/input_newsletter.png");
+    border:1px;
+    font-size: 13px;
+    height: 34px;
+    padding-left: 10px;
+    width: 140px;
+    float: left;
+    color:#C2C2C2;
+}
+#newsletter_footer button{
+    background-color: #515151;
+    background-image: url("/Pollina/web/img/button_newsletter.png");
+    border: 0 none;
+    height: 33px;
+    width: 33px;
+    float: left;
+    margin-left: 5px;
+}
+#img_footer{
+    float: right;
+    width:1190px;
+    height:327px;
+    background-image:url(/Pollina/web/img/footer_logo.png);
+}
+
+.nav {
+    margin:0;
+    padding:0;
+    list-style:none;
+}
 	
-		/* make the LI display inline */
-		/* it's position relative so that position absolute */
-		/* can be used in submenu */
-		.sous_menu li {
-			float:left; 
-			display:block; 
-			width:130px; 
-			background:#A40059; 
-			position:relative;
-			z-index:500; 
-			margin:0 1px;
-		}
-		
-		/* this is the parent menu */
-		.sous_menu li a {
-                        color: white;
-                        display: block;
-                        height: 28px;
-                        margin: 0;
-                        padding: 10px 0 0;
-                        text-align: center;
-                        text-decoration: none;
-                        width: 130px;
-		}
+/* make the LI display inline */
+/* it's position relative so that position absolute */
+/* can be used in submenu */
+.sous_menu li {
+    float:left;
+    display:block;
+    width:130px;
+    background:#A40059;
+    position:relative;
+    z-index:500;
+    margin:0 1px;
+}
 
-		.sous_menu li a:hover {
-			color:#fff;
-		}
-	
-		/* you can make a different style for default selected value */
-		.sous_menu a.selected {
-			color:#f00;
-		}
-	
-		/* submenu, it's hidden by default */
-		.sous_menu ul {
-			position:absolute; 
-			left:0; 
-			display:none; 
-			margin:0 0 0 -1px; 
-			padding:0; 
-			list-style:none;
-		}
-		
-		.sous_menu ul li {
-                        float: left;
-                        margin: 1px 0 0;
-                        width: 130px;
-		}
-		
-		/* display block will make the link fill the whole area of LI */
-		.sous_menu ul a {
-                        display: block;
-                        height: 15px;
-                        padding: 8px 0;
-                        background-color: #E2007A;
-		}
-		
-		.sous_menu ul a:hover {
-			text-decoration:underline;	
-		}
+/* this is the parent menu */
+.sous_menu li a {
+    color: white;
+    display: block;
+    height: 28px;
+    margin: 0;
+    padding: 10px 0 0;
+    text-align: center;
+    text-decoration: none;
+    width: 130px;
+}
 
-		/* fix ie6 small issue */
-		/* we should always avoid using hack like this */
-		/* should put it into separate file : ) */
-                .sous_menu ul {
-			margin:0 0 0 -2px;
-		}
+.sous_menu li a:hover {
+    color:#fff;
+}
+
+/* you can make a different style for default selected value */
+.sous_menu a.selected {
+    color:#f00;
+}
+
+/* submenu, it's hidden by default */
+.sous_menu ul {
+    position:absolute;
+    left:0;
+    display:none;
+    margin:0 0 0 -1px;
+    padding:0;
+    list-style:none;
+}
+
+.sous_menu ul li {
+    float: left;
+    margin: 1px 0 0;
+    width: 130px;
+}
+
+/* display block will make the link fill the whole area of LI */
+.sous_menu ul a {
+    display: block;
+    height: 15px;
+    padding: 8px 0;
+    background-color: #E2007A;
+}
+
+.sous_menu ul a:hover {
+    text-decoration:underline;
+}
+
+/* fix ie6 small issue */
+/* we should always avoid using hack like this */
+/* should put it into separate file : ) */
+        .sous_menu ul {
+    margin:0 0 0 -2px;
+}
