@@ -1,19 +1,23 @@
 {%extends "layout/base.twig" %}
-
 {%block article%}
     {%for article in articles%}
-      <div  id="{{article.id}}" class="article" >
-          <div class="article_right">
-              <article>
-                  {{article.contenu|raw}}
-               </article>
+        {% if article.id is divisibleby(2) %}
+          <div  id="{{article.id}}" class="article" >
+              <div class="article_left">
+                  <article class="text_article">
+                      {{article.contenu|raw}}
+                   </article>
+              </div>
           </div>
-      </div>
-      <div  id="1" class="article">
-          <div class="article_left">
-              <article>
-               </article>     
-          </div>
-      </div>    
+        {% endif %}
+        {% if article.id is not divisibleby(2) %}
+            <div  id="{{article.id}}" class="article" >
+                <div class="article_right">
+                    <article class="text_article">
+                        {{article.contenu|raw}}
+                    </article>
+                </div>
+            </div>
+        {% endif %}
     {% endfor %}
 {%endblock%}
