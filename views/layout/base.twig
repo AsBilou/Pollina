@@ -14,9 +14,9 @@
 		<header id="header">
                     <div id="img_header" > </div>
                     <div id="menu_lang">
-                        <div id="lang_fr" ><!--<img src="{{app.request.basepath}}/img/fr_false.png" alt=""  />--></div>
-                        <div id="lang_en" ><!--<img src="{{app.request.basepath}}/img/en_false.png" alt=""  />--></div>
-                        <div id="lang_de" ><!--<img src="{{app.request.basepath}}/img/de_false.png" alt=""  />--></div>
+                        <a href="{{app.request.basepath}}/fr/" id="lang_fr" ><!--<img src="{{app.request.basepath}}/img/fr_false.png" alt=""  />--></a>
+                        <a href="{{app.request.basepath}}/en/" id="lang_en" ><!--<img src="{{app.request.basepath}}/img/en_false.png" alt=""  />--></a>
+                        <a href="{{app.request.basepath}}/de/" id="lang_de" ><!--<img src="{{app.request.basepath}}/img/de_false.png" alt=""  />--></a>
                         <a href="{{facebook}}"  title="facebook" target="_blank"><div id="menu_fb" ><!--<img src="{{app.request.basepath}}/img/de_false.png" alt=""  />--></div></a>
                         <a href="{{twitter}}"  title="twitter" target="_blank"><div id="menu_twitter" ><!--<img src="{{app.request.basepath}}/img/de_false.png" alt=""  />--></div></a>
                         
@@ -66,13 +66,13 @@
 		</nav>
                 <div id="news">
                        <div id="news_content">
-                            {{description}}
+                            {{description|raw}}
                        </div>
 		</div>
                 <div id="slide">
                     <div id="slideshowHolder" >
                         {%for image in carousel%}
-                             <img src="{{app.request.basepath}}/img/{{image}}" alt="{{image}}" />
+                             <img src="{{app.request.basepath}}/img/carousel/{{image}}" alt="{{image}}" />
                         {% endfor %}
                     </div>
 		</div>
