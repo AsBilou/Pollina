@@ -1,8 +1,15 @@
 {% extends 'layout/admin.base.twig' %}
 {% block content %}
     <h2>Administration du Carousel</h2>
-    <h4>Aperçu du carousel</h4>
-    <img src="{{ app.request.basepath }}/img/carousel/image1.jpg">
-    <a class="btn btn-block btn-primary btn-large" href="{{ app.request.basepath }}/admin/carousel/select">Choisir les images</a><br>
+    <h4>Images du carousel</h4>
+    <div id="slide">
+        {%for image in carousel%}
+            <img src="{{app.request.basepath}}/img/carousel/{{image}}" alt="{{image}}" />
+        {% endfor %}
+    </div>
+    <a class="btn btn-block btn-primary btn-large" href="{{ app.request.basepath }}/admin/carousel/select">Changer les images</a><br>
     <a class="btn btn-block btn-primary btn-large" href="{{ app.request.basepath }}/admin/carousel/upload">Téléverser des images</a>
+{% endblock %}
+{% block javascript %}
+    <script type="text/javascript" src="{{app.request.basepath}}/js/jqFancyTransitions.1.8.js" ></script>
 {% endblock %}

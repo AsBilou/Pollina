@@ -340,7 +340,14 @@ body {
     font-size: 13px;
     margin-bottom: 2px;
     float:left;
+    display: block;
+    color: white;
 }
+
+.img_social_footer img{
+    float: left;
+}
+
 #newsletter_footer{
     height: 120px;
     width: 195px;;
