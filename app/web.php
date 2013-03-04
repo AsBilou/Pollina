@@ -33,7 +33,7 @@ $app->get('/{lang}/', function($lang) use ($app){
         case 'en':
             $langDescription=11;
             break;
-        case 'en':
+        case 'de':
             $langDescription=12;
             break;
     }
