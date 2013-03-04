@@ -1,19 +1,13 @@
 {% extends 'layout/admin.base.twig' %}
 {% block content %}
     <h2>Administration des articles</h2>
-    <a class="btn btn-primary" href="{{ path('form_news_create') }}">Ajouter un article</a>
-
     {% for article in articles %}
         <div class="well">
         <h4>Article {{ article.id }}</h4>
-        <h6>Français</h6>
-        {{ article.contenuFr|raw}}
-        <h6>Anglais</h6>
-        {{ article.contenuEn|raw }}
-        <h6>Allemand</h6>
-        {{ article.contenuDe|raw }}
+        <h6>Langue : {{ article.lang }}</h6>
+        {{ article.contenu|raw}}
         <div class="clearfix"></div>
-        <a class="btn btn-warning" href="{{ app.request.basepath }}/admin/news/edit/{{ article.id }}">Editer</a>
+        <a class="btn btn-warning" href="{{ app.request.basepath }}/admin/news/edit/{{ article.id }}/{{ article.lang }}">Editer</a>
         <a class="btn btn-danger" href="{{ app.request.basepath }}/admin/news/delete/{{ article.id }}">Supprimer</a>
         </div>
     {% endfor %}

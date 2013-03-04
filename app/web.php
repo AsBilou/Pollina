@@ -191,10 +191,11 @@ $app->match('/admin/accueil', function(Request $request) use ($app){
 })->bind('form_accueil');
 
 $app->get('/admin/news', function() use ($app){
+
     //Récuperation de tous les artciles présent dans la base de données
     $article = ArticlesQuery::create()
-        ->orderById()
         ->find();
+
     //Affichage de tous les articles
     return $app['twig']->render('template/admin/article.twig', array(
         'articles'=>$article,
@@ -279,9 +280,9 @@ $app->match('/admin/news/create', function(Request $request) use ($app){
     ));
 })->bind('form_news_create');
 
-$app->match('/admin/news/edit/{id}', function(Request $request,$id) use ($app){
+$app->match('/admin/news/edit/{id}/{lang}', function(Request $request,$id,$lang) use ($app){
     //On récupere l'article
-    $article = ArticlesQuery::create()->filterById($id)->find();
+    $article = ArticlesQuery::create()->filterById($id)->filterByLang($lang)->find();
     //Création du formulaire
     $form = $app['form.factory']->createBuilder('form')
         ->add('title','text',array(
@@ -292,29 +293,13 @@ $app->match('/admin/news/edit/{id}', function(Request $request,$id) use ($app){
             new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
         )
     ))
-        ->add('contenu_fr','textarea',array(
+        ->add('contenu','textarea',array(
         'label'=>'Version Française',
         'required'=>true,
-        'data' => $article->get(0)->getContenuFr(),
+        'data' => $article->get(0)->getContenu(),
         'constraints'=>array(
             new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
         )
-    ))
-        ->add('contenu_en','textarea',array(
-        'label'=>'Version Française',
-        'required'=>true,
-        'data' => $article->get(0)->getContenuEn(),
-        'constraints'=>array(
-        new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
-    )
-    ))
-        ->add('contenu_de','textarea',array(
-        'label'=>'Version Française',
-        'required'=>true,
-        'data' => $article->get(0)->getContenuDe(),
-        'constraints'=>array(
-        new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
-    )
     ))
         ->getForm();
 
@@ -327,9 +312,7 @@ $app->match('/admin/news/edit/{id}', function(Request $request,$id) use ($app){
 
             //Création d'un nouvel objet administrateur
             $article->get(0)->setTitle($data['title']);
-            $article->get(0)->setContenuFr($data['contenu_fr']);
-            $article->get(0)->setContenuEn($data['contenu_en']);
-            $article->get(0)->setContenuDe($data['contenu_de']);
+            $article->get(0)->setContenu($data['contenu']);
             $article->save();
             return $app->redirect($app['url_generator']->generate('admin_ok'));
 
@@ -340,6 +323,7 @@ $app->match('/admin/news/edit/{id}', function(Request $request,$id) use ($app){
     return $app['twig']->render('template/admin/article_edit.twig', array(
         'form'=>$form->createView(),
         'id'=>$id,
+        'lang'=>$lang,
     ));
 });
 
