@@ -42,6 +42,11 @@ $app->get('/{lang}/', function($lang) use ($app){
     $conf = ConfigurationQuery::create()
         ->find();
 
+    //Récuperation des articles pour la langue choisie
+    $articles = ArticlesQuery::create()
+        ->filterByLang($lang)
+        ->find();
+
     //Explode du contenu du carousel
     $carousel = $conf->get(9)->getValue();
     $carousel = explode(',',$carousel);
@@ -60,6 +65,7 @@ $app->get('/{lang}/', function($lang) use ($app){
         'rss'=>$conf->get(8)->getValue(),
         'carousel'=>$carousel,
         'description'=>$conf->get($langDescription)->getValue(),
+        'articles'=>$articles,
     ));
 });
 
@@ -235,14 +241,34 @@ $app->match('/admin/news/create', function(Request $request) use ($app){
         if($form->isValid()){
             //Récuperation des données du formulaire
             $data = $form->getData();
-            //Création d'un nouvel objet administrateur
-            $article = new Articles();
-            $article->setContenuFr($data['content_fr']);
-            $article->setContenuEn($data['content_en']);
-            $article->setContenuDe($data['content_de']);
-            $article->save();
 
-            return $app->redirect($app['url_generator']->generate('admin_ok'));
+            //Récuperation du dernier index
+            $articlePager = ArticlesQuery::create()->paginate();
+            $lastIndex = $articlePager->getLastIndex();
+
+            //Création d'un nouvel objet article
+            $articleFr = new Articles();
+            $articleFr->setContenu($data['content_fr']);
+            $articleFr->setTitle($data['title']);
+            $articleFr->setId($lastIndex+1);
+            $articleFr->setLang('fr');
+            $articleFr->save();
+
+            $articleEn = new Articles();
+            $articleEn->setContenu($data['content_en']);
+            $articleEn->setTitle($data['title']);
+            $articleEn->setId($lastIndex+1);
+            $articleEn->setLang('en');
+            $articleEn->save();
+
+            $articleDe = new Articles();
+            $articleDe->setContenu($data['content_de']);
+            $articleDe->setTitle($data['title']);
+            $articleDe->setId($lastIndex+1);
+            $articleDe->setLang('de');
+            $articleDe->save();
+
+            /*return $app->redirect($app['url_generator']->generate('admin_ok'));*/
 
         }
 

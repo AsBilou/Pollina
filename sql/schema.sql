@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS `articles`;
 
 CREATE TABLE `articles`
 (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `id` INTEGER NOT NULL,
     `lang` VARCHAR(2) NOT NULL,
     `title` VARCHAR(45) NOT NULL,
     `contenu` VARCHAR(2000) NOT NULL,

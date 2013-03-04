@@ -36,7 +36,7 @@ class ArticlesTableMap extends TableMap
         $this->setPhpName('Articles');
         $this->setClassname('Articles');
         $this->setPackage('pollina');
-        $this->setUseIdGenerator(true);
+        $this->setUseIdGenerator(false);
         // columns
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
         $this->addPrimaryKey('lang', 'Lang', 'VARCHAR', true, 2, null);

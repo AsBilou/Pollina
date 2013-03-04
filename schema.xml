@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <database name="pollina" defaultIdMethod="native">
     <table name="articles" phpName="Articles">
-        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="id" type="integer" required="true" primaryKey="true"/>
         <column name="lang" type="varchar" size="2" primaryKey="true" required="true" />
         <column name="title" type="varchar" size="45" required="true" />
         <column name="contenu" type="varchar" size="2000" required="true" />

@@ -523,10 +523,6 @@ abstract class BaseArticlesPeer
             $criteria = $values->buildCriteria(); // build Criteria from Articles object
         }
 
-        if ($criteria->containsKey(ArticlesPeer::ID) && $criteria->keyContainsValue(ArticlesPeer::ID) ) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key ('.ArticlesPeer::ID.')');
-        }
-
 
         // Set the correct dbName
         $criteria->setDbName(ArticlesPeer::DATABASE_NAME);
