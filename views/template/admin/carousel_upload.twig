@@ -1,23 +1,15 @@
 {% extends 'layout/admin.base.twig' %}
 {% block stylesheet %}
-    <link rel="stylesheet" type="text/css" media="screen" href="{{app.request.basepath}}/css/jquery.plupload.queue.css" />
+
 {% endblock %}
 {% block content %}
     <h2>Téléversement d'image</h2>
     <div id="html4_uploader">You browser doesn't support simple upload forms. Are you using Lynx?</div>
 {% endblock %}
 {% block javascript %}
-    <script type="text/javascript" src="http://bp.yahooapis.com/2.4.21/browserplus-min.js"></script>
-    <script type="text/javascript" src="{{ app.request.basepath }}/js/plupload.full.js"></script>
-    <script type="text/javascript" src="{{ app.request.basepath }}/js/jquery.plupload.queue.js"></script>
     <script type="text/javascript">
         $(function() {
-            // Setup html4 version
-            $("#html4_uploader").pluploadQueue({
-                // General settings
-                runtimes : 'html4',
-                url : '{{ app.request.basepath }}/upload.php'
-            });
+
         });
     </script>
 {% endblock %}
