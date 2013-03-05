@@ -161,8 +161,7 @@ body {
                 
 .text_article{
 
-    margin-top:140px;
-    margin-left:180px;
+    margin-top:130px;
     width: 620px;
     line-height: 22px;
     color: #777777;
@@ -170,8 +169,9 @@ body {
 }
 
 .article_left{
-    width: 1323px;
+    width: 750px;
     height: 624px;
+    padding-left: 545px;
     position: absolute;
     top:0;
     left:0;
@@ -180,8 +180,9 @@ body {
     border-radius: 0px 312px 312px 0px;
 }
 .article_right{
-    width: 1010px;
+    width: 860px;
     height: 624px;
+    padding-left: 150px;
     position: absolute;
     top:0;
     right:0;
