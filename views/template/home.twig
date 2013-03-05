@@ -1,23 +1,37 @@
 {%extends "layout/base.twig" %}
 {%block article%}
+    <div     class="article">
+        <div class="article_left">
+
+        </div>
+    </div>
+    {% set counter = 0 %}
+    {# Parcours de chaque articles #}
     {%for article in articles%}
-        {% if article.id is divisibleby(2) %}
-          <div  id="{{article.id}}" class="article" >
-              <div class="article_left">
+        {# Pour alterner l'affichage #}
+        {% if counter is divisibleby(2) %}
+          <div  id="{{counter}}" class="article" >
+              <div class="article_right">
                   <article class="text_article">
                       {{article.contenu|raw}}
                    </article>
               </div>
           </div>
         {% endif %}
-        {% if article.id is not divisibleby(2) %}
-            <div  id="{{article.id}}" class="article" >
-                <div class="article_right">
+        {% if counter is not divisibleby(2) %}
+            <div  id="{{counter}}" class="article" >
+                <div class="article_left">
                     <article class="text_article">
                         {{article.contenu|raw}}
                     </article>
                 </div>
             </div>
         {% endif %}
+        {% set counter = counter +1 %}
     {% endfor %}
+    <div   class="article" >
+        <div class="article_left">
+
+        </div>
+    </div>
 {%endblock%}

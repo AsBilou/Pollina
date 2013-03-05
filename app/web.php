@@ -47,6 +47,11 @@ $app->get('/{lang}/', function($lang) use ($app){
         ->filterByLang($lang)
         ->find();
 
+    //Récuperation du nombre d'article
+    $nbArticle = ArticlesQuery::create()
+        ->filterByLang($lang)
+        ->count();
+
     //Explode du contenu du carousel
     $carousel = $conf->get(9)->getValue();
     $carousel = explode(',',$carousel);
@@ -66,6 +71,7 @@ $app->get('/{lang}/', function($lang) use ($app){
         'carousel'=>$carousel,
         'description'=>$conf->get($langDescription)->getValue(),
         'articles'=>$articles,
+        'nbArticel'=>$nbArticle,
     ));
 });
 
@@ -477,7 +483,7 @@ $app->match('/admin/carousel/select', function(Request $request) use ($app){
     $MyDirectory = opendir('img/carousel/') or die('Erreur');
     $arrayPictures = array();
     while($Entry = readdir($MyDirectory)) {
-        if($Entry != '.' && $Entry != '..' && !is_dir($MyDirectory.$Entry)){
+        if($Entry != '.' && $Entry != '..' && $Entry != '.DS_Store' && !is_dir($MyDirectory.$Entry)){
             array_push($arrayPictures,$Entry);
         }
     }
