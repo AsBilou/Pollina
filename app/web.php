@@ -69,14 +69,14 @@ $app->get('/{lang}/', function($lang) use ($app){
     ));
 });
 
-$app->get('/{lang}/article', function() use ($app){
+$app->get('/{lang}/article', function($lang) use ($app){
 
     return $app['twig']->render('template/article.twig', array(
         'lang'=>$lang,
     ));
 });
 
-$app->get('/{lang}/article/{id}', function($id) use ($app){
+$app->get('/{lang}/article/{id}', function($id,$lang) use ($app){
 
     return $app['twig']->render('template/article_detail.twig', array(
         'id_article'=>$id,
@@ -84,7 +84,7 @@ $app->get('/{lang}/article/{id}', function($id) use ($app){
     ));
 });
 
-$app->get('/{lang}/contact', function() use ($app){
+$app->get('/{lang}/contact', function($lang) use ($app){
     return $app['twig']->render('template/contact.twig', array(
         'lang'=>$lang,
     ));
@@ -209,6 +209,7 @@ $app->match('/admin/news/create', function(Request $request) use ($app){
         ->add('title','text',array(
         'label'=>'Titre',
         'required'=>true,
+        'attr' => array('class'=>'span10'),
         'constraints'=>array(
             new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
         )
@@ -216,6 +217,7 @@ $app->match('/admin/news/create', function(Request $request) use ($app){
         ->add('content_fr','textarea',array(
         'label'=>'Article en Français.',
         'required'=>true,
+        'attr' => array('class'=>'span10'),
         'constraints'=>array(
             new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
         )
@@ -223,6 +225,7 @@ $app->match('/admin/news/create', function(Request $request) use ($app){
         ->add('content_en','textarea',array(
         'label'=>'Article en Anglais.',
         'required'=>true,
+        'attr' => array('class'=>'span10'),
         'constraints'=>array(
             new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
         )
@@ -230,6 +233,7 @@ $app->match('/admin/news/create', function(Request $request) use ($app){
         ->add('content_de','textarea',array(
         'label'=>'Article en Allemand.',
         'required'=>true,
+        'attr' => array('class'=>'span10'),
         'constraints'=>array(
             new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
         )
@@ -288,7 +292,7 @@ $app->match('/admin/news/edit/{id}/{lang}', function(Request $request,$id,$lang)
         ->add('title','text',array(
         'label'=>'Sujet',
         'required'=>true,
-        'attr' => array('placeholder' => 'Sujet de l\'article','value'=>$article->get(0)->getTitle()),
+        'attr' => array('placeholder' => 'Sujet de l\'article','value'=>$article->get(0)->getTitle(),'class'=>'span10'),
         'constraints'=>array(
             new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
         )
@@ -297,6 +301,7 @@ $app->match('/admin/news/edit/{id}/{lang}', function(Request $request,$id,$lang)
         'label'=>'Version Française',
         'required'=>true,
         'data' => $article->get(0)->getContenu(),
+        'attr' => array('class'=>'span10'),
         'constraints'=>array(
             new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
         )
@@ -336,22 +341,6 @@ $app->match('/admin/news/delete/{id}', function($id) use ($app){
 
     //return $app['twig']->render('template/admin/article_delete.twig', array(
     //));
-});
-
-$app->get('/admin/menu', function() use ($app){
-    return $app['twig']->render('template/admin/menu.twig', array(
-    ));
-});
-
-
-$app->get('/admin/login', function() use ($app){
-    return $app['twig']->render('template/admin/login.twig', array(
-    ));
-});
-
-$app->get('/admin/logout', function() use ($app){
-    return $app['twig']->render('template/admin/logout.twig', array(
-    ));
 });
 
 $app->match('/admin/info', function(Request $request) use ($app){
@@ -523,11 +512,6 @@ $app->match('/admin/carousel/select', function(Request $request) use ($app){
     ));
 })->bind('form_car');
 
-$app->get('/admin/carousel/upload', function() use ($app){
-    return $app['twig']->render('template/admin/carousel_upload.twig', array(
-    ));
-});
-
 $app->get('/admin/carousel', function() use ($app){
 
     //récuperation des infos de configuration
@@ -543,6 +527,36 @@ $app->get('/admin/carousel', function() use ($app){
         'carousel'=>$carousel,
     ));
 });
+
+$app->match('/admin/carousel/upload', function (Request $request) use ($app){
+
+    $form = $app['form.factory']->createBuilder('form')
+        ->add('FileUpload', 'file',array(
+        'label'=>' ',
+    ))
+        ->getForm();
+
+    $request = $app['request'];
+
+    if ($request->getMethod() == 'POST')
+    {
+        $form->bindRequest($request);
+        if ($form->isValid())
+        {
+            $files = $request->files->get($form->getName());
+            /* Make sure that Upload Directory is properly configured and writable */
+            $path = __DIR__.'/../web/img/carousel/';
+            $filename = $files['FileUpload']->getClientOriginalName();
+            $files['FileUpload']->move($path,$filename);
+
+            return $app->redirect($app['url_generator']->generate('admin_ok'));
+        }
+
+    }
+    return $app['twig']->render('template/admin/carousel_upload.twig', array(
+        'form'=>$form->createView(),
+    ));
+}, 'GET|POST');
 
 $app->get('/admin/user', function() use ($app){
 
@@ -648,7 +662,7 @@ $app->match('/admin/newsletter/create', function(Request $request) use ($app){
         ->add('subject','text',array(
         'label'=>'Sujet',
         'required'=>true,
-        'attr' => array('placeholder' => 'Sujet de la newsletter'),
+        'attr' => array('placeholder' => 'Sujet de la newsletter','class'=>'span10'),
         'constraints'=>array(
             new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
         )
@@ -657,6 +671,7 @@ $app->match('/admin/newsletter/create', function(Request $request) use ($app){
         'label'=>'Contenu',
         'required'=>true,
         'data' => 'Votre news',
+        'attr' => array('class'=>'span10'),
         'constraints'=>array(
             new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
         )
@@ -686,6 +701,26 @@ $app->match('/admin/newsletter/create', function(Request $request) use ($app){
         'form'=>$form->createView(),
     ));
 })->bind('form_newsletter_create');
+
+
+
+$app->get('/admin/menu', function() use ($app){
+    return $app['twig']->render('template/admin/menu.twig', array(
+    ));
+});
+
+
+$app->get('/admin/login', function() use ($app){
+    return $app['twig']->render('template/admin/login.twig', array(
+    ));
+});
+
+$app->get('/admin/logout', function() use ($app){
+    return $app['twig']->render('template/admin/logout.twig', array(
+    ));
+});
+
+
 
 $app->get('/admin/ok', function() use ($app){
     return $app['twig']->render('template/admin/ok.twig', array(
