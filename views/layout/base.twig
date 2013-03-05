@@ -58,6 +58,7 @@
                     <li><div class="menu"  ><a herf="#" id="menu_4" class="menu_title" > ESPACE CLIENT  </a></div></li>
                 </ul>
             </nav>
+            {% block slide %}
             <div id="news">
                <div id="news_content">
                     {{description|raw}}
@@ -70,6 +71,7 @@
                     {% endfor %}
                 </div>
             </div>
+            {% endblock %}
             <div id="container">
                 {%block article%}
                 {%endblock%}
