@@ -109,7 +109,7 @@ $app->get('/admin', function() use ($app){
         'conf'=>$conf,
         'nbArticle'=>$nbArticle,
     ));
-});
+})->bind('index_admin');
 
 $app->match('/admin/accueil', function(Request $request) use ($app){
 
@@ -279,7 +279,7 @@ $app->match('/admin/news/create', function(Request $request) use ($app){
             $articleDe->setLang('de');
             $articleDe->save();
 
-            /*return $app->redirect($app['url_generator']->generate('admin_ok'));*/
+            return $app->redirect($app['url_generator']->generate('admin_ok'));
 
         }
 
@@ -716,10 +716,56 @@ $app->get('/admin/menu', function() use ($app){
 });
 
 
-$app->get('/admin/login', function() use ($app){
+$app->match('/admin/login', function(Request $request) use ($app){
+    //Création du formulaire
+    $form = $app['form.factory']->createBuilder('form')
+        ->add('email','email',array(
+        'label'=>' ',
+        'required'=>true,
+        'attr' => array('placeholder' => 'Adresse mail','class'=>'input-block-level'),
+        'constraints'=>array(
+            new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
+        )
+    ))
+        ->add('password','password',array(
+        'label'=>' ',
+        'required'=>true,
+        'attr' => array('placeholder' => 'Votre mot de passe','class'=>'input-block-level'),
+        'constraints'=>array(
+            new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
+        )
+    ))
+        ->getForm();
+
+    if('POST'==$request->getMethod()){
+        $form->bind($request);
+
+        if($form->isValid()){
+            //Récuperation des données du formulaire
+            $data = $form->getData();
+
+            //Création d'un nouvel objet administrateur
+            $user = AdminQuery::create()
+                ->filterByEmail($data['email'])
+                ->filterByPassword(md5($data['password']))
+                ->find();
+
+            if($user->isEmpty()){
+                return $app->redirect($app['url_generator']->generate('form_login_admin'));
+            }
+            else{
+                return $app->redirect($app['url_generator']->generate('index_admin'));
+            }
+        }
+
+    }
+
+    //Si la requete renvois un résultat, on authorise la connexion.
+
     return $app['twig']->render('template/admin/login.twig', array(
+        'form'=>$form->createView(),
     ));
-});
+})->bind('form_login_admin');
 
 $app->get('/admin/logout', function() use ($app){
     return $app['twig']->render('template/admin/logout.twig', array(

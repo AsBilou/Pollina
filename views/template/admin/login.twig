@@ -1,0 +1,8 @@
+{% extends 'layout/admin.base.twig' %}
+{% block content %}
+    <form class="form-signin" action="{{ path('form_login_admin') }}" method="post">
+        <legend class="form-signin-heading">Connectez-vous</legend>
+        {{ form_widget(form) }}
+        <button class="btn btn-large btn-primary" type="submit">Connexion</button>
+    </form>
+{% endblock %}
