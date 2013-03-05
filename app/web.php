@@ -13,12 +13,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 $app = require __DIR__.'/bootstrap.php';
 
-/*$app->get('/', function(Request $request) use ($app){
-    echo '<pre>';
-    print_r($request->get('_route'));
-    echo '</pre>';
-    //return $app->redirect($app.request.basepath.'web/fr/');
-});*/
+$app->boot();
+
+$app->get('/',function() use ($app){
+    return $app->redirect('fr/');
+});
 
 $app->get('/{lang}/', function($lang) use ($app){
     //Recuperation du menu
