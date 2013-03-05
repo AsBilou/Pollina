@@ -3,8 +3,13 @@
 
 {% endblock %}
 {% block content %}
-    <h2>Téléversement d'image</h2>
-    <div id="html4_uploader">You browser doesn't support simple upload forms. Are you using Lynx?</div>
+    <form action="" method="post" {{ form_enctype(form) }}>
+        <fieldset>
+            <legend>Téléversement d'une image</legend>
+            {{ form_widget(form) }}
+        </fieldset>
+        <input type="submit" name="Upload File" />
+    </form>
 {% endblock %}
 {% block javascript %}
     <script type="text/javascript">

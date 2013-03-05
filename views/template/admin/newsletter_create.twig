@@ -1,6 +1,6 @@
 {% extends 'layout/admin.base.twig' %}
 {% block content %}
-    <h2>Création d'une nouvelle newsletter</h2>
+    <legend>Création d'une nouvelle newsletter</legend>
     <form id="form" novalidate action="{{ path('form_newsletter_create') }}" method="post">
         {{ form_widget(form) }}
         <input class="btn btn-success" value="Envoyer" type="submit">

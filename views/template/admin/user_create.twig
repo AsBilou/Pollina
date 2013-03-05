@@ -1,6 +1,6 @@
 {% extends 'layout/admin.base.twig' %}
 {% block content %}
-    <h2>Création d'un nouvel administrateur</h2>
+    <legend>Création d'un nouvel administrateur</legend>
     <form id="formFr" novalidate action="{{ path('form_user_create') }}" method="post">
         {{ form_widget(form) }}
     <input class="btn btn-success" value="Ajouter" type="submit">

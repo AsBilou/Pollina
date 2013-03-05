@@ -1,6 +1,6 @@
 {% extends 'layout/admin.base.twig' %}
 {% block content %}
-    <h2>Création d'un nouvel article</h2>
+    <legend>Création d'un nouvel article</legend>
     <form class="span5" id="formFr" novalidate action="{{ path('form_news_create') }}" method="post">
         {{ form_widget(form) }}
         <input class="btn btn-success" value="Ajouter" type="submit">

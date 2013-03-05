@@ -1,6 +1,6 @@
 {% extends 'layout/admin.base.twig' %}
 {% block content %}
-    <h2>Information de l'entreprise</h2>
+    <legend>Information de l'entreprise</legend>
     <form novalidate action="{{ path('form_conf') }}" method="post">
         {{ form_widget(form) }}
         <input type="submit" name="submit" />
