@@ -5,11 +5,13 @@
 		<meta charset="utf-8">
 		<title>Pollina</title>
         <link rel="stylesheet" type="text/css" media="screen" href="{{app.request.basepath}}/css/style.css" />
-	</head>
-	<body>
+	    {% block stylesheet %}
+        {% endblock %}
+    </head>
+	<body onload="initialize()">
         <div id="content">
-            <header id="header">
-                        <div id="img_header" >dd </div>
+            <div id="header">
+                        <div id="img_header" > </div>
                         <div id="menu_lang">
                             <a href="{{app.request.basepath}}/fr/" id="lang_fr" ><!--<img src="{{app.request.basepath}}/img/fr_false.png" alt=""  />--></a>
                             <a href="{{app.request.basepath}}/en/" id="lang_en" ><!--<img src="{{app.request.basepath}}/img/en_false.png" alt=""  />--></a>
@@ -21,11 +23,13 @@
                         <div id="g-plus">
                             <div  class="g-plusone" data-size="tall"></div>
                         </div>
-            </header>
+            </div>
+            {% block nav %}
             <nav id="nav_article" >
                 <div id="prev_article" ></div>
                 <div id="next_article" ></div>
             </nav>
+            {% endblock %}
             <nav id="menu">
                 <ul id="ul_menu">
                     <li><div class="menu"  ><a herf="#" id="menu_1" class="menu_title" > L'ENTREPRISE </a></div></li>
@@ -54,7 +58,7 @@
                            </ul>
                        </div>
                     </li>
-                    <li><div class="menu"  ><a herf="#" id="menu_3" class="menu_title" > CONTACT  </a></div></li>
+                    <li><div class="menu"  ><a herf="{{ path('nous_contactez') }}" id="menu_3" class="menu_title" > CONTACT  </a></div></li>
                     <li><div class="menu"  ><a herf="#" id="menu_4" class="menu_title" > ESPACE CLIENT  </a></div></li>
                 </ul>
             </nav>
@@ -72,13 +76,12 @@
                 </div>
             </div>
             {% endblock %}
-            <div id="container">
-                {%block article%}
-                {%endblock%}
-            </div>
-            <footer id="footer">
+            {%block article%}
+
+            {%endblock%}
+            <div id="footer">
                 <div id="img_footer" >
-                    <nav id="menu_footer"> L'entreprise - Nos métiers - Espace Client - Mentions légales - Plan du site - Contact</nav>
+                    <nav id="menu_footer"> L'entreprise - Nos métiers - Espace Client - <a href="{{ path('mention_legal') }}">Mentions légales</a> - Plan du site - <a href="{{ path('nous_contactez') }}">Contact</a></nav>
                     <div id="info_footer">
                         {{adresse}}<br />
                         {{CP}} {{city}}<br />
@@ -103,7 +106,7 @@
                         <button type="submit" ></button>
                     </div>
                 </div>
-            </footer>
+            </div>
       </div>
 		<script type="text/javascript" src="{{app.request.basepath}}/js/jquery.js"></script>
                 <script type="text/javascript" src="{{app.request.basepath}}/js/jqFancyTransitions.1.8.js" ></script>
@@ -111,5 +114,7 @@
                 <script type="text/javascript" src="https://apis.google.com/js/plusone.js">
                     {lang: 'fr'}
         </script>
+        {% block javascript %}
+        {% endblock %}
 	</body>
 </html>

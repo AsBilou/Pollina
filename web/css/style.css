@@ -21,7 +21,7 @@ html, body {
     height:1480px;
     padding:0;
     font-size: 1.2em;
-    background-color: white;
+    background-color: #252525;
     font-family: FengardoNeue_Regular, sans-serif;
     font-size: 13px;
 }
@@ -461,6 +461,54 @@ body {
 /* fix ie6 small issue */
 /* we should always avoid using hack like this */
 /* should put it into separate file : ) */
-        .sous_menu ul {
+.sous_menu ul {
     margin:0 0 0 -2px;
+}
+
+.page{
+    width: 96%;
+    height: 610px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 2%;
+    padding-right: 2%;
+    margin-top: 510px;
+    float: left;
+    overflow: scroll;
+    background-color: #DDDDDD;
+}
+
+.contact{
+    margin-top: 510px;
+    margin-left: 210px;
+    float: left;
+    width: 890px;
+    height: 424px;
+    padding-bottom: 100px;
+    padding-top: 100px;
+    padding-left: 300px;
+    -webkit-border-radius: 312px 0px 0px 312px;
+    border-radius: 312px 0px 0px 312px;
+    background-color: #d3d3d3;
+}
+
+.left{
+    float: left;
+    height: 100%;
+    padding-right: 5%;
+    border-right: dotted 1px #000000;
+    width: 44%;
+}
+
+.right{
+    float: left;
+    height: 95%;
+    width: 45%;
+    padding-left: 5%;
+    padding-top: 5%;
+}
+
+#map_canvas{
+    height: 80%;
+    width: 80%;
 }

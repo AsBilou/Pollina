@@ -9,7 +9,6 @@
 
 use Symfony\Component\HttpFoundation\Response;
 
-
 $app->get('/',function() use ($app){
     return $app->redirect('fr/');
 });
@@ -73,26 +72,29 @@ $app->get('/{lang}/', function($lang) use ($app){
     ));
 });
 
-$app->get('/{lang}/article', function($lang) use ($app){
+$app->get('/contact', function() use ($app){
 
-    return $app['twig']->render('template/site/article.twig', array(
-        'lang'=>$lang,
-    ));
-});
+    //Récuperation des information
+    $conf = ConfigurationQuery::create()
+        ->find();
 
-$app->get('/{lang}/article/{id}', function($id,$lang) use ($app){
+    //Recuperation du menu
+    $menus = MenuQuery::create()
+        ->find();
 
-    return $app['twig']->render('template/site/article_detail.twig', array(
-        'id_article'=>$id,
-        'lang'=>$lang,
-    ));
-});
-
-$app->get('/{lang}/contact', function($lang) use ($app){
     return $app['twig']->render('template/site/contact.twig', array(
-        'lang'=>$lang,
+        'menus'=>$menus,
+        'adresse'=>$conf->get(0)->getValue(),
+        'CP'=>$conf->get(1)->getValue(),
+        'city'=>$conf->get(2)->getValue(),
+        'phone'=>$conf->get(3)->getValue(),
+        'fax'=>$conf->get(4)->getValue(),
+        'facebook'=>$conf->get(5)->getValue(),
+        'twitter'=>$conf->get(6)->getValue(),
+        'gplus'=>$conf->get(7)->getValue(),
+        'rss'=>$conf->get(8)->getValue(),
     ));
-});
+})->bind('nous_contactez');
 
 $app->get('/404', function() use ($app){
     return $app['twig']->render('template/site/404.twig', array(

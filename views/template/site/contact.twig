@@ -1,0 +1,59 @@
+{%extends "layout/base.twig" %}
+{% block stylesheet %}
+    <style type="text/css">
+
+    </style>
+    <script type="text/javascript">
+        function initialize() {
+            var mapOptions = {
+                center: new google.maps.LatLng(46.46,-1.2),
+                zoom: 10,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("map_canvas"),
+                    mapOptions);
+            var myLatlng = new google.maps.LatLng(46.464468,-1.219482);
+
+            var marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+                title:"Notre magasin"
+            });
+        }
+    </script>
+{% endblock %}
+{% block nav %}
+
+{% endblock %}
+{% block slide %}
+
+{% endblock %}
+{%block article%}
+    <div class="contact">
+        <div class="left">
+            <h3>Nous contacter</h3>
+            <p>Vous pouvez nous conacter directement par mail en remplissant le formulaire ci-dessous ou alors nous contacter au coordonée ci-apres</p>
+            <form action="mailto:contact@pollina.fr" enctype="text/plain" method="post">
+                <label for="nom">Nom</label>
+                <input id="nom" name="nom" type="text"><br>
+                <label for="sujet">Sujet</label>
+                <input id="sujet" type="text"><br>
+                <textarea rows="5" style="width: 200px;" id="message"></textarea><br>
+                <input type="submit" >
+            </form>
+            <h3>Notre adresse</h3>
+            <p>{{ adresse }}</p>
+            <p>{{ city }}</p>
+            <p>tel : {{ phone }}</p>
+            <p>fax : {{ fax }}</p>
+        </div>
+        <div class="right">
+            <div id="map_canvas" ></div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascript %}
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUnySk_RrXfFASmIGoCuh1u65URbTeT9s&sensor=false">
+    </script>
+{% endblock %}
