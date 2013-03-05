@@ -54,7 +54,7 @@ $app->get('/{lang}/', function($lang) use ($app){
     $carousel = $conf->get(9)->getValue();
     $carousel = explode(',',$carousel);
 
-    return $app['twig']->render('template/home.twig', array(
+    return $app['twig']->render('template/site/home.twig', array(
         'menus'=>$menus,
         'lang'=>$lang,
         'adresse'=>$conf->get(0)->getValue(),
@@ -75,29 +75,52 @@ $app->get('/{lang}/', function($lang) use ($app){
 
 $app->get('/{lang}/article', function($lang) use ($app){
 
-    return $app['twig']->render('template/article.twig', array(
+    return $app['twig']->render('template/site/article.twig', array(
         'lang'=>$lang,
     ));
 });
 
 $app->get('/{lang}/article/{id}', function($id,$lang) use ($app){
 
-    return $app['twig']->render('template/article_detail.twig', array(
+    return $app['twig']->render('template/site/article_detail.twig', array(
         'id_article'=>$id,
         'lang'=>$lang,
     ));
 });
 
 $app->get('/{lang}/contact', function($lang) use ($app){
-    return $app['twig']->render('template/contact.twig', array(
+    return $app['twig']->render('template/site/contact.twig', array(
         'lang'=>$lang,
     ));
 });
 
 $app->get('/404', function() use ($app){
-    return $app['twig']->render('template/404.twig', array(
+    return $app['twig']->render('template/site/404.twig', array(
     ));
 });
+
+$app->get('/mention/legal', function() use ($app){
+    //Récuperation des information
+    $conf = ConfigurationQuery::create()
+        ->find();
+
+    //Recuperation du menu
+    $menus = MenuQuery::create()
+        ->find();
+
+    return $app['twig']->render('template/site/mention.twig', array(
+        'menus'=>$menus,
+        'adresse'=>$conf->get(0)->getValue(),
+        'CP'=>$conf->get(1)->getValue(),
+        'city'=>$conf->get(2)->getValue(),
+        'phone'=>$conf->get(3)->getValue(),
+        'fax'=>$conf->get(4)->getValue(),
+        'facebook'=>$conf->get(5)->getValue(),
+        'twitter'=>$conf->get(6)->getValue(),
+        'gplus'=>$conf->get(7)->getValue(),
+        'rss'=>$conf->get(8)->getValue(),
+    ));
+})->bind('mention_legal');
 
 $app->error(function (\Exception $e, $code) use ($app) {
     if($app['debug']) {
