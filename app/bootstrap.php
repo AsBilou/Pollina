@@ -35,6 +35,23 @@ $app->register(new Silex\Provider\FormServiceProvider());
 $app->register(new Silex\Provider\ValidatorServiceProvider());
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 
+//Mise en route des sessions
+$app->register(new Silex\Provider\SessionServiceProvider());
+
+//Mise en route de la sécurité
+$app->register(new Silex\Provider\SecurityServiceProvider(), array(
+    'security.firewalls' => array(
+        'admin' => array(
+            'pattern' => '^/admin',
+            'http' => true,
+            'form' => array('login_path' => '/login', 'check_path' => '/admin/login_check'),
+            'users' => array(
+                'admin' => array('ROLE_ADMIN', '5FZ2Z8QIkA7UTZ4BYkoC+GsReLf569mSKDsfods6LYQ8t+a8EW9oaircfMpmaLbPBh4FOBiiFyLfuZmTSUwzZg=='),
+            ),
+            'logout' => array('logout_path' => '/admin/logout',),
+        ),
+    )));
+
 return $app;
 
 ?>
