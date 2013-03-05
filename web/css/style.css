@@ -500,6 +500,10 @@ body {
     width: 44%;
 }
 
+#message{
+    width: 100%;
+}
+
 .right{
     float: left;
     height: 95%;
