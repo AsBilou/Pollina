@@ -10,11 +10,13 @@
  * @method AdminQuery orderByLogin($order = Criteria::ASC) Order by the login column
  * @method AdminQuery orderByPassword($order = Criteria::ASC) Order by the password column
  * @method AdminQuery orderByEmail($order = Criteria::ASC) Order by the email column
+ * @method AdminQuery orderByRole($order = Criteria::ASC) Order by the role column
  *
  * @method AdminQuery groupById() Group by the id column
  * @method AdminQuery groupByLogin() Group by the login column
  * @method AdminQuery groupByPassword() Group by the password column
  * @method AdminQuery groupByEmail() Group by the email column
+ * @method AdminQuery groupByRole() Group by the role column
  *
  * @method AdminQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method AdminQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -26,11 +28,13 @@
  * @method Admin findOneByLogin(string $login) Return the first Admin filtered by the login column
  * @method Admin findOneByPassword(string $password) Return the first Admin filtered by the password column
  * @method Admin findOneByEmail(string $email) Return the first Admin filtered by the email column
+ * @method Admin findOneByRole(string $role) Return the first Admin filtered by the role column
  *
  * @method array findById(int $id) Return Admin objects filtered by the id column
  * @method array findByLogin(string $login) Return Admin objects filtered by the login column
  * @method array findByPassword(string $password) Return Admin objects filtered by the password column
  * @method array findByEmail(string $email) Return Admin objects filtered by the email column
+ * @method array findByRole(string $role) Return Admin objects filtered by the role column
  *
  * @package    propel.generator.pollina.om
  */
@@ -134,7 +138,7 @@ abstract class BaseAdminQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT `id`, `login`, `password`, `email` FROM `admin` WHERE `id` = :p0';
+        $sql = 'SELECT `id`, `login`, `password`, `email`, `role` FROM `admin` WHERE `id` = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -350,6 +354,35 @@ abstract class BaseAdminQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(AdminPeer::EMAIL, $email, $comparison);
+    }
+
+    /**
+     * Filter the query on the role column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByRole('fooValue');   // WHERE role = 'fooValue'
+     * $query->filterByRole('%fooValue%'); // WHERE role LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $role The value to use as filter.
+     *              Accepts wildcards (* and % trigger a LIKE)
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return AdminQuery The current query, for fluid interface
+     */
+    public function filterByRole($role = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($role)) {
+                $comparison = Criteria::IN;
+            } elseif (preg_match('/[\%\*]/', $role)) {
+                $role = str_replace('*', '%', $role);
+                $comparison = Criteria::LIKE;
+            }
+        }
+
+        return $this->addUsingAlias(AdminPeer::ROLE, $role, $comparison);
     }
 
     /**

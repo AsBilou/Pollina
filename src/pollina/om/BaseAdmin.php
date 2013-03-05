@@ -54,6 +54,12 @@ abstract class BaseAdmin extends BaseObject implements Persistent
     protected $email;
 
     /**
+     * The value for the role field.
+     * @var        string
+     */
+    protected $role;
+
+    /**
      * Flag to prevent endless save loop, if this object is referenced
      * by another object which falls in this transaction.
      * @var        boolean
@@ -111,6 +117,16 @@ abstract class BaseAdmin extends BaseObject implements Persistent
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * Get the [role] column value.
+     *
+     * @return string
+     */
+    public function getRole()
+    {
+        return $this->role;
     }
 
     /**
@@ -198,6 +214,27 @@ abstract class BaseAdmin extends BaseObject implements Persistent
     } // setEmail()
 
     /**
+     * Set the value of [role] column.
+     *
+     * @param string $v new value
+     * @return Admin The current object (for fluent API support)
+     */
+    public function setRole($v)
+    {
+        if ($v !== null && is_numeric($v)) {
+            $v = (string) $v;
+        }
+
+        if ($this->role !== $v) {
+            $this->role = $v;
+            $this->modifiedColumns[] = AdminPeer::ROLE;
+        }
+
+
+        return $this;
+    } // setRole()
+
+    /**
      * Indicates whether the columns in this object are only set to default values.
      *
      * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -233,6 +270,7 @@ abstract class BaseAdmin extends BaseObject implements Persistent
             $this->login = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
             $this->password = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
             $this->email = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
+            $this->role = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -241,7 +279,7 @@ abstract class BaseAdmin extends BaseObject implements Persistent
                 $this->ensureConsistency();
             }
             $this->postHydrate($row, $startcol, $rehydrate);
-            return $startcol + 4; // 4 = AdminPeer::NUM_HYDRATE_COLUMNS.
+            return $startcol + 5; // 5 = AdminPeer::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException("Error populating Admin object", $e);
@@ -465,6 +503,9 @@ abstract class BaseAdmin extends BaseObject implements Persistent
         if ($this->isColumnModified(AdminPeer::EMAIL)) {
             $modifiedColumns[':p' . $index++]  = '`email`';
         }
+        if ($this->isColumnModified(AdminPeer::ROLE)) {
+            $modifiedColumns[':p' . $index++]  = '`role`';
+        }
 
         $sql = sprintf(
             'INSERT INTO `admin` (%s) VALUES (%s)',
@@ -487,6 +528,9 @@ abstract class BaseAdmin extends BaseObject implements Persistent
                         break;
                     case '`email`':
                         $stmt->bindValue($identifier, $this->email, PDO::PARAM_STR);
+                        break;
+                    case '`role`':
+                        $stmt->bindValue($identifier, $this->role, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -634,6 +678,9 @@ abstract class BaseAdmin extends BaseObject implements Persistent
             case 3:
                 return $this->getEmail();
                 break;
+            case 4:
+                return $this->getRole();
+                break;
             default:
                 return null;
                 break;
@@ -666,6 +713,7 @@ abstract class BaseAdmin extends BaseObject implements Persistent
             $keys[1] => $this->getLogin(),
             $keys[2] => $this->getPassword(),
             $keys[3] => $this->getEmail(),
+            $keys[4] => $this->getRole(),
         );
 
         return $result;
@@ -712,6 +760,9 @@ abstract class BaseAdmin extends BaseObject implements Persistent
             case 3:
                 $this->setEmail($value);
                 break;
+            case 4:
+                $this->setRole($value);
+                break;
         } // switch()
     }
 
@@ -740,6 +791,7 @@ abstract class BaseAdmin extends BaseObject implements Persistent
         if (array_key_exists($keys[1], $arr)) $this->setLogin($arr[$keys[1]]);
         if (array_key_exists($keys[2], $arr)) $this->setPassword($arr[$keys[2]]);
         if (array_key_exists($keys[3], $arr)) $this->setEmail($arr[$keys[3]]);
+        if (array_key_exists($keys[4], $arr)) $this->setRole($arr[$keys[4]]);
     }
 
     /**
@@ -755,6 +807,7 @@ abstract class BaseAdmin extends BaseObject implements Persistent
         if ($this->isColumnModified(AdminPeer::LOGIN)) $criteria->add(AdminPeer::LOGIN, $this->login);
         if ($this->isColumnModified(AdminPeer::PASSWORD)) $criteria->add(AdminPeer::PASSWORD, $this->password);
         if ($this->isColumnModified(AdminPeer::EMAIL)) $criteria->add(AdminPeer::EMAIL, $this->email);
+        if ($this->isColumnModified(AdminPeer::ROLE)) $criteria->add(AdminPeer::ROLE, $this->role);
 
         return $criteria;
     }
@@ -821,6 +874,7 @@ abstract class BaseAdmin extends BaseObject implements Persistent
         $copyObj->setLogin($this->getLogin());
         $copyObj->setPassword($this->getPassword());
         $copyObj->setEmail($this->getEmail());
+        $copyObj->setRole($this->getRole());
         if ($makeNew) {
             $copyObj->setNew(true);
             $copyObj->setId(NULL); // this is a auto-increment column, so set to default value
@@ -876,6 +930,7 @@ abstract class BaseAdmin extends BaseObject implements Persistent
         $this->login = null;
         $this->password = null;
         $this->email = null;
+        $this->role = null;
         $this->alreadyInSave = false;
         $this->alreadyInValidation = false;
         $this->alreadyInClearAllReferencesDeep = false;

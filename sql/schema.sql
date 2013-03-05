@@ -28,8 +28,9 @@ CREATE TABLE `admin`
 (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `login` VARCHAR(45) NOT NULL,
-    `password` VARCHAR(45) NOT NULL,
-    `email` VARCHAR(100),
+    `password` VARCHAR(100) NOT NULL,
+    `email` VARCHAR(100) NOT NULL,
+    `role` VARCHAR(45) NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE=MyISAM;
 

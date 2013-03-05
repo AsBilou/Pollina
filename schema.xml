@@ -9,8 +9,9 @@
     <table name="admin" phpName="Admin">
         <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
         <column name="login" type="varchar" size="45" required="true" />
-        <column name="password" type="varchar" size="45" required="true" />
-        <column name="email" type="varchar" size="100"/>
+        <column name="password" type="varchar" size="100" required="true" />
+        <column name="email" type="varchar" size="100" required="true"/>
+        <column name="role" type="varchar" size="45" required="true" />
     </table>
     <table name="newsletter" phpName="Newsletter">
         <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>

@@ -24,13 +24,13 @@ abstract class BaseAdminPeer
     const TM_CLASS = 'AdminTableMap';
 
     /** The total number of columns. */
-    const NUM_COLUMNS = 4;
+    const NUM_COLUMNS = 5;
 
     /** The number of lazy-loaded columns. */
     const NUM_LAZY_LOAD_COLUMNS = 0;
 
     /** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-    const NUM_HYDRATE_COLUMNS = 4;
+    const NUM_HYDRATE_COLUMNS = 5;
 
     /** the column name for the id field */
     const ID = 'admin.id';
@@ -43,6 +43,9 @@ abstract class BaseAdminPeer
 
     /** the column name for the email field */
     const EMAIL = 'admin.email';
+
+    /** the column name for the role field */
+    const ROLE = 'admin.role';
 
     /** The default string format for model objects of the related table **/
     const DEFAULT_STRING_FORMAT = 'YAML';
@@ -63,12 +66,12 @@ abstract class BaseAdminPeer
      * e.g. AdminPeer::$fieldNames[AdminPeer::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('Id', 'Login', 'Password', 'Email', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'login', 'password', 'email', ),
-        BasePeer::TYPE_COLNAME => array (AdminPeer::ID, AdminPeer::LOGIN, AdminPeer::PASSWORD, AdminPeer::EMAIL, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID', 'LOGIN', 'PASSWORD', 'EMAIL', ),
-        BasePeer::TYPE_FIELDNAME => array ('id', 'login', 'password', 'email', ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
+        BasePeer::TYPE_PHPNAME => array ('Id', 'Login', 'Password', 'Email', 'Role', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'login', 'password', 'email', 'role', ),
+        BasePeer::TYPE_COLNAME => array (AdminPeer::ID, AdminPeer::LOGIN, AdminPeer::PASSWORD, AdminPeer::EMAIL, AdminPeer::ROLE, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID', 'LOGIN', 'PASSWORD', 'EMAIL', 'ROLE', ),
+        BasePeer::TYPE_FIELDNAME => array ('id', 'login', 'password', 'email', 'role', ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
     );
 
     /**
@@ -78,12 +81,12 @@ abstract class BaseAdminPeer
      * e.g. AdminPeer::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Login' => 1, 'Password' => 2, 'Email' => 3, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'login' => 1, 'password' => 2, 'email' => 3, ),
-        BasePeer::TYPE_COLNAME => array (AdminPeer::ID => 0, AdminPeer::LOGIN => 1, AdminPeer::PASSWORD => 2, AdminPeer::EMAIL => 3, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'LOGIN' => 1, 'PASSWORD' => 2, 'EMAIL' => 3, ),
-        BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'login' => 1, 'password' => 2, 'email' => 3, ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
+        BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Login' => 1, 'Password' => 2, 'Email' => 3, 'Role' => 4, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'login' => 1, 'password' => 2, 'email' => 3, 'role' => 4, ),
+        BasePeer::TYPE_COLNAME => array (AdminPeer::ID => 0, AdminPeer::LOGIN => 1, AdminPeer::PASSWORD => 2, AdminPeer::EMAIL => 3, AdminPeer::ROLE => 4, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'LOGIN' => 1, 'PASSWORD' => 2, 'EMAIL' => 3, 'ROLE' => 4, ),
+        BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'login' => 1, 'password' => 2, 'email' => 3, 'role' => 4, ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
     );
 
     /**
@@ -161,11 +164,13 @@ abstract class BaseAdminPeer
             $criteria->addSelectColumn(AdminPeer::LOGIN);
             $criteria->addSelectColumn(AdminPeer::PASSWORD);
             $criteria->addSelectColumn(AdminPeer::EMAIL);
+            $criteria->addSelectColumn(AdminPeer::ROLE);
         } else {
             $criteria->addSelectColumn($alias . '.id');
             $criteria->addSelectColumn($alias . '.login');
             $criteria->addSelectColumn($alias . '.password');
             $criteria->addSelectColumn($alias . '.email');
+            $criteria->addSelectColumn($alias . '.role');
         }
     }
 
