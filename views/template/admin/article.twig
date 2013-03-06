@@ -4,7 +4,7 @@
     {% for article in articles %}
         <div class="well">
         <h4>Article {{ article.id }}</h4>
-        <h6>Langue : {{ article.lang }}</h6>
+        <h6>Langue : {{ article.lang|upper }}</h6>
         {{ article.contenu|raw}}
         <div class="clearfix"></div>
         <a class="btn btn-warning" href="{{ app.request.basepath }}/admin/news/edit/{{ article.id }}/{{ article.lang }}">Editer</a>

@@ -232,7 +232,7 @@ $app->match('/admin/news/edit/{id}/{lang}', function(Request $request,$id,$lang)
         )
     ))
         ->add('contenu','textarea',array(
-        'label'=>'Version Française',
+        'label'=>'Version '.strtoupper($lang),
         'required'=>true,
         'data' => $article->get(0)->getContenu(),
         'attr' => array('class'=>'span10'),
