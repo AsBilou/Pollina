@@ -146,32 +146,32 @@ $app->match('/admin/news/create', function(Request $request) use ($app){
         'attr' => array('class'=>'span10'),
         'constraints'=>array(
             new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
-        )
-    ))
+            )
+        ))
         ->add('content_fr','textarea',array(
         'label'=>'Article en Français.',
         'required'=>true,
         'attr' => array('class'=>'span10'),
         'constraints'=>array(
             new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
-        )
-    ))
+            )
+        ))
         ->add('content_en','textarea',array(
         'label'=>'Article en Anglais.',
         'required'=>true,
         'attr' => array('class'=>'span10'),
         'constraints'=>array(
             new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
-        )
-    ))
+            )
+        ))
         ->add('content_de','textarea',array(
         'label'=>'Article en Allemand.',
         'required'=>true,
         'attr' => array('class'=>'span10'),
         'constraints'=>array(
             new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
-        )
-    ))
+            )
+        ))
         ->getForm();
 
     if('POST'==$request->getMethod()){
