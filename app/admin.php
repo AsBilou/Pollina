@@ -530,19 +530,17 @@ $app->match('/admin/user/create', function(Request $request) use ($app){
         ->add('password','password',array(
         'label'=>'Mot de passe',
         'required'=>true,
-        'attr' => array('placeholder' => '5 caractères minimum'),
+        'attr' => array('placeholder' => 'Mot de passe'),
         'constraints'=>array(
             new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
-            new Assert\Min(5)
         )
     ))
         ->add('verif_pass','password',array(
         'label'=>'Verification',
         'required'=>true,
-        'attr' => array('placeholder' => '5 caractères minimum'),
+        'attr' => array('placeholder' => 'Vérification'),
         'constraints'=>array(
             new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
-            new Assert\Min(5)
         )
     ))
         ->getForm();
@@ -561,10 +559,13 @@ $app->match('/admin/user/create', function(Request $request) use ($app){
 
                 //Création d'un nouvel objet administrateur
                 $admin = new Admin();
+                $admin->setLogin($data['login']);
                 $admin->setEmail($data['email']);
                 $admin->setPassword($password);
-                $admin->setLogin($data['login']);
-                $admin->setRole('ROLE_ADMIN');
+                $role = array();
+                array_push($role,"ROLE_ADMIN");
+                $serializeData = serialize($role);
+                $admin->setRole($serializeData);
                 $admin->save();
                 return $app->redirect($app['url_generator']->generate('admin_ok'));
 
