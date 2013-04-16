@@ -5,7 +5,6 @@ var numarticleMax = $('.article').length;
 $(id).animate({ opacity: '1' }, 500);
 
 $("#next_article").click(function() {
-
         if(numarticle<(numarticleMax-3)){//id 0 + top et foot
                 numarticle++;
                 var id = "#"+numarticle;
@@ -32,6 +31,36 @@ $("#prev_article").click(function() {
         }
 
 });
+
+//espace client bouton voir un devis
+$("#views_quote").click(function() {
+        if(numarticle<(numarticleMax-3)){//id 0 + top et foot
+                numarticle++;
+                var id = "#"+numarticle;
+                var idmoins = "#"+(numarticle-1);
+                $(idmoins).animate({ opacity: '0.05' }, 500,function() {
+                       $(".article").animate({ top: '-=675' }, 500);
+                       $(id).animate({ opacity: '1' }, 500);
+                 });
+        }
+
+});
+//espace client bouton crée un devis
+$("#create_quote").click(function() {
+
+        if(numarticle<(numarticleMax-3)){//id 0 + top et foot
+                numarticle++;
+                var id = "#"+numarticle;
+                var idmoins = "#"+(numarticle-2);
+                $(idmoins).animate({ opacity: '0.05' }, 500,function() {
+                       $(".article").animate({ top: '-=1350' },1000);
+                       $(id).animate({ opacity: '1' }, 500);
+                 });
+        }
+
+});
+
+
                         
 
 $(document).ready( function(){
