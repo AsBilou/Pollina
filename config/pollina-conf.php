@@ -10,8 +10,8 @@ $conf = array (
       'connection' => 
       array (
         'dsn' => 'mysql:host=127.0.0.1;dbname=pollina',
-        'user' => 'root',
-        'password' => 'root',
+        'user' => 'pollina',
+        'password' => 'azerty2305',
       ),
     ),
     'default' => 'pollina',
