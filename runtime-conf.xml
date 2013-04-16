@@ -6,8 +6,8 @@
                 <adapter>mysql</adapter>
                 <connection>
                     <dsn>mysql:host=127.0.0.1;dbname=pollina</dsn>
-                    <user>root</user>
-                    <password>root</password>
+                    <user>pollina</user>
+                    <password>azerty2305</password>
                 </connection>
             </datasource>
         </datasources>

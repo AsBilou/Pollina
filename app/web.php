@@ -96,6 +96,127 @@ $app->get('/contact', function() use ($app){
     ));
 })->bind('nous_contactez');
 
+$app->get('/item_01', function() use ($app){
+
+    //Récuperation des information
+    $conf = ConfigurationQuery::create()
+        ->find();
+
+    //Recuperation du menu
+    $menus = MenuQuery::create()
+        ->find();
+
+    return $app['twig']->render('template/site/item_01.twig', array(
+        'menus'=>$menus,
+        'adresse'=>$conf->get(0)->getValue(),
+        'CP'=>$conf->get(1)->getValue(),
+        'city'=>$conf->get(2)->getValue(),
+        'phone'=>$conf->get(3)->getValue(),
+        'fax'=>$conf->get(4)->getValue(),
+        'facebook'=>$conf->get(5)->getValue(),
+        'twitter'=>$conf->get(6)->getValue(),
+        'gplus'=>$conf->get(7)->getValue(),
+        'rss'=>$conf->get(8)->getValue(),
+    ));
+})->bind('item_01');
+
+$app->get('/entreprise', function() use ($app){
+
+    //Récuperation des information
+    $conf = ConfigurationQuery::create()
+        ->find();
+
+    //Recuperation du menu
+    $menus = MenuQuery::create()
+        ->find();
+
+    return $app['twig']->render('template/site/entreprise.twig', array(
+        'menus'=>$menus,
+        'adresse'=>$conf->get(0)->getValue(),
+        'CP'=>$conf->get(1)->getValue(),
+        'city'=>$conf->get(2)->getValue(),
+        'phone'=>$conf->get(3)->getValue(),
+        'fax'=>$conf->get(4)->getValue(),
+        'facebook'=>$conf->get(5)->getValue(),
+        'twitter'=>$conf->get(6)->getValue(),
+        'gplus'=>$conf->get(7)->getValue(),
+        'rss'=>$conf->get(8)->getValue(),
+    ));
+})->bind('entreprise');
+
+$app->get('/metiers', function() use ($app){
+
+    //Récuperation des information
+    $conf = ConfigurationQuery::create()
+        ->find();
+
+    //Recuperation du menu
+    $menus = MenuQuery::create()
+        ->find();
+
+    return $app['twig']->render('template/site/metiers.twig', array(
+        'menus'=>$menus,
+        'adresse'=>$conf->get(0)->getValue(),
+        'CP'=>$conf->get(1)->getValue(),
+        'city'=>$conf->get(2)->getValue(),
+        'phone'=>$conf->get(3)->getValue(),
+        'fax'=>$conf->get(4)->getValue(),
+        'facebook'=>$conf->get(5)->getValue(),
+        'twitter'=>$conf->get(6)->getValue(),
+        'gplus'=>$conf->get(7)->getValue(),
+        'rss'=>$conf->get(8)->getValue(),
+    ));
+})->bind('metiers');
+
+$app->get('/espace_client', function() use ($app){
+
+    //Récuperation des information
+    $conf = ConfigurationQuery::create()
+        ->find();
+
+    //Recuperation du menu
+    $menus = MenuQuery::create()
+        ->find();
+
+    return $app['twig']->render('template/site/espace_client.twig', array(
+        'menus'=>$menus,
+        'adresse'=>$conf->get(0)->getValue(),
+        'CP'=>$conf->get(1)->getValue(),
+        'city'=>$conf->get(2)->getValue(),
+        'phone'=>$conf->get(3)->getValue(),
+        'fax'=>$conf->get(4)->getValue(),
+        'facebook'=>$conf->get(5)->getValue(),
+        'twitter'=>$conf->get(6)->getValue(),
+        'gplus'=>$conf->get(7)->getValue(),
+        'rss'=>$conf->get(8)->getValue(),
+    ));
+})->bind('espace_client');
+
+$app->get('/plan_site', function() use ($app){
+
+    //Récuperation des information
+    $conf = ConfigurationQuery::create()
+        ->find();
+
+    //Recuperation du menu
+    $menus = MenuQuery::create()
+        ->find();
+
+    return $app['twig']->render('template/site/plan_site.twig', array(
+        'menus'=>$menus,
+        'adresse'=>$conf->get(0)->getValue(),
+        'CP'=>$conf->get(1)->getValue(),
+        'city'=>$conf->get(2)->getValue(),
+        'phone'=>$conf->get(3)->getValue(),
+        'fax'=>$conf->get(4)->getValue(),
+        'facebook'=>$conf->get(5)->getValue(),
+        'twitter'=>$conf->get(6)->getValue(),
+        'gplus'=>$conf->get(7)->getValue(),
+        'rss'=>$conf->get(8)->getValue(),
+    ));
+})->bind('plan_site');
+
+
 $app->get('/404', function() use ($app){
     return $app['twig']->render('template/site/404.twig', array(
     ));

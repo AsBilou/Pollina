@@ -247,7 +247,7 @@
 			'opacity'	: 0.7,
 			'background-image' : 'url(/Pollina/web/img/slide_next.png)',
 			'height'	:'49px',
-			'width'	:'24px'
+			'width'	:'23px'
 		}).click( function(e){
 			e.preventDefault();
 			$.transition(el);
