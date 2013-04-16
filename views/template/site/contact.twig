@@ -25,9 +25,7 @@
 {% block nav %}
 
 {% endblock %}
-{% block slide %}
 
-{% endblock %}
 {%block article%}
     <div class="contact">
         <div class="left">
@@ -41,14 +39,13 @@
                 <textarea rows="6" name="message" id="message"></textarea><br>
                 <input type="submit" >
             </form>
-            <h3>Notre adresse</h3>
-            <p>{{ adresse }}</p>
-            <p>{{ city }}</p>
-            <p>tel : {{ phone }}</p>
-            <p>fax : {{ fax }}</p>
         </div>
         <div class="right">
             <div id="map_canvas" ></div>
+        </div>
+        <div style="text-align: center;">
+            <h3>Notre adresse</h3>
+            {{ adresse }} - {{ city }} -  tel : {{ phone }} - fax : {{ fax }}
         </div>
     </div>
 {% endblock %}

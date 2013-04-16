@@ -200,6 +200,10 @@ a { text-decoration:none; }
     background-image:url(/Pollina/web/img/nav_article.png);
     z-index: 1;
 }
+
+#prev_article:hover,#next_article:hover{
+    cursor: pointer;
+}
 #prev_article{
     width: 100%;
     height: 50%;
@@ -319,9 +323,9 @@ a { text-decoration:none; }
     background-image: url("/Pollina/web/img/input_newsletter.png");
     border:1px;
     font-size: 13px;
-    height: 34px;
+    height: 29px;
     padding-left: 10px;
-    width: 140px;
+    width: 135px;
     float: left;
     color:#C2C2C2;
 }
@@ -363,20 +367,19 @@ a { text-decoration:none; }
 }
 .page a{ color: #777777; }
 
-.contact{
+.contact {
     margin-top: 510px;
-    margin-left: 210px;
+    margin-left: 280px;
     float: left;
-    width: 890px;
-    height: 424px;
-    padding-bottom: 100px;
-    padding-top: 100px;
-    padding-left: 300px;
+    width: 870px;
+    height: 430px;
+    padding-bottom: 130px;
+    padding-top: 50px;
+    padding-left: 250px;
     -webkit-border-radius: 312px 0px 0px 312px;
     border-radius: 312px 0px 0px 312px;
     background-color: #d3d3d3;
 }
-
 .left{
     float: left;
     height: 100%;
@@ -414,7 +417,7 @@ a { text-decoration:none; }
 
 
 #menuContent{
-	width: 100%;
+	width: 64%;
 	margin-top: 341px;
         margin-left: 210px;
 	position: absolute;
@@ -424,7 +427,6 @@ a { text-decoration:none; }
 #sousmenuMetier{
 	position: relative;
 	top:43px;
-	height:41px;
 }
 #menu{
 

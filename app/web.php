@@ -77,10 +77,31 @@ $app->get('/contact', function() use ($app){
     //Récuperation des information
     $conf = ConfigurationQuery::create()
         ->find();
+    
+        //Recuperation de la langue a afficher
+    switch($lang){
+        case 'fr':
+            $langDescription=10;
+            break;
+        case 'en':
+            $langDescription=11;
+            break;
+        case 'de':
+            $langDescription=12;
+            break;
+        default:
+            $langDescription=10;
+            $lang='fr';
+            break;
+    }
 
     //Recuperation du menu
     $menus = MenuQuery::create()
         ->find();
+    
+    //Explode du contenu du carousel
+    $carousel = $conf->get(9)->getValue();
+    $carousel = explode(',',$carousel);
 
     return $app['twig']->render('template/site/contact.twig', array(
         'menus'=>$menus,
@@ -93,6 +114,8 @@ $app->get('/contact', function() use ($app){
         'twitter'=>$conf->get(6)->getValue(),
         'gplus'=>$conf->get(7)->getValue(),
         'rss'=>$conf->get(8)->getValue(),
+        'carousel'=>$carousel,
+        'description'=>$conf->get($langDescription)->getValue(),
     ));
 })->bind('nous_contactez');
 
@@ -170,13 +193,35 @@ $app->get('/metiers', function() use ($app){
 
 $app->get('/espace_client', function() use ($app){
 
-    //Récuperation des information
+ //Récuperation des information
     $conf = ConfigurationQuery::create()
         ->find();
+    
+            //Recuperation de la langue a afficher
+    switch($lang){
+        case 'fr':
+            $langDescription=10;
+            break;
+        case 'en':
+            $langDescription=11;
+            break;
+        case 'de':
+            $langDescription=12;
+            break;
+        default:
+            $langDescription=10;
+            $lang='fr';
+            break;
+    }
+    
 
     //Recuperation du menu
     $menus = MenuQuery::create()
         ->find();
+    
+    //Explode du contenu du carousel
+    $carousel = $conf->get(9)->getValue();
+    $carousel = explode(',',$carousel);
 
     return $app['twig']->render('template/site/espace_client.twig', array(
         'menus'=>$menus,
@@ -189,6 +234,9 @@ $app->get('/espace_client', function() use ($app){
         'twitter'=>$conf->get(6)->getValue(),
         'gplus'=>$conf->get(7)->getValue(),
         'rss'=>$conf->get(8)->getValue(),
+        'carousel'=>$carousel,
+        'description'=>$conf->get($langDescription)->getValue(),
+
     ));
 })->bind('espace_client');
 
