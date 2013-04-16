@@ -57,6 +57,7 @@ body {
     padding-top :6px;
 }
 
+a { text-decoration:none; }
 
 #lang_fr:hover{
     width: 30px;
@@ -160,13 +161,12 @@ body {
 }
                 
 .text_article{
-
     margin-top:130px;
     width: 620px;
     line-height: 22px;
     color: #777777;
-
 }
+.text_article a{ color: #777777; }
 
 .article_left{
     width: 750px;
@@ -209,7 +209,6 @@ body {
     height: 50%;
 }
 #menu {
-
     left: 210px;
     position: absolute;
     top: 340px;
@@ -251,7 +250,6 @@ body {
    padding-top: 13px;
    position: absolute;
    width: 271px;
-
 }
                 
 #menu_1{ background-color: #009EE0;color:white;}
@@ -292,8 +290,8 @@ body {
     z-index: 1;
 }
 #img_header{
-    width:1123px;
-    height:491px;
+    width:1122px;
+    height:490px;
     background-image:url(/Pollina/web/img/header_logo.png);
 }
 
@@ -312,6 +310,7 @@ body {
     font-size: 11px;
     color:white;
 }
+#menu_footer a{ color:white;}
 
 #info_footer{
     float: left;
@@ -387,7 +386,7 @@ body {
     float: right;
     width:1190px;
     height:327px;
-    background-image:url(/Pollina/web/img/footer_logo.png);
+    background-image:url("/Pollina/web/img/footer_logo.png");
 }
 
 .nav {
@@ -474,9 +473,11 @@ body {
     padding-right: 2%;
     margin-top: 510px;
     float: left;
-    overflow: scroll;
+    overflow-y:scroll;
+    overflow-x:hidden;
     background-color: #DDDDDD;
 }
+.page a{ color: #777777; }
 
 .contact{
     margin-top: 510px;
@@ -515,4 +516,12 @@ body {
 #map_canvas{
     height: 80%;
     width: 80%;
+}
+
+#link_logo{
+    top: 90px;
+    left: 170px;
+    position: absolute;
+    height: 180px;
+    width: 430px;
 }

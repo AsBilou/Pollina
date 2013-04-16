@@ -11,7 +11,7 @@
 	<body onload="initialize()">
         <div id="content">
             <div id="header">
-                        <div id="img_header" > </div>
+                <div id="img_header" ><a href="{{app.request.basepath}}"><div id="link_logo" ></div></a> </div>
                         <div id="menu_lang">
                             <a href="{{app.request.basepath}}/fr/" id="lang_fr" ><!--<img src="{{app.request.basepath}}/img/fr_false.png" alt=""  />--></a>
                             <a href="{{app.request.basepath}}/en/" id="lang_en" ><!--<img src="{{app.request.basepath}}/img/en_false.png" alt=""  />--></a>
@@ -32,15 +32,16 @@
             {% endblock %}
             <nav id="menu">
                 <ul id="ul_menu">
-                    <li><div class="menu"  ><a herf="#" id="menu_1" class="menu_title" > L'ENTREPRISE </a></div></li>
+                    <li><div class="menu"  ><a herf="{{ path('entreprise') }}" id="menu_1" class="menu_title" > L'ENTREPRISE </a></div></li>
+                    <!--<li><div class="menu"  ><a herf="" id="menu_1" class="menu_title" > L'ENTREPRISE </a></div></li>-->
                     <li>
-                        <div class="menu"  ><a herf="#" id="menu_2"class="menu_title" > NOS METIERS </a>
+                        <div class="menu"  ><a herf="{{ path('metiers') }}" id="menu_2"class="menu_title" > NOS METIERS </a>
 
                             <ul class="sous_menu" id="sous_menu_2">
 
                                 <li><a href="#">METIER 01</a>
                                        <ul class="sous_sous_menu">
-                                                <li><a href="#">Item 01</a></li>
+                                                <li><a href="{{ path('item_01') }}">Item 01</a></li>
                                                 <li><a href="#">Item 02</a></li>
                                                 <li><a href="#">Item 03</a></li>
                                         </ul>
@@ -59,7 +60,7 @@
                        </div>
                     </li>
                     <li><div class="menu"  ><a herf="{{ path('nous_contactez') }}" id="menu_3" class="menu_title" > CONTACT  </a></div></li>
-                    <li><div class="menu"  ><a herf="#" id="menu_4" class="menu_title" > ESPACE CLIENT  </a></div></li>
+                    <li><div class="menu"  ><a herf="{{ path('espace_client') }}" id="menu_4" class="menu_title" > ESPACE CLIENT </a></div></li>
                 </ul>
             </nav>
             {% block slide %}
@@ -81,7 +82,7 @@
             {%endblock%}
             <div id="footer">
                 <div id="img_footer" >
-                    <nav id="menu_footer"> L'entreprise - Nos métiers - Espace Client - <a href="{{ path('mention_legal') }}">Mentions légales</a> - Plan du site - <a href="{{ path('nous_contactez') }}">Contact</a></nav>
+                    <nav id="menu_footer"> <a href="{{ path('entreprise') }}">L'entreprise</a> - <a href="{{ path('metiers') }}">Nos métiers</a> - <a href="{{ path('espace_client') }}">Espace Client</a> - <a href="{{ path('mention_legal') }}">Mentions légales</a> - <a href="{{ path('plan_site') }}">Plan du site</a> - <a href="{{ path('nous_contactez') }}">Contact</a></nav>
                     <div id="info_footer">
                         {{adresse}}<br />
                         {{CP}} {{city}}<br />
