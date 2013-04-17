@@ -125,32 +125,11 @@ $app->get('/{lang}/contact', function($lang) use ($app){
     //Récuperation des information
     $conf = ConfigurationQuery::create()
         ->find();
-    
-<<<<<<< HEAD
-=======
-        //Recuperation de la langue a afficher
-    switch($lang){
-        case 'fr':
-            $langDescription=10;
-            break;
-        case 'en':
-            $langDescription=11;
-            break;
-        case 'de':
-            $langDescription=12;
-            break;
-        default:
-            $langDescription=10;
-            $lang='fr';
-            break;
-    }
 
->>>>>>> modifiaction front page contact + début espace client
     //Recuperation du menu
     $menus = MenuQuery::create()
         ->find();
-    
-<<<<<<< HEAD
+
     $menus = array(
         'menu_1'=>array(
             'id'=>1,
@@ -212,9 +191,7 @@ $app->get('/{lang}/contact', function($lang) use ($app){
             $lang='fr';
             break;
     }
-    
-=======
->>>>>>> modifiaction front page contact + début espace client
+
     //Explode du contenu du carousel
     $carousel = $conf->get(9)->getValue();
     $carousel = explode(',',$carousel);
@@ -590,7 +567,6 @@ $app->match('/{lang}/espace_client', function(Request $request,$lang) use ($app)
 })->bind('espace_client');
 
 
-<<<<<<< HEAD
 $app->get('/{lang}/plan_site', function($lang) use ($app){
 
     
@@ -612,35 +588,14 @@ $app->get('/{lang}/plan_site', function($lang) use ($app){
     }
     
     //Récuperation des information
-=======
- //Récuperation des information
->>>>>>> modifiaction front page contact + début espace client
     $conf = ConfigurationQuery::create()
         ->find();
-    
-            //Recuperation de la langue a afficher
-    switch($lang){
-        case 'fr':
-            $langDescription=10;
-            break;
-        case 'en':
-            $langDescription=11;
-            break;
-        case 'de':
-            $langDescription=12;
-            break;
-        default:
-            $langDescription=10;
-            $lang='fr';
-            break;
-    }
     
 
     //Recuperation du menu
     $menus = MenuQuery::create()
         ->find();
-    
-<<<<<<< HEAD
+
         $menus = array(
         'menu_1'=>array(
             'id'=>1,
@@ -685,9 +640,7 @@ $app->get('/{lang}/plan_site', function($lang) use ($app){
             ),
         )
     );
-        
-=======
->>>>>>> modifiaction front page contact + début espace client
+
     //Explode du contenu du carousel
     $carousel = $conf->get(9)->getValue();
     $carousel = explode(',',$carousel);
@@ -706,10 +659,6 @@ $app->get('/{lang}/plan_site', function($lang) use ($app){
         'rss'=>$conf->get(8)->getValue(),
         'carousel'=>$carousel,
         'description'=>$conf->get($langDescription)->getValue(),
-<<<<<<< HEAD
-=======
-
->>>>>>> modifiaction front page contact + début espace client
     ));
 })->bind('plan_site');
 
