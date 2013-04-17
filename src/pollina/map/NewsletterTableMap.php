@@ -40,6 +40,7 @@ class NewsletterTableMap extends TableMap
         // columns
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
         $this->addColumn('email', 'Email', 'VARCHAR', true, 100, null);
+        $this->addColumn('state', 'State', 'VARCHAR', true, 100, null);
         // validators
     } // initialize()
 

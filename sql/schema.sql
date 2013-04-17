@@ -44,6 +44,7 @@ CREATE TABLE `newsletter`
 (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `email` VARCHAR(100) NOT NULL,
+    `state` VARCHAR(100) NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE=MyISAM;
 

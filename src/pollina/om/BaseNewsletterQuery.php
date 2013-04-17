@@ -8,9 +8,11 @@
  *
  * @method NewsletterQuery orderById($order = Criteria::ASC) Order by the id column
  * @method NewsletterQuery orderByEmail($order = Criteria::ASC) Order by the email column
+ * @method NewsletterQuery orderByState($order = Criteria::ASC) Order by the state column
  *
  * @method NewsletterQuery groupById() Group by the id column
  * @method NewsletterQuery groupByEmail() Group by the email column
+ * @method NewsletterQuery groupByState() Group by the state column
  *
  * @method NewsletterQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method NewsletterQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -20,9 +22,11 @@
  * @method Newsletter findOneOrCreate(PropelPDO $con = null) Return the first Newsletter matching the query, or a new Newsletter object populated from the query conditions when no match is found
  *
  * @method Newsletter findOneByEmail(string $email) Return the first Newsletter filtered by the email column
+ * @method Newsletter findOneByState(string $state) Return the first Newsletter filtered by the state column
  *
  * @method array findById(int $id) Return Newsletter objects filtered by the id column
  * @method array findByEmail(string $email) Return Newsletter objects filtered by the email column
+ * @method array findByState(string $state) Return Newsletter objects filtered by the state column
  *
  * @package    propel.generator.pollina.om
  */
@@ -126,7 +130,7 @@ abstract class BaseNewsletterQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT `id`, `email` FROM `newsletter` WHERE `id` = :p0';
+        $sql = 'SELECT `id`, `email`, `state` FROM `newsletter` WHERE `id` = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -284,6 +288,35 @@ abstract class BaseNewsletterQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(NewsletterPeer::EMAIL, $email, $comparison);
+    }
+
+    /**
+     * Filter the query on the state column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByState('fooValue');   // WHERE state = 'fooValue'
+     * $query->filterByState('%fooValue%'); // WHERE state LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $state The value to use as filter.
+     *              Accepts wildcards (* and % trigger a LIKE)
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return NewsletterQuery The current query, for fluid interface
+     */
+    public function filterByState($state = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($state)) {
+                $comparison = Criteria::IN;
+            } elseif (preg_match('/[\%\*]/', $state)) {
+                $state = str_replace('*', '%', $state);
+                $comparison = Criteria::LIKE;
+            }
+        }
+
+        return $this->addUsingAlias(NewsletterPeer::STATE, $state, $comparison);
     }
 
     /**
