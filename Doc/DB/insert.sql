@@ -3,11 +3,11 @@
 --
 
 INSERT INTO `admin` (`id`, `login`, `password`, `email`, `role`) VALUES
-(1, 'root', 'root', 'contact@romainbellina.fr','ROLE_ADMIN'),
-(2, 'Array', '123456', 'bilou@pillona.fr','ROLE_ADMIN'),
-(3, 'Bilou', '12345', 'bilou@pillona.fr','ROLE_ADMIN'),
-(4, 'Thomas', '1234567890', 'thomas@pollina.fr','ROLE_ADMIN'),
-(10, 'test', '827ccb0eea8a706c4c34a16891f84e7b', 'test@test.test','ROLE_ADMIN');
+(1, 'root', '5FZ2Z8QIkA7UTZ4BYkoC+GsReLf569mSKDsfods6LYQ8t+a8EW9oaircfMpmaLbPBh4FOBiiFyLfuZmTSUwzZg==', 'contact@romainbellina.fr','a:1:{i:0;s:10:"ROLE_ADMIN";}'),
+(2, 'Array', '5FZ2Z8QIkA7UTZ4BYkoC+GsReLf569mSKDsfods6LYQ8t+a8EW9oaircfMpmaLbPBh4FOBiiFyLfuZmTSUwzZg==', 'bilou@pillona.fr','a:1:{i:0;s:10:"ROLE_ADMIN";}'),
+(3, 'Bilou', '5FZ2Z8QIkA7UTZ4BYkoC+GsReLf569mSKDsfods6LYQ8t+a8EW9oaircfMpmaLbPBh4FOBiiFyLfuZmTSUwzZg==', 'bilou@pillona.fr','a:1:{i:0;s:10:"ROLE_ADMIN";}'),
+(4, 'Thomas', '5FZ2Z8QIkA7UTZ4BYkoC+GsReLf569mSKDsfods6LYQ8t+a8EW9oaircfMpmaLbPBh4FOBiiFyLfuZmTSUwzZg==', 'thomas@pollina.fr','a:1:{i:0;s:10:"ROLE_ADMIN";}'),
+(10, 'test', '5FZ2Z8QIkA7UTZ4BYkoC+GsReLf569mSKDsfods6LYQ8t+a8EW9oaircfMpmaLbPBh4FOBiiFyLfuZmTSUwzZg==', 'test@test.test','a:1:{i:0;s:10:"ROLE_ADMIN";}');
 
 --
 -- Contenu de la table `configuration`
