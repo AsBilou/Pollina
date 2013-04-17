@@ -9,6 +9,7 @@
 
 use Symfony\Component\HttpFoundation\Response;
 
+
 $app->get('/',function() use ($app){
     return $app->redirect('fr/');
 });
@@ -43,35 +44,42 @@ $app->get('/{lang}/', function($lang) use ($app){
                 'sub_menu_1'=>array(
                     'id'=>11,
                     'name'=>'Metier 01',
+                    'link'=>'Metier 01',
                     'sub_sub_menu'=>array(
                         'sub_sub_menu_1'=>array(
                             'id'=>111,
-                            'name'=>'Sous Metier 01'
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
                         )
                     )
                 ),
                 'sub_menu_2'=>array(
                     'id'=>12,
                     'name'=>'Metier 02',
+                    'link'=>'Metier 01',
                     'sub_sub_menu'=>array(
                         'sub_sub_menu_1'=>array(
                             'id'=>121,
-                            'name'=>'Sous Metier 01'
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
                         )
                     )
                 ),
                 'sub_menu_3'=>array(
                     'id'=>13,
                     'name'=>'Metier 03',
+                    'link'=>'Metier 01',
                     'sub_sub_menu'=>array(
                         'sub_sub_menu_1'=>array(
                             'id'=>131,
-                            'name'=>'Sous Metier 01'
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
                         )
                     )
                 ),
             ),
-));
+        )
+    );
 
     //Récuperation des information
     $conf = ConfigurationQuery::create()
@@ -116,6 +124,55 @@ $app->get('/contact', function() use ($app){
     $conf = ConfigurationQuery::create()
         ->find();
     
+    //Recuperation du menu
+    $menus = MenuQuery::create()
+        ->find();
+    
+    $menus = array(
+        'menu_1'=>array(
+            'id'=>1,
+            'name'=>'Nos Metiers',
+            'sub_menus'=>array(
+                'sub_menu_1'=>array(
+                    'id'=>11,
+                    'name'=>'Metier 01',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>111,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+                'sub_menu_2'=>array(
+                    'id'=>12,
+                    'name'=>'Metier 02',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>121,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+                'sub_menu_3'=>array(
+                    'id'=>13,
+                    'name'=>'Metier 03',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>131,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+            ),
+        )
+    );
+    
         //Recuperation de la langue a afficher
     switch($lang){
         case 'fr':
@@ -132,10 +189,6 @@ $app->get('/contact', function() use ($app){
             $lang='fr';
             break;
     }
-
-    //Recuperation du menu
-    $menus = MenuQuery::create()
-        ->find();
     
     //Explode du contenu du carousel
     $carousel = $conf->get(9)->getValue();
@@ -159,13 +212,80 @@ $app->get('/contact', function() use ($app){
 
 $app->get('/item_01', function() use ($app){
 
+        //Recuperation de la langue a afficher
+    switch($lang){
+        case 'fr':
+            $langDescription=10;
+            break;
+        case 'en':
+            $langDescription=11;
+            break;
+        case 'de':
+            $langDescription=12;
+            break;
+        default:
+            $langDescription=10;
+            $lang='fr';
+            break;
+    }
+    
     //Récuperation des information
     $conf = ConfigurationQuery::create()
         ->find();
+   
 
     //Recuperation du menu
     $menus = MenuQuery::create()
         ->find();
+    
+    //Explode du contenu du carousel
+    $carousel = $conf->get(9)->getValue();
+    $carousel = explode(',',$carousel);
+    
+        $menus = array(
+        'menu_1'=>array(
+            'id'=>1,
+            'name'=>'Nos Metiers',
+            'sub_menus'=>array(
+                'sub_menu_1'=>array(
+                    'id'=>11,
+                    'name'=>'Metier 01',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>111,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+                'sub_menu_2'=>array(
+                    'id'=>12,
+                    'name'=>'Metier 02',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>121,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+                'sub_menu_3'=>array(
+                    'id'=>13,
+                    'name'=>'Metier 03',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>131,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+            ),
+        )
+    );
 
     return $app['twig']->render('template/site/item_01.twig', array(
         'menus'=>$menus,
@@ -178,11 +298,31 @@ $app->get('/item_01', function() use ($app){
         'twitter'=>$conf->get(6)->getValue(),
         'gplus'=>$conf->get(7)->getValue(),
         'rss'=>$conf->get(8)->getValue(),
+        'carousel'=>$carousel,
+        'description'=>$conf->get($langDescription)->getValue(),
     ));
 })->bind('item_01');
 
 $app->get('/entreprise', function() use ($app){
 
+    
+    //Recuperation de la langue a afficher
+    switch($lang){
+        case 'fr':
+            $langDescription=10;
+            break;
+        case 'en':
+            $langDescription=11;
+            break;
+        case 'de':
+            $langDescription=12;
+            break;
+        default:
+            $langDescription=10;
+            $lang='fr';
+            break;
+    }    
+    
     //Récuperation des information
     $conf = ConfigurationQuery::create()
         ->find();
@@ -190,6 +330,55 @@ $app->get('/entreprise', function() use ($app){
     //Recuperation du menu
     $menus = MenuQuery::create()
         ->find();
+    
+    //Explode du contenu du carousel
+    $carousel = $conf->get(9)->getValue();
+    $carousel = explode(',',$carousel);
+    
+        $menus = array(
+        'menu_1'=>array(
+            'id'=>1,
+            'name'=>'Nos Metiers',
+            'sub_menus'=>array(
+                'sub_menu_1'=>array(
+                    'id'=>11,
+                    'name'=>'Metier 01',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>111,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+                'sub_menu_2'=>array(
+                    'id'=>12,
+                    'name'=>'Metier 02',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>121,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+                'sub_menu_3'=>array(
+                    'id'=>13,
+                    'name'=>'Metier 03',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>131,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+            ),
+        )
+    );
 
     return $app['twig']->render('template/site/entreprise.twig', array(
         'menus'=>$menus,
@@ -202,10 +391,30 @@ $app->get('/entreprise', function() use ($app){
         'twitter'=>$conf->get(6)->getValue(),
         'gplus'=>$conf->get(7)->getValue(),
         'rss'=>$conf->get(8)->getValue(),
+        'carousel'=>$carousel,
+        'description'=>$conf->get($langDescription)->getValue(),
     ));
 })->bind('entreprise');
 
 $app->get('/metiers', function() use ($app){
+    
+    
+    //Recuperation de la langue a afficher
+    switch($lang){
+        case 'fr':
+            $langDescription=10;
+            break;
+        case 'en':
+            $langDescription=11;
+            break;
+        case 'de':
+            $langDescription=12;
+            break;
+        default:
+            $langDescription=10;
+            $lang='fr';
+            break;
+    }
 
     //Récuperation des information
     $conf = ConfigurationQuery::create()
@@ -214,6 +423,56 @@ $app->get('/metiers', function() use ($app){
     //Recuperation du menu
     $menus = MenuQuery::create()
         ->find();
+    
+    $menus = array(
+        'menu_1'=>array(
+            'id'=>1,
+            'name'=>'Nos Metiers',
+            'sub_menus'=>array(
+                'sub_menu_1'=>array(
+                    'id'=>11,
+                    'name'=>'Metier 01',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>111,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+                'sub_menu_2'=>array(
+                    'id'=>12,
+                    'name'=>'Metier 02',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>121,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+                'sub_menu_3'=>array(
+                    'id'=>13,
+                    'name'=>'Metier 03',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>131,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+            ),
+        )
+    );
+
+    
+    //Explode du contenu du carousel
+    $carousel = $conf->get(9)->getValue();
+    $carousel = explode(',',$carousel);
 
     return $app['twig']->render('template/site/metiers.twig', array(
         'menus'=>$menus,
@@ -226,6 +485,8 @@ $app->get('/metiers', function() use ($app){
         'twitter'=>$conf->get(6)->getValue(),
         'gplus'=>$conf->get(7)->getValue(),
         'rss'=>$conf->get(8)->getValue(),
+        'carousel'=>$carousel,
+        'description'=>$conf->get($langDescription)->getValue(),
     ));
 })->bind('metiers');
 
@@ -257,6 +518,51 @@ $app->get('/espace_client', function() use ($app){
     $menus = MenuQuery::create()
         ->find();
     
+        $menus = array(
+        'menu_1'=>array(
+            'id'=>1,
+            'name'=>'Nos Metiers',
+            'sub_menus'=>array(
+                'sub_menu_1'=>array(
+                    'id'=>11,
+                    'name'=>'Metier 01',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>111,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+                'sub_menu_2'=>array(
+                    'id'=>12,
+                    'name'=>'Metier 02',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>121,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+                'sub_menu_3'=>array(
+                    'id'=>13,
+                    'name'=>'Metier 03',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>131,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+            ),
+        )
+    );
+    
     //Explode du contenu du carousel
     $carousel = $conf->get(9)->getValue();
     $carousel = explode(',',$carousel);
@@ -280,6 +586,24 @@ $app->get('/espace_client', function() use ($app){
 
 $app->get('/plan_site', function() use ($app){
 
+    
+    //Recuperation de la langue a afficher
+    switch($lang){
+        case 'fr':
+            $langDescription=10;
+            break;
+        case 'en':
+            $langDescription=11;
+            break;
+        case 'de':
+            $langDescription=12;
+            break;
+        default:
+            $langDescription=10;
+            $lang='fr';
+            break;
+    }
+    
     //Récuperation des information
     $conf = ConfigurationQuery::create()
         ->find();
@@ -287,6 +611,55 @@ $app->get('/plan_site', function() use ($app){
     //Recuperation du menu
     $menus = MenuQuery::create()
         ->find();
+    
+        $menus = array(
+        'menu_1'=>array(
+            'id'=>1,
+            'name'=>'Nos Metiers',
+            'sub_menus'=>array(
+                'sub_menu_1'=>array(
+                    'id'=>11,
+                    'name'=>'Metier 01',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>111,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+                'sub_menu_2'=>array(
+                    'id'=>12,
+                    'name'=>'Metier 02',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>121,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+                'sub_menu_3'=>array(
+                    'id'=>13,
+                    'name'=>'Metier 03',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>131,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+            ),
+        )
+    );
+        
+    //Explode du contenu du carousel
+    $carousel = $conf->get(9)->getValue();
+    $carousel = explode(',',$carousel);
 
     return $app['twig']->render('template/site/plan_site.twig', array(
         'menus'=>$menus,
@@ -299,6 +672,8 @@ $app->get('/plan_site', function() use ($app){
         'twitter'=>$conf->get(6)->getValue(),
         'gplus'=>$conf->get(7)->getValue(),
         'rss'=>$conf->get(8)->getValue(),
+        'carousel'=>$carousel,
+        'description'=>$conf->get($langDescription)->getValue(),
     ));
 })->bind('plan_site');
 
@@ -309,6 +684,9 @@ $app->get('/404', function() use ($app){
 });
 
 $app->get('/mention/legal', function() use ($app){
+    
+    
+    
     //Récuperation des information
     $conf = ConfigurationQuery::create()
         ->find();
@@ -316,6 +694,55 @@ $app->get('/mention/legal', function() use ($app){
     //Recuperation du menu
     $menus = MenuQuery::create()
         ->find();
+    
+        $menus = array(
+        'menu_1'=>array(
+            'id'=>1,
+            'name'=>'Nos Metiers',
+            'sub_menus'=>array(
+                'sub_menu_1'=>array(
+                    'id'=>11,
+                    'name'=>'Metier 01',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>111,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+                'sub_menu_2'=>array(
+                    'id'=>12,
+                    'name'=>'Metier 02',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>121,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+                'sub_menu_3'=>array(
+                    'id'=>13,
+                    'name'=>'Metier 03',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>131,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+            ),
+        )
+    );
+        
+    //Explode du contenu du carousel
+    $carousel = $conf->get(9)->getValue();
+    $carousel = explode(',',$carousel);
 
     return $app['twig']->render('template/site/mention.twig', array(
         'menus'=>$menus,
