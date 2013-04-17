@@ -44,22 +44,26 @@
                         <div class="menu black" id="menu4" ><a href="{{ path('espace_client') }}" >ESPACE CLIENT</a></div>
                     </nav>
 
-                   {%for menu in menus%}
-                   <div id="sousmenuMetier" class="sousmenuH">
+                    <div id="sousmenuMetier" class="sousmenuH">
                         <ul>
-                        {%for sub_menu in menu.sub_menus%}
-                            <li><a href="#">{{ sub_menu.name }}</a>
+                            <li><a href="#">METIERS 01</a>
                                 <ul class='menulvl3'>
-                                    {%for sub_sub_menu in sub_menu.sub_sub_menu%}
-                                             <li><a href="{{ path('item_01') }}" >{{ sub_sub_menu.name }}</a></li> 
-                                    {% endfor %}
+                                    <li><a href="{{ path('item_01') }}" >DETAIL 1</a></li>
+                                    <li><a href="{{ path('item_01') }}">DETAIL 2</a></li>
+
                                 </ul>
                             </li>
-                        {% endfor %}  
+                            <li><a href="#">METIERS 02</a>
+                                <ul class='menulvl3'>
+                                    <li><a href="{{ path('item_01') }}">DETAIL 1</a></li>
+                                    <li><a href="{{ path('item_01') }}">DETAIL 2</a></li>
+                                    <li><a href="{{ path('item_01') }}">DETAIL 3</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">METIER 03</a></li>
                         </ul>
-                   </div>      
-                   {% endfor %}
-               </div> <!-- fin menu -->
+                    </div>
+                </div> <!-- fin menu -->
                 
         
             {% block slide %}

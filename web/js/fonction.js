@@ -3,23 +3,27 @@ var id = "#"+numarticle;
 var numarticleMini = 0;
 var numarticleMax = $('.article').length;
 $(id).animate({ opacity: '1' }, 500);
+var check;
 
 $("#next_article").click(function() {
-        if(numarticle<(numarticleMax-3)){//id 0 + top et foot
-                numarticle++;
-                var id = "#"+numarticle;
-                var idmoins = "#"+(numarticle-1);
-                $(idmoins).animate({ opacity: '0.05' }, 500,function() {
-                       $(".article").animate({ top: '-=675' }, 500);
-                       $(id).animate({ opacity: '1' }, 500);
-                 });
-        }
+
+            if(numarticle<(numarticleMax-3)){//id 0 + top et foot
+                    numarticle++;
+                    var id = "#"+numarticle;
+                    var idmoins = "#"+(numarticle-1);
+                    $(idmoins).animate({ opacity: '0.05' }, 500,function() {
+                           $(".article").animate({ top: '-=675' }, 500);
+                           $(id).animate({ opacity: '1' }, 500);
+                     });
+            }
+
+        
 
 });
 
 $("#prev_article").click(function() {
 
-        if(numarticle>numarticleMini){
+            if(numarticle>numarticleMini){
                 numarticle--;
                 var id = "#"+numarticle;
                 var idmoins = "#"+(numarticle+1);
@@ -28,7 +32,8 @@ $("#prev_article").click(function() {
                       $(id).animate({ opacity: '1' }, 500);
                  });
 
-        }
+            }
+
 
 });
 
@@ -62,22 +67,40 @@ $("#create_quote").click(function() {
 
 
                         
-
+//slider sidebar
 $(document).ready( function(){
-        $('#slideshowHolder').jqFancyTransitions({ width: 291, height: 291, effect: 'wave',navigation: true});
+    $('#slideshowHolder').jqFancyTransitions({ width: 291, height: 291, effect: 'wave',navigation: true});
 });
 
 
-$("#lang_fr").attr('src', '/Pollina/web/img/fr_true.png');
 
-$("#lang_fr").mouseover(function() {  $(this).attr('src', '/Pollina/web/img/fr_true.png'); });
-$("#lang_de").mouseover(function() {  $(this).attr('src', '/Pollina/web/img/de_true.png'); });
-$("#lang_en").mouseover(function() {  $(this).attr('src', '/Pollina/web/img/en_true.png'); });
+//affichage logo lang
+if(window.location.pathname.indexOf("fr")!= -1){
+    $("#lang_fr").css('background-image', 'url(/Pollina/web/img/fr_true.png)');
+    $("#lang_fr").css('width', '30px');
+    $("#lang_fr").css('height', '30px');
+    $("#lang_fr").css('margin-left', '5px');
+    $("#lang_fr").css('margin-right', '5px');
+    $("#lang_fr").css('margin-top', '4px');
+}
 
+if(window.location.pathname.indexOf("en")!= -1){
+    $("#lang_en").css('background-image', 'url(/Pollina/web/img/en_true.png)');
+    $("#lang_en").css('width', '30px');
+    $("#lang_en").css('height', '30px');
+    $("#lang_en").css('margin-left', '5px');
+    $("#lang_en").css('margin-right', '5px');
+    $("#lang_en").css('margin-top', '4px');
+}
 
-$("#lang_fr").mouseout(function() {   $(this).attr('src', '/Pollina/web/img/fr_false.png'); });
-$("#lang_de").mouseout(function() {   $(this).attr('src', '/Pollina/web/img/de_false.png'); });
-$("#lang_en").mouseout(function() {   $(this).attr('src', '/Pollina/web/img/en_false.png'); });
+if(window.location.pathname.indexOf("de")!= -1){
+    $("#lang_de").css('background-image', 'url(/Pollina/web/img/de_true.png)');
+    $("#lang_de").css('width', '30px');
+    $("#lang_de").css('height', '30px');
+    $("#lang_de").css('margin-left', '5px');
+    $("#lang_de").css('margin-right', '5px');
+    $("#lang_de").css('margin-top', '4px');
+}
 
 
 //menu

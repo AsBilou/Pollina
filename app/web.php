@@ -34,6 +34,44 @@ $app->get('/{lang}/', function($lang) use ($app){
             $lang='fr';
             break;
     }
+    
+    $menus = array(
+        'menu_1'=>array(
+            'id'=>1,
+            'name'=>'Nos Metiers',
+            'sub_menus'=>array(
+                'sub_menu_1'=>array(
+                    'id'=>11,
+                    'name'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>111,
+                            'name'=>'Sous Metier 01'
+                        )
+                    )
+                ),
+                'sub_menu_2'=>array(
+                    'id'=>12,
+                    'name'=>'Metier 02',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>121,
+                            'name'=>'Sous Metier 01'
+                        )
+                    )
+                ),
+                'sub_menu_3'=>array(
+                    'id'=>13,
+                    'name'=>'Metier 03',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>131,
+                            'name'=>'Sous Metier 01'
+                        )
+                    )
+                ),
+            ),
+));
 
     //Récuperation des information
     $conf = ConfigurationQuery::create()
