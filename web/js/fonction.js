@@ -136,7 +136,6 @@ if(window.location.pathname.match("/fr/")){
     $("#lang_fr").css('margin-right', '5px');
     $("#lang_fr").css('margin-top', '4px');
 }
-
 else if(window.location.pathname.match("/en/")){
     $("#lang_en").css('background-image', 'url(../img/en_true.png)');
     $("#lang_en").css('width', '30px');
@@ -145,7 +144,6 @@ else if(window.location.pathname.match("/en/")){
     $("#lang_en").css('margin-right', '5px');
     $("#lang_en").css('margin-top', '4px');
 }
-
 else if(window.location.pathname.match("/de/")){
     $("#lang_de").css('background-image', 'url(../img/de_true.png)');
     $("#lang_de").css('width', '30px');

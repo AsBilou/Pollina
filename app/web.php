@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
+
 $app->get('/',function() use ($app){
     return $app->redirect('fr/');
 });
@@ -130,6 +131,55 @@ $app->get('/{lang}/contact', function($lang) use ($app){
     $menus = MenuQuery::create()
         ->find();
 
+    $menus = array(
+        'menu_1'=>array(
+            'id'=>1,
+            'name'=>'Nos Metiers',
+            'sub_menus'=>array(
+                'sub_menu_1'=>array(
+                    'id'=>11,
+                    'name'=>'Metier 01',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>111,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+                'sub_menu_2'=>array(
+                    'id'=>12,
+                    'name'=>'Metier 02',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>121,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+                'sub_menu_3'=>array(
+                    'id'=>13,
+                    'name'=>'Metier 03',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>131,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+            ),
+        )
+    );
+    
+    //Recuperation du menu
+    $menus = MenuQuery::create()
+        ->find();
+    
     $menus = array(
         'menu_1'=>array(
             'id'=>1,
@@ -307,10 +357,7 @@ $app->get('/{lang}/item_01', function($lang) use ($app){
     ));
 })->bind('item_01');
 
-
 $app->get('/{lang}/metiers', function($lang) use ($app){
-    
-    
     //Recuperation de la langue a afficher
     switch($lang){
         case 'fr':
@@ -430,7 +477,7 @@ $app->match('/{lang}/espace_client', function(Request $request,$lang) use ($app)
     //Recuperation du menu
     $menus = MenuQuery::create()
         ->find();
-    
+
     $sheet = SheetQuery::create()
         ->find();
     for($i=0;$i<$sheet->count();$i++ )
@@ -438,8 +485,6 @@ $app->match('/{lang}/espace_client', function(Request $request,$lang) use ($app)
         $key=$sheet->get($i)->getId();
         $datasheet [$key] = utf8_encode( $sheet->get($i)->getName());
     }
-    
-
 
         $menus = array(
         'menu_1'=>array(
@@ -541,7 +586,7 @@ $app->match('/{lang}/espace_client', function(Request $request,$lang) use ($app)
                 ->find();
             $statusDevis = $findDevis->get(0)->getStatus();
     }}
-        
+
     //Explode du contenu du carousel
     $carousel = $conf->get(9)->getValue();
     $carousel = explode(',',$carousel);
@@ -566,9 +611,7 @@ $app->match('/{lang}/espace_client', function(Request $request,$lang) use ($app)
     ));
 })->bind('espace_client');
 
-
 $app->get('/{lang}/plan_site', function($lang) use ($app){
-
     
     //Recuperation de la langue a afficher
     switch($lang){
@@ -595,6 +638,55 @@ $app->get('/{lang}/plan_site', function($lang) use ($app){
     //Recuperation du menu
     $menus = MenuQuery::create()
         ->find();
+    
+        $menus = array(
+        'menu_1'=>array(
+            'id'=>1,
+            'name'=>'Nos Metiers',
+            'sub_menus'=>array(
+                'sub_menu_1'=>array(
+                    'id'=>11,
+                    'name'=>'Metier 01',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>111,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+                'sub_menu_2'=>array(
+                    'id'=>12,
+                    'name'=>'Metier 02',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>121,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+                'sub_menu_3'=>array(
+                    'id'=>13,
+                    'name'=>'Metier 03',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>131,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+            ),
+        )
+    );
+        
+    //Explode du contenu du carousel
+    $carousel = $conf->get(9)->getValue();
+    $carousel = explode(',',$carousel);
 
         $menus = array(
         'menu_1'=>array(
@@ -669,9 +761,7 @@ $app->get('/404', function() use ($app){
 });
 
 $app->get('/{lang}/mention/legal', function($lang) use ($app){
-    
-    
-    
+
     //Récuperation des information
     $conf = ConfigurationQuery::create()
         ->find();
