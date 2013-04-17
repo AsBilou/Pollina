@@ -42,6 +42,12 @@ abstract class BaseNewsletter extends BaseObject implements Persistent
     protected $email;
 
     /**
+     * The value for the state field.
+     * @var        string
+     */
+    protected $state;
+
+    /**
      * Flag to prevent endless save loop, if this object is referenced
      * by another object which falls in this transaction.
      * @var        boolean
@@ -79,6 +85,16 @@ abstract class BaseNewsletter extends BaseObject implements Persistent
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * Get the [state] column value.
+     *
+     * @return string
+     */
+    public function getState()
+    {
+        return $this->state;
     }
 
     /**
@@ -124,6 +140,27 @@ abstract class BaseNewsletter extends BaseObject implements Persistent
     } // setEmail()
 
     /**
+     * Set the value of [state] column.
+     *
+     * @param string $v new value
+     * @return Newsletter The current object (for fluent API support)
+     */
+    public function setState($v)
+    {
+        if ($v !== null && is_numeric($v)) {
+            $v = (string) $v;
+        }
+
+        if ($this->state !== $v) {
+            $this->state = $v;
+            $this->modifiedColumns[] = NewsletterPeer::STATE;
+        }
+
+
+        return $this;
+    } // setState()
+
+    /**
      * Indicates whether the columns in this object are only set to default values.
      *
      * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -157,6 +194,7 @@ abstract class BaseNewsletter extends BaseObject implements Persistent
 
             $this->id = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
             $this->email = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
+            $this->state = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -165,7 +203,7 @@ abstract class BaseNewsletter extends BaseObject implements Persistent
                 $this->ensureConsistency();
             }
             $this->postHydrate($row, $startcol, $rehydrate);
-            return $startcol + 2; // 2 = NewsletterPeer::NUM_HYDRATE_COLUMNS.
+            return $startcol + 3; // 3 = NewsletterPeer::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException("Error populating Newsletter object", $e);
@@ -383,6 +421,9 @@ abstract class BaseNewsletter extends BaseObject implements Persistent
         if ($this->isColumnModified(NewsletterPeer::EMAIL)) {
             $modifiedColumns[':p' . $index++]  = '`email`';
         }
+        if ($this->isColumnModified(NewsletterPeer::STATE)) {
+            $modifiedColumns[':p' . $index++]  = '`state`';
+        }
 
         $sql = sprintf(
             'INSERT INTO `newsletter` (%s) VALUES (%s)',
@@ -399,6 +440,9 @@ abstract class BaseNewsletter extends BaseObject implements Persistent
                         break;
                     case '`email`':
                         $stmt->bindValue($identifier, $this->email, PDO::PARAM_STR);
+                        break;
+                    case '`state`':
+                        $stmt->bindValue($identifier, $this->state, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -540,6 +584,9 @@ abstract class BaseNewsletter extends BaseObject implements Persistent
             case 1:
                 return $this->getEmail();
                 break;
+            case 2:
+                return $this->getState();
+                break;
             default:
                 return null;
                 break;
@@ -570,6 +617,7 @@ abstract class BaseNewsletter extends BaseObject implements Persistent
         $result = array(
             $keys[0] => $this->getId(),
             $keys[1] => $this->getEmail(),
+            $keys[2] => $this->getState(),
         );
 
         return $result;
@@ -610,6 +658,9 @@ abstract class BaseNewsletter extends BaseObject implements Persistent
             case 1:
                 $this->setEmail($value);
                 break;
+            case 2:
+                $this->setState($value);
+                break;
         } // switch()
     }
 
@@ -636,6 +687,7 @@ abstract class BaseNewsletter extends BaseObject implements Persistent
 
         if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
         if (array_key_exists($keys[1], $arr)) $this->setEmail($arr[$keys[1]]);
+        if (array_key_exists($keys[2], $arr)) $this->setState($arr[$keys[2]]);
     }
 
     /**
@@ -649,6 +701,7 @@ abstract class BaseNewsletter extends BaseObject implements Persistent
 
         if ($this->isColumnModified(NewsletterPeer::ID)) $criteria->add(NewsletterPeer::ID, $this->id);
         if ($this->isColumnModified(NewsletterPeer::EMAIL)) $criteria->add(NewsletterPeer::EMAIL, $this->email);
+        if ($this->isColumnModified(NewsletterPeer::STATE)) $criteria->add(NewsletterPeer::STATE, $this->state);
 
         return $criteria;
     }
@@ -713,6 +766,7 @@ abstract class BaseNewsletter extends BaseObject implements Persistent
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
         $copyObj->setEmail($this->getEmail());
+        $copyObj->setState($this->getState());
         if ($makeNew) {
             $copyObj->setNew(true);
             $copyObj->setId(NULL); // this is a auto-increment column, so set to default value
@@ -766,6 +820,7 @@ abstract class BaseNewsletter extends BaseObject implements Persistent
     {
         $this->id = null;
         $this->email = null;
+        $this->state = null;
         $this->alreadyInSave = false;
         $this->alreadyInValidation = false;
         $this->alreadyInClearAllReferencesDeep = false;

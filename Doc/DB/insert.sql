@@ -54,9 +54,9 @@ INSERT INTO `menu` (`id`, `name`, `parent`, `lang`) VALUES
 -- Contenu de la table `newsletter`
 --
 
-INSERT INTO `newsletter` (`id`, `email`) VALUES
-(1, 'contact@romainbellina.fr'),
-(2, 't.sire41@gmail.com');
+INSERT INTO `newsletter` (`id`, `email`,`state`) VALUES
+(1, 'contact@romainbellina.fr',true),
+(2, 't.sire41@gmail.com',true);
 
 --
 -- Contenu de la table `articles`

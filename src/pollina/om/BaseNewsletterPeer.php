@@ -24,19 +24,22 @@ abstract class BaseNewsletterPeer
     const TM_CLASS = 'NewsletterTableMap';
 
     /** The total number of columns. */
-    const NUM_COLUMNS = 2;
+    const NUM_COLUMNS = 3;
 
     /** The number of lazy-loaded columns. */
     const NUM_LAZY_LOAD_COLUMNS = 0;
 
     /** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-    const NUM_HYDRATE_COLUMNS = 2;
+    const NUM_HYDRATE_COLUMNS = 3;
 
     /** the column name for the id field */
     const ID = 'newsletter.id';
 
     /** the column name for the email field */
     const EMAIL = 'newsletter.email';
+
+    /** the column name for the state field */
+    const STATE = 'newsletter.state';
 
     /** The default string format for model objects of the related table **/
     const DEFAULT_STRING_FORMAT = 'YAML';
@@ -57,12 +60,12 @@ abstract class BaseNewsletterPeer
      * e.g. NewsletterPeer::$fieldNames[NewsletterPeer::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('Id', 'Email', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'email', ),
-        BasePeer::TYPE_COLNAME => array (NewsletterPeer::ID, NewsletterPeer::EMAIL, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID', 'EMAIL', ),
-        BasePeer::TYPE_FIELDNAME => array ('id', 'email', ),
-        BasePeer::TYPE_NUM => array (0, 1, )
+        BasePeer::TYPE_PHPNAME => array ('Id', 'Email', 'State', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'email', 'state', ),
+        BasePeer::TYPE_COLNAME => array (NewsletterPeer::ID, NewsletterPeer::EMAIL, NewsletterPeer::STATE, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID', 'EMAIL', 'STATE', ),
+        BasePeer::TYPE_FIELDNAME => array ('id', 'email', 'state', ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, )
     );
 
     /**
@@ -72,12 +75,12 @@ abstract class BaseNewsletterPeer
      * e.g. NewsletterPeer::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Email' => 1, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'email' => 1, ),
-        BasePeer::TYPE_COLNAME => array (NewsletterPeer::ID => 0, NewsletterPeer::EMAIL => 1, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'EMAIL' => 1, ),
-        BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'email' => 1, ),
-        BasePeer::TYPE_NUM => array (0, 1, )
+        BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Email' => 1, 'State' => 2, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'email' => 1, 'state' => 2, ),
+        BasePeer::TYPE_COLNAME => array (NewsletterPeer::ID => 0, NewsletterPeer::EMAIL => 1, NewsletterPeer::STATE => 2, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'EMAIL' => 1, 'STATE' => 2, ),
+        BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'email' => 1, 'state' => 2, ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, )
     );
 
     /**
@@ -153,9 +156,11 @@ abstract class BaseNewsletterPeer
         if (null === $alias) {
             $criteria->addSelectColumn(NewsletterPeer::ID);
             $criteria->addSelectColumn(NewsletterPeer::EMAIL);
+            $criteria->addSelectColumn(NewsletterPeer::STATE);
         } else {
             $criteria->addSelectColumn($alias . '.id');
             $criteria->addSelectColumn($alias . '.email');
+            $criteria->addSelectColumn($alias . '.state');
         }
     }
 
