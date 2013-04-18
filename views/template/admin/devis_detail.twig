@@ -1,0 +1,61 @@
+{% extends 'layout/admin.base.twig' %}
+{% block content %}
+    <legend>Administration du devis n° : {{ dev.id }}</legend>
+        <div class="well">
+            <a href="{{ path('devis_detail',{ id : dev.id }) }}"><h4>Devis n° : {{ dev.id }}</h4></a>
+            <table class="table-bordered table">
+                <tbody>
+                <tr>
+                    <th>
+                        Référence
+                    </th>
+                    <td>
+                        {{ dev.name }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        nombre de pages
+                    </th>
+                    <td>
+                        {{ dev.number }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Type de page
+                    </th>
+                    <td>
+                        {{ dev.sheet.name }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Taille de la page
+                    </th>
+                    <td>
+                        {{ dev.sheet.size.Size }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Poid de la page
+                    </th>
+                    <td>
+                        {{ dev.sheet.weight.Weight }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Statut de la commande
+                    </th>
+                    <td>
+                        {{ dev.status }}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="clearfix"></div>
+            <a class="btn btn-danger" href="{{ app.request.basepath }}/admin/news/delete/{{ dev.id }}">Supprimer</a>
+        </div>
+{% endblock %}

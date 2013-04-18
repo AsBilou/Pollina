@@ -650,6 +650,33 @@ $app->match('/admin/newsletter/create', function(Request $request) use ($app){
     ));
 })->bind('form_newsletter_create');
 
+$app->get('/admin/devis/pages', function() use ($app){
+    return $app['twig']->render('template/admin/ok.twig', array(
+    ));
+})->bind('devis_pages');
+
+$app->get('/admin/devis/liste', function() use ($app){
+
+    $devis = DevisQuery::create()
+        ->find();
+
+    return $app['twig']->render('template/admin/devis_liste.twig', array(
+        'devis'=>$devis,
+    ));
+})->bind('devis_liste');
+
+$app->get('/admin/devis/detail/{id}', function($id) use ($app){
+
+    $devis = DevisQuery::create()
+        ->filterById($id)
+        ->find();
+    $devis=$devis->get(0);
+
+    return $app['twig']->render('template/admin/devis_detail.twig', array(
+        'dev'=>$devis,
+    ));
+})->bind('devis_detail');
+
 $app->get('/admin/menu', function() use ($app){
     return $app['twig']->render('template/admin/menu.twig', array(
     ));
