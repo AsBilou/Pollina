@@ -154,7 +154,7 @@ else if(window.location.pathname.match("/de/")){
 }
 else{
     
-    $("#lang_fr").css('background-image', 'url(/Pollina/web/img/fr_true.png)');
+    $("#lang_fr").css('background-image', 'url(../img/fr_true.png)');
     $("#lang_fr").css('width', '30px');
     $("#lang_fr").css('height', '30px');
     $("#lang_fr").css('margin-left', '5px');
