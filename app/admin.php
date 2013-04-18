@@ -661,6 +661,14 @@ $app->get('/admin/devis/pages', function() use ($app){
     ));
 })->bind('devis_pages');
 
+$app->get('/admin/devis/pages/add', function() use ($app){
+
+
+    return $app['twig']->render('template/admin/devis_pages_add.twig', array(
+        'sheets'=>$sheets,
+    ));
+})->bind('devis_pages_add');
+
 $app->get('/admin/devis/liste', function() use ($app){
 
     $devis = DevisQuery::create()
