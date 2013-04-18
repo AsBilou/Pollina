@@ -228,7 +228,7 @@
 			'z-index' 	: 1001,
 			'line-height': '30px',
 			'opacity'	: 0.7,
-			'background-image' : 'url(/Pollina/web/img/slide_prev.png)',
+			'background-image' : 'url(../img/slide_prev.png)',
 			'height'	:'49px',
 			'width'	:'24px'
 		}).click( function(e){
@@ -245,7 +245,7 @@
 			'z-index' 	: 1001,
 			'line-height': '30px',
 			'opacity'	: 0.7,
-			'background-image' : 'url(/Pollina/web/img/slide_next.png)',
+			'background-image' : 'url(../img/slide_next.png)',
 			'height'	:'49px',
 			'width'	:'23px'
 		}).click( function(e){
