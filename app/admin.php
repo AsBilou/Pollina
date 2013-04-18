@@ -653,7 +653,11 @@ $app->match('/admin/newsletter/create', function(Request $request) use ($app){
 })->bind('form_newsletter_create');
 
 $app->get('/admin/devis/pages', function() use ($app){
-    return $app['twig']->render('template/admin/ok.twig', array(
+    $sheets = SheetQuery::create()->orderByIdSize()->orderByIdWeight()->find();
+
+
+    return $app['twig']->render('template/admin/devis_pages.twig', array(
+        'sheets'=>$sheets,
     ));
 })->bind('devis_pages');
 
