@@ -501,9 +501,19 @@ $app->match('/{lang}/espace_client', function(Request $request,$lang) use ($app)
           'required'=>true,
           'label'=>'Type de papier',
         ))
+        ->add('email','email',array(
+        'label'=>'Votre email',
+        'required'=>true,
+        'attr' => array('placeholder' => 'pierre@pollina.fr','class'=>'span7'),
+        'constraints'=>array(
+            new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
+        )
+        ))
 
-        ->getForm();
-        
+     ->getForm();
+    
+    
+     $flagCreateDevis = 0; 
      if('POST'==$request->getMethod()){
         $form->bind($request);
         if($form->isValid()){
@@ -518,15 +528,27 @@ $app->match('/{lang}/espace_client', function(Request $request,$lang) use ($app)
             $devis->setNumber($number_pages);
             $devis->setStatus("en attente de paiement");
             $devis->save();
+            $flagCreateDevis = 1;
         }
     } 
-  
+    
+    $statusDevis="";
+    if(isset($_POST['seach'])){
+    if($_POST['seach'] == "1"){
+        
+            $findDevis = DevisQuery::create()
+                ->filterByName($_POST['key'])
+                ->find();
+            $statusDevis = $findDevis->get(0)->getStatus();
+    }}
         
     //Explode du contenu du carousel
     $carousel = $conf->get(9)->getValue();
     $carousel = explode(',',$carousel);
 
     return $app['twig']->render('template/site/espace_client.twig', array(
+        'flagCreateDevis'=> $flagCreateDevis,
+        'statusDevis'=> $statusDevis,
         'form'=>$form->createView(),
         'menus'=>$menus,
         'lang'=>$lang,

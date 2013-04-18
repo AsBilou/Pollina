@@ -21,6 +21,18 @@
                       <h2 >Que voulez vous faire ?</h2>
                       <a class="btn btn-warning btn-large" id="views_quote"><i class="icon-white icon-list-alt"></i> Voir un devis</a>
                       <a class="btn btn-info btn-large" id="create_quote" ><i class="icon-white icon-th-list"></i> Générer un devis</a>
+                        {% if flagCreateDevis == 1 %}
+                            <div class="alert alert-info" style="width:80%;margin:auto;text-align:center;margin-top:30px;">
+                              <p>Votre demande de devis a bien été envoyer. Nous vous réponderons au plus vite. </p>
+                            </div>
+                            
+                        {% endif %}
+                        {% if statusDevis != "" %}
+                            <div class="alert alert-info" style="width:80%;margin:auto;text-align:center;margin-top:30px;">
+                              <p>Votre devis a pour statue : {{ statusDevis }}. </p>
+                            </div>
+                            
+                        {% endif %}
                   </div>
               </div>
           </div>
@@ -29,8 +41,9 @@
                 <div class="article_left">
                     <article class="text_article">
                         <h3>voir un devis</h3>
-                        <form>
-                            <input type="text" value="" placeholder="key" >
+                        <form action="{{ path('espace_client',{lang: lang}) }}" method="post">
+                            <input type="text" name="key" value="" placeholder="key" >
+                            <input type="hidden" name="seach" value="1" >
                             <input type="submit" class="btn btn-success" value="Rechercher" style="margin-top:-7px;">
                         </form>
                         <div id="commentBox">
