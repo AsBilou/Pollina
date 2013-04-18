@@ -476,12 +476,30 @@ $app->get('/{lang}/espace_client', function($lang) use ($app){
         )
     );
     
+        
+        //Création du formulaire
+    $form = $app['form.factory']->createBuilder('form')
+        ->add('email','email',array(
+        'label'=>'Votre email',
+        'required'=>true,
+        'attr' => array('placeholder' => 'pierre@pollina.fr','class'=>'span10'),
+        'constraints'=>array(
+            new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
+            )
+        ))
+        ->add('foo_choices', 'choice', array(
+          'choices' => array('foo' => 'Foo', 'bar' => 'Bar', 'baz' => 'Baz'),
+          'preferred_choices' => array('baz'),
+        ))
+        ->getForm();    
+        
     //Explode du contenu du carousel
     $carousel = $conf->get(9)->getValue();
     $carousel = explode(',',$carousel);
 
     return $app['twig']->render('template/site/espace_client.twig', array(
         'menus'=>$menus,
+        'form'=>$form->createView(),
         'lang'=>$lang,
         'adresse'=>$conf->get(0)->getValue(),
         'CP'=>$conf->get(1)->getValue(),
