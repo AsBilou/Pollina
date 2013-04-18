@@ -8,6 +8,8 @@
  */
 
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 $app->get('/',function() use ($app){
@@ -665,6 +667,123 @@ $app->get('/mention/legal', function() use ($app){
         'rss'=>$conf->get(8)->getValue(),
     ));
 })->bind('mention_legal');
+
+
+$app->match('/{lang}/newsletter/unsubscribe', function(Request $request,$lang) use ($app){
+
+    $menus = array(
+        'menu_1'=>array(
+            'id'=>1,
+            'name'=>'Nos Metiers',
+            'sub_menus'=>array(
+                'sub_menu_1'=>array(
+                    'id'=>11,
+                    'name'=>'Metier 01',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>111,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+                'sub_menu_2'=>array(
+                    'id'=>12,
+                    'name'=>'Metier 02',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>121,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+                'sub_menu_3'=>array(
+                    'id'=>13,
+                    'name'=>'Metier 03',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>131,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+            ),
+        )
+    );
+
+    //Recuperation de la langue a afficher
+    switch($lang){
+        case 'fr':
+            $langDescription=10;
+            break;
+        case 'en':
+            $langDescription=11;
+            break;
+        case 'de':
+            $langDescription=12;
+            break;
+        default:
+            $langDescription=10;
+            $lang='fr';
+            break;
+    }
+
+    //Récuperation des information
+    $conf = ConfigurationQuery::create()
+        ->find();
+
+
+    //Explode du contenu du carousel
+    $carousel = $conf->get(9)->getValue();
+    $carousel = explode(',',$carousel);
+
+
+    //Création du formulaire
+    $form = $app['form.factory']->createBuilder('form')
+        ->add('email','email',array(
+        'label'=>'Votre email',
+        'required'=>true,
+        'attr' => array('placeholder' => 'pierre@pollina.fr','class'=>'span10'),
+        'constraints'=>array(
+            new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
+        )
+    ))
+        ->getForm();
+
+    if('POST'==$request->getMethod()){
+        $form->bind($request);
+        if($form->isValid()){
+            $data = $form->getData();
+            $mail = $data['email'];
+            $user = NewsletterQuery::create()
+                ->filterByEmail($mail)
+                ->find();
+            $user->get(0)->setState('inactif');
+            $user->save();
+        }
+    }
+    return $app['twig']->render('template/site/newsletter_unsubscribe.twig', array(
+        'form'=>$form->createView(),
+        'menus'=>$menus,
+        'lang'=>$lang,
+        'adresse'=>$conf->get(0)->getValue(),
+        'CP'=>$conf->get(1)->getValue(),
+        'city'=>$conf->get(2)->getValue(),
+        'phone'=>$conf->get(3)->getValue(),
+        'fax'=>$conf->get(4)->getValue(),
+        'facebook'=>$conf->get(5)->getValue(),
+        'twitter'=>$conf->get(6)->getValue(),
+        'gplus'=>$conf->get(7)->getValue(),
+        'rss'=>$conf->get(8)->getValue(),
+        'carousel'=>$carousel,
+        'description'=>$conf->get($langDescription)->getValue(),
+    ));
+})->bind('form_newsletter_unsubscribe');
 
 $app->error(function (\Exception $e, $code) use ($app) {
     if($app['debug']) {
