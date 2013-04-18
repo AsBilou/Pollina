@@ -77,5 +77,65 @@ CREATE TABLE `menu`
     INDEX `menu_FI_1` (`parent`)
 ) ENGINE=MyISAM;
 
+-- ---------------------------------------------------------------------
+-- size
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `size`;
+
+CREATE TABLE `size`
+(
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `size` VARCHAR(100),
+    PRIMARY KEY (`id`)
+) ENGINE=MyISAM;
+
+-- ---------------------------------------------------------------------
+-- weight
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `weight`;
+
+CREATE TABLE `weight`
+(
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `weight` VARCHAR(100),
+    PRIMARY KEY (`id`)
+) ENGINE=MyISAM;
+
+-- ---------------------------------------------------------------------
+-- sheet
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `sheet`;
+
+CREATE TABLE `sheet`
+(
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(100) NOT NULL,
+    `id_size` INTEGER NOT NULL,
+    `id_weight` INTEGER NOT NULL,
+    PRIMARY KEY (`id`),
+    INDEX `sheet_FI_1` (`id_size`),
+    INDEX `sheet_FI_2` (`id_weight`)
+) ENGINE=MyISAM;
+
+-- ---------------------------------------------------------------------
+-- devis
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `devis`;
+
+CREATE TABLE `devis`
+(
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(200) NOT NULL,
+    `id_sheet` INTEGER NOT NULL,
+    `number` INTEGER NOT NULL,
+    `status` VARCHAR(30) NOT NULL,
+    PRIMARY KEY (`id`),
+    INDEX `devis_FI_1` (`id_sheet`)
+) ENGINE=MyISAM;
+
 # This restores the fkey checks, after having unset them earlier
 SET FOREIGN_KEY_CHECKS = 1;

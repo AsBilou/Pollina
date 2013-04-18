@@ -31,4 +31,34 @@
             <reference local="parent" foreign="id"/>
         </foreign-key>
     </table>
+    <table name="size" phpName="Size">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="size" type="varchar" size="100"/>
+    </table>
+    <table name="weight" phpName="Weight">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="weight" type="varchar" size="100"/>
+    </table>
+    <table name="sheet" phpName="Sheet">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="name" type="varchar" size="100" required="true"/>
+        <column name="id_size" type="integer" required="true"/>
+        <column name="id_weight" type="integer" required="true"/>
+        <foreign-key foreignTable="size">
+            <reference local="id_size" foreign="id"/>
+        </foreign-key>
+        <foreign-key foreignTable="weight">
+            <reference local="id_weight" foreign="id"/>
+        </foreign-key>
+    </table>
+    <table name="devis" phpName="Devis">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="name" type="varchar" size="200" required="true"/>
+        <column name="id_sheet" type="integer" required="true"/>
+        <column name="number" type="integer" required="true"/>
+        <column name="status" type="varchar" size="30" required="true"/>
+        <foreign-key foreignTable="sheet">
+            <reference local="id_sheet" foreign="id"/>
+        </foreign-key>
+    </table>
 </database>

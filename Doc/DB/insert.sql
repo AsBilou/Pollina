@@ -73,3 +73,42 @@ INSERT INTO `articles` (`id`, `lang`, `title`, `contenu`) VALUES
 (7, 'en', 'DeuxiÃ¨me article', '<p>To demonstrate by A + B that the concept of DRM is a heresy, open source specialist, Simon Phipps had fun pose a DRM object.</p>\r\n<p>&nbsp;</p>\r\n<p>For this, he installed a small Arduino on a chain to detect how many times it was used. DRM as a so ... And what happens after he uses those 8? I''ll let you guess ...</p>'),
 (7, 'de', 'DeuxiÃ¨me article', '<p>Um von A + B zeigen, dass das Konzept der DRM eine H&auml;resie, Open-Source-Spezialist ist, hatte Simon Phipps Spa&szlig; stellen eine DRM-Objekt.</p>\r\n<p>&nbsp;</p>\r\n<p>Dazu installiert er eine kleine Arduino an einer Kette zu erfassen, wie oft sie verwendet wurde. DRM als so ... Und was geschieht, nachdem er jene 8 verwendet? Ich lasse Sie raten ...</p>');
 
+--
+-- Contenu de la table `size`
+--
+
+INSERT INTO `size` (`id`, `size`) VALUES
+(1, 'A2'),
+(2, 'A3'),
+(3, 'A4'),
+(4, 'A5');
+
+--
+-- Contenu de la table `weight`
+--
+
+INSERT INTO `weight` (`id`, `weight`) VALUES
+(1, '120g'),
+(2, '135g'),
+(3, '150g'),
+(4, '200g');
+
+--
+-- Contenu de la table `sheet`
+--
+
+INSERT INTO `sheet` (`id`, `name`, `id_size`, `id_weight`) VALUES
+(1,'A2 Light',1,1),
+(2,'A2 medium',1,2),
+(3,'A2 épais',1,3),
+(4,'A2 cartoné',1,4);
+
+--
+-- Contenu de la table `sheet`
+--
+
+INSERT INTO `devis` (`id`, `name`, `id_sheet`, `number`, `status`) VALUES
+(1,'Devis 1',1,300,'en attente de paiement'),
+(2,'Devis 2',2,100,'en attente de paiement'),
+(3,'Devis 3',3,1000,'en attente de paiement'),
+(4,'Devis 4',4,254,'en attente de paiement');
