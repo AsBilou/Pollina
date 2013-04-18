@@ -655,13 +655,13 @@ $app->match('/admin/newsletter/create', function(Request $request) use ($app){
 $app->get('/admin/devis/pages', function() use ($app){
     $sheets = SheetQuery::create()->orderByIdSize()->orderByIdWeight()->find();
 
-
     return $app['twig']->render('template/admin/devis_pages.twig', array(
         'sheets'=>$sheets,
     ));
 })->bind('devis_pages');
 
-$app->get('/admin/devis/pages/add', function() use ($app){
+$app->match('/admin/devis/pages/add', function() use ($app){
+
 
 
     return $app['twig']->render('template/admin/devis_pages_add.twig', array(
