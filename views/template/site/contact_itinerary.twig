@@ -1,0 +1,155 @@
+{%extends "layout/base.twig" %}
+{% block stylesheet %}
+    <style type="text/css">
+
+    </style>
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUnySk_RrXfFASmIGoCuh1u65URbTeT9s&sensor=false&language=fr">
+    </script>
+    <script type="text/javascript" src="{{app.request.basepath}}/js/jquery.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            function getLocation()
+            {
+                if (navigator.geolocation)
+                {
+                    navigator.geolocation.getCurrentPosition(showPosition);
+                }
+            }
+
+            function showPosition(position)
+            {
+                $("#loading").css("display","none");
+                latitude    = position.coords.latitude;
+                longitude   = position.coords.longitude;
+
+                latLng = new google.maps.LatLng(latitude, longitude);
+
+                var myOptions = {
+                    zoom      : 14,
+                    center    : latLng,
+                    mapTypeId : google.maps.MapTypeId.ROADMAP, // Type de carte, différentes valeurs possible HYBRID, ROADMAP, SATELLITE, TERRAIN
+                    maxZoom   : 20
+                };
+
+                map      = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
+                panel    = document.getElementById('panel');
+
+                marker = new google.maps.Marker({
+                    position : latLng,
+                    map      : map,
+                    title    : "Ma localisation"
+                    //icon     : "marker_lille.gif" // Chemin de l'image du marqueur pour surcharger celui par défaut
+                });
+
+                direction = new google.maps.DirectionsRenderer({
+                    map   : map,
+                    panel : panel
+                });
+
+                calculate();
+            }
+
+            function refresh(){
+                if (navigator.geolocation)
+                {
+                    navigator.geolocation.refreshPosition(showPosition);
+                }
+            }
+
+            function refreshPosition(position){
+                latitude    = position.coords.latitude;
+                longitude   = position.coords.longitude;
+
+                latLng = new google.maps.LatLng(latitude, longitude);
+                calculate(latitude, longitude);
+            }
+
+            calculate = function(){
+                var arrive = new google.maps.LatLng(46.46,-1.2);
+                var request = {
+                    origin      : latLng,
+                    destination : arrive,
+                    travelMode  : google.maps.DirectionsTravelMode.DRIVING // Mode de conduite
+                }
+                var directionsService = new google.maps.DirectionsService(); // Service de calcul d'itinéraire
+                directionsService.route(request, function(response, status){ // Envoie de la requête pour calculer le parcours
+                    if(status == google.maps.DirectionsStatus.OK){
+                        direction.setDirections(response); // Trace l'itinéraire sur la carte et les différentes étapes du parcours
+                    }
+                });
+            };
+
+            getLocation();
+
+            $(".itin_station").click(function() {
+                $("#loading").css("display","block");
+                station = $(this).attr("data-target");
+                if (station) {
+                    $.ajax({
+                        type:"POST",
+                        data:"&itin_station="+station,
+                        url:"ajax_station.php",
+                        dataType:"json",
+                        success:function(data){
+                            var result =	eval(data);
+                            console.log(result);
+                            name = result.name;
+                            latitude = result.latitude;
+                            longitude = result.longitude;
+                            $(".rerX").html(name);
+                            $('#edit-box').modal('hide');
+                            $("#loading").fadeOut("slow");
+                            $("#accordion-trouver").css("display","block");
+                            $("#map").css("height","311px");
+                            calculate(latitude, longitude);
+                            marker.setMap(null);
+                        }
+                    });
+                }
+            });
+
+            $(".trouver_submit").click(function() {
+                $("#loading").css("display","block");
+                station = $("#input-gare").val();
+                if (station) {
+                    $.ajax({
+                        type:"POST",
+                        data:"&itin_station="+station,
+                        url:"ajax_station.php",
+                        dataType:"json",
+                        success:function(data){
+                            var result =	eval(data);
+                            console.log(result);
+                            name = result.name;
+                            latitude = result.latitude;
+                            longitude = result.longitude;
+                            $(".rerX").html(name);
+                            $('#edit-box').modal('hide');
+                            $("#loading").fadeOut("slow");
+                            $("#accordion-trouver").css("display","block");
+                            $("#map").css("height","311px");
+                            calculate(latitude, longitude);
+                            marker.setMap(null);
+                        }
+                    });
+                }
+            });
+
+            $(".icon-refresh").click(function() {
+                refresh();
+            });
+        });
+    </script>
+{% endblock %}
+{% block nav %}
+{% endblock %}
+
+{%block article%}
+    <div class="contact">
+        <div id="map_canvas" ></div>
+    </div>
+{% endblock %}
+{% block javascript %}
+
+{% endblock %}
