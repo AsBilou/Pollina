@@ -8,6 +8,7 @@
  */
 
 //TODO Gestion de l'ajout et suppression de taille et poids de feuille + Création de nouveau type de feuille.
+//TODO Ajout de la gestion de la couleurs des impression (Couleur/N&B)
 
 
 use Silex\Provider\FormServiceProvider;
