@@ -479,19 +479,33 @@ $app->get('/{lang}/espace_client', function($lang) use ($app){
         
         //Création du formulaire
     $form = $app['form.factory']->createBuilder('form')
-        ->add('email','email',array(
-        'label'=>'Votre email',
+        ->add('number_pages','text',array(
+        'label'=>'Le nombre de page',
         'required'=>true,
-        'attr' => array('placeholder' => 'pierre@pollina.fr','class'=>'span10'),
+        'attr' => array('placeholder' => 'XX'),
         'constraints'=>array(
             new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
             )
         ))
-        ->add('foo_choices', 'choice', array(
-          'choices' => array('foo' => 'Foo', 'bar' => 'Bar', 'baz' => 'Baz'),
-          'preferred_choices' => array('baz'),
+        ->add('Gramage', 'choice', array(
+          'choices' => array('125' => '125g', 'bar' => 'Bar', 'baz' => 'Baz'),
+          'required'=>true,
+          'label'=>'Grammage',
         ))
-        ->getForm();    
+        ->add('Taille', 'choice', array(
+          'choices' => array('A2' => 'A2', 'A4' => 'A4', 'baz' => 'Baz'),
+          'required'=>true,
+          'label'=>'Taille',
+          'preferred_choices' => array('A4'),
+        ))
+        ->add('Couleur', 'choice', array(
+          'choices' => array('Black&White' => 'Noire et Blanc', 'Coolor' => 'Couleur'),
+          'required'=>true,
+          'label'=>'Couleur',
+          'preferred_choices' => array('Black&White'),
+        ))
+        ->getForm(); 
+  
         
     //Explode du contenu du carousel
     $carousel = $conf->get(9)->getValue();
