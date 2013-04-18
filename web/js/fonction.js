@@ -75,7 +75,7 @@ $(document).ready( function(){
 
 
 //affichage logo lang
-if(window.location.pathname.indexOf("fr")!= -1){
+if(window.location.pathname.match("/fr/")){
     $("#lang_fr").css('background-image', 'url(/Pollina/web/img/fr_true.png)');
     $("#lang_fr").css('width', '30px');
     $("#lang_fr").css('height', '30px');
@@ -84,7 +84,8 @@ if(window.location.pathname.indexOf("fr")!= -1){
     $("#lang_fr").css('margin-top', '4px');
 }
 
-else if(window.location.pathname.indexOf("en")!= -1){
+
+else if(window.location.pathname.match("/en/")){
     $("#lang_en").css('background-image', 'url(/Pollina/web/img/en_true.png)');
     $("#lang_en").css('width', '30px');
     $("#lang_en").css('height', '30px');
@@ -93,7 +94,7 @@ else if(window.location.pathname.indexOf("en")!= -1){
     $("#lang_en").css('margin-top', '4px');
 }
 
-else if(window.location.pathname.indexOf("de")!= -1){
+else if(window.location.pathname.match("/de/")){
     $("#lang_de").css('background-image', 'url(/Pollina/web/img/de_true.png)');
     $("#lang_de").css('width', '30px');
     $("#lang_de").css('height', '30px');

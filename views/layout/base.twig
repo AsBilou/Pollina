@@ -35,7 +35,7 @@
                 <div id="menuContent">
                     <nav id="menu">
                         <div class="menu blue" id="menu1">
-                            <a href="{{ path('entreprise') }}" >L&#039;ENTREPRISE</a>
+                            <a href="{{app.request.basepath}}" >L&#039;ENTREPRISE</a>
                         </div>
                         <div class="menu pink" id="menu2">
                             <a href="{{ path('metiers') }}" >NOS MÉTIERS</a>
@@ -82,7 +82,7 @@
                
             <div id="footer">
                 <div id="img_footer" >
-                    <nav id="menu_footer"> <a href="{{ path('entreprise') }}">L'entreprise</a> - <a href="{{ path('metiers') }}">Nos métiers</a> - <a href="{{ path('espace_client') }}">Espace Client</a> - <a href="{{ path('mention_legal') }}">Mentions légales</a> - <a href="{{ path('plan_site') }}">Plan du site</a> - <a href="{{ path('nous_contactez') }}">Contact</a></nav>
+                    <nav id="menu_footer"> <a href="{{app.request.basepath}}">L'entreprise</a> - <a href="{{ path('metiers') }}">Nos métiers</a> - <a href="{{ path('espace_client') }}">Espace Client</a> - <a href="{{ path('mention_legal') }}">Mentions légales</a> - <a href="{{ path('plan_site') }}">Plan du site</a> - <a href="{{ path('nous_contactez') }}">Contact</a></nav>
                     <div id="info_footer">
                         {{adresse}}<br />
                         {{CP}} {{city}}<br />
