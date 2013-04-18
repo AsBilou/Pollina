@@ -603,6 +603,7 @@ $app->get('/admin/newsletter', function() use ($app){
 $app->match('/admin/newsletter/create', function(Request $request) use ($app){
     //Récuperation de tous les inscrit a la newsletter
     $user_news = NewsletterQuery::create()
+        ->filterByState('actif')
         ->find();
     //Création du formulaire
     $form = $app['form.factory']->createBuilder('form')
