@@ -1,15 +1,15 @@
 
 @font-face {
   font-family: FengardoNeue_Black;
-  src: url('/Pollina/web/font/Fengardo_Neue/FengardoNeue_Black.otf');
+  src: url('/font/Fengardo_Neue/FengardoNeue_Black.otf');
 }
 @font-face {
   font-family: FengardoNeue_Regular;
-  src: url('/Pollina/web/font/Fengardo_Neue/FengardoNeue_Regular.otf');
+  src: url('/font/Fengardo_Neue/FengardoNeue_Regular.otf');
 }
 @font-face {
   font-family: Myriadopro_regular;
-  src: url('/Pollina/web/font/myriad-pro/MYRIADPRO-REGULAR.OTF');
+  src: url('/font/myriad-pro/MYRIADPRO-REGULAR.OTF');
 }
 
 
@@ -65,7 +65,7 @@ a { text-decoration:none; }
     margin-left: 5px;
     margin-right: 5px;
     margin-top:4px;
-    background-image:url(/Pollina/web/img/fr_true.png);
+    background-image:url(/img/fr_true.png);
     display: block;
 }
 #lang_fr{
@@ -74,7 +74,7 @@ a { text-decoration:none; }
     margin-left: 7px;
     margin-right: 7px;
     margin-top:7px;
-    background-image:url(/Pollina/web/img/fr_false.png);
+    background-image:url(/img/fr_false.png);
     display: block;
 }
 #lang_en:hover{
@@ -83,7 +83,7 @@ a { text-decoration:none; }
     margin-left: 5px;
     margin-right: 5px;
     margin-top:4px;
-    background-image:url(/Pollina/web/img/en_true.png);
+    background-image:url(/img/en_true.png);
     display: block;
 }
 #lang_en{
@@ -92,7 +92,7 @@ a { text-decoration:none; }
     margin-left: 7px;
     margin-right: 7px;
     margin-top:7px;
-    background-image:url(/Pollina/web/img/en_false.png);
+    background-image:url(/img/en_false.png);
     display: block;
 }
 #lang_de:hover{
@@ -101,7 +101,7 @@ a { text-decoration:none; }
     margin-left: 5px;
     margin-right: 5px;
     margin-top:4px;
-    background-image:url(/Pollina/web/img/de_true.png);
+    background-image:url(/img/de_true.png);
     display: block;
 }
 #lang_de{
@@ -110,7 +110,7 @@ a { text-decoration:none; }
     margin-left: 7px;
     margin-right: 7px;
     margin-top:7px;
-    background-image:url(/Pollina/web/img/de_false.png);
+    background-image:url(/img/de_false.png);
     display: block;
 }
 #menu_fb{
@@ -119,11 +119,11 @@ a { text-decoration:none; }
     margin-right: 14px;
     margin-top: 12px;
     width: 9px;
-    background-image:url(/Pollina/web/img/menu_fb.png);
+    background-image:url(/img/menu_fb.png);
 }
 
 #menu_twitter {
-    background-image: url("/Pollina/web/img/menu_twitter.png");
+    background-image: url("/img/menu_twitter.png");
     height: 18px;
     margin-left: 7px;
     margin-right: 7px;
@@ -197,7 +197,7 @@ a { text-decoration:none; }
     top:360px;
     width:81px;
     height:81px;
-    background-image:url(/Pollina/web/img/nav_article.png);
+    background-image:url(/img/nav_article.png);
     z-index: 1;
 }
 
@@ -248,7 +248,7 @@ a { text-decoration:none; }
 #img_header{
     width:1121px;
     height:490px;
-    background-image:url(/Pollina/web/img/header_logo.png);
+    background-image:url(/img/header_logo.png);
 }
 
 #footer{
@@ -320,7 +320,7 @@ a { text-decoration:none; }
 
 #newsletter_footer input{
     background-color: #515151;
-    background-image: url("/Pollina/web/img/input_newsletter.png");
+    background-image: url("/img/input_newsletter.png");
     border:1px;
     font-size: 13px;
     height: 29px;
@@ -331,7 +331,7 @@ a { text-decoration:none; }
 }
 #newsletter_footer button{
     background-color: #515151;
-    background-image: url("/Pollina/web/img/button_newsletter.png");
+    background-image: url("/img/button_newsletter.png");
     border: 0 none;
     height: 33px;
     width: 33px;
@@ -342,7 +342,7 @@ a { text-decoration:none; }
     float: right;
     width:1190px;
     height:327px;
-    background-image:url("/Pollina/web/img/footer_logo.png");
+    background-image:url("/img/footer_logo.png");
 }
 
 .nav {
