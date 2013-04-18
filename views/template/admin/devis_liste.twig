@@ -57,7 +57,7 @@
                 </tbody>
             </table>
             <div class="clearfix"></div>
-            <a class="btn btn-danger" href="{{ app.request.basepath }}/admin/news/delete/{{ dev.id }}">Supprimer</a>
+            <a class="btn btn-danger" href="{{ path('devis_delete',{id:dev.id}) }}">Supprimer</a>
         </div>
     {% endfor %}
 {% endblock %}

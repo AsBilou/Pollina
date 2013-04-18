@@ -679,6 +679,17 @@ $app->get('/admin/devis/detail/{id}', function($id) use ($app){
     ));
 })->bind('devis_detail');
 
+$app->get('/admin/devis/delete/{id}', function($id) use ($app){
+
+    $devis = DevisQuery::create()
+        ->filterById($id)
+        ->find();
+    $devis->delete();
+
+    return $app->redirect($app['url_generator']->generate('admin_ok'));
+
+})->bind('devis_delete');
+
 $app->get('/admin/menu', function() use ($app){
     return $app['twig']->render('template/admin/menu.twig', array(
     ));
