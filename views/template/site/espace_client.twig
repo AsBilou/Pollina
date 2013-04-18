@@ -44,10 +44,12 @@
               <div class="article_right">
                   <article class="text_article">
                       <h3>Crée un devis</h3>
+                      <div style="margin-left:30px;">
                           <form action="{{ path('espace_client',{lang: lang}) }}" method="post">
                                   {{ form_widget(form) }}
                                   <input class="btn btn-success" value="Valider" type="submit">
                           </form>
+                       </div>
                           <a class="btn  btn-large" href="{{ path('espace_client',{lang: lang}) }}" ><i class="icon-white icon-th-list"></i> Espace client</a>
                    </article>
               </div>

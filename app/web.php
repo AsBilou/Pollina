@@ -403,7 +403,7 @@ $app->get('/{lang}/metiers', function($lang) use ($app){
     ));
 })->bind('metiers');
 
-$app->get('/{lang}/espace_client', function($lang) use ($app){
+$app->match('/{lang}/espace_client', function(Request $request,$lang) use ($app){
 
  //Récuperation des information
     $conf = ConfigurationQuery::create()
@@ -431,6 +431,16 @@ $app->get('/{lang}/espace_client', function($lang) use ($app){
     $menus = MenuQuery::create()
         ->find();
     
+    $sheet = SheetQuery::create()
+        ->find();
+    for($i=0;$i<$sheet->count();$i++ )
+    {
+        $key=$sheet->get($i)->getId();
+        $datasheet [$key] = utf8_encode( $sheet->get($i)->getName());
+    }
+    
+
+
         $menus = array(
         'menu_1'=>array(
             'id'=>1,
@@ -475,9 +485,8 @@ $app->get('/{lang}/espace_client', function($lang) use ($app){
             ),
         )
     );
-    
         
-        //Création du formulaire
+    //Création du formulaire
     $form = $app['form.factory']->createBuilder('form')
         ->add('number_pages','text',array(
         'label'=>'Le nombre de page',
@@ -487,24 +496,30 @@ $app->get('/{lang}/espace_client', function($lang) use ($app){
             new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
             )
         ))
-        ->add('Gramage', 'choice', array(
-          'choices' => array('125' => '125g', 'bar' => 'Bar', 'baz' => 'Baz'),
+        ->add('type', 'choice', array(
+          'choices' => $datasheet,
           'required'=>true,
-          'label'=>'Grammage',
+          'label'=>'Type de papier',
         ))
-        ->add('Taille', 'choice', array(
-          'choices' => array('A2' => 'A2', 'A4' => 'A4', 'baz' => 'Baz'),
-          'required'=>true,
-          'label'=>'Taille',
-          'preferred_choices' => array('A4'),
-        ))
-        ->add('Couleur', 'choice', array(
-          'choices' => array('Black&White' => 'Noire et Blanc', 'Coolor' => 'Couleur'),
-          'required'=>true,
-          'label'=>'Couleur',
-          'preferred_choices' => array('Black&White'),
-        ))
-        ->getForm(); 
+
+        ->getForm();
+        
+     if('POST'==$request->getMethod()){
+        $form->bind($request);
+        if($form->isValid()){
+            $data = $form->getData();
+            $type = $data['type'];
+            $number_pages = $data['number_pages'];
+            
+            $devis = new Devis();
+            $name = date("Y-m-d")."_".rand(0000, 9999);
+            $devis->setName($name);
+            $devis->setIdSheet($type);
+            $devis->setNumber($number_pages);
+            $devis->setStatus("en attente de paiement");
+            $devis->save();
+        }
+    } 
   
         
     //Explode du contenu du carousel
@@ -512,8 +527,8 @@ $app->get('/{lang}/espace_client', function($lang) use ($app){
     $carousel = explode(',',$carousel);
 
     return $app['twig']->render('template/site/espace_client.twig', array(
-        'menus'=>$menus,
         'form'=>$form->createView(),
+        'menus'=>$menus,
         'lang'=>$lang,
         'adresse'=>$conf->get(0)->getValue(),
         'CP'=>$conf->get(1)->getValue(),
@@ -526,7 +541,6 @@ $app->get('/{lang}/espace_client', function($lang) use ($app){
         'rss'=>$conf->get(8)->getValue(),
         'carousel'=>$carousel,
         'description'=>$conf->get($langDescription)->getValue(),
-
     ));
 })->bind('espace_client');
 
