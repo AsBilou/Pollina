@@ -4,12 +4,14 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Pollina</title>
+                <link rel="icon" type="image/png" href="http://www.pollina-imp.fr/images/favicon.png">
                 <link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css">
                 <link rel="stylesheet" type="text/css" media="screen" href="{{app.request.basepath}}/css/style.css" />
+                <script type="text/javascript" src="{{app.request.basepath}}/js/jquery.js"></script>
 	    {% block stylesheet %}
         {% endblock %}
     </head>
-	<body onload="initialize()">
+	<body onload="">
         <div id="content">
             <div id="header">
                 <div id="img_header" ><a href="{{app.request.basepath}}"><div id="link_logo" ></div></a> </div>
@@ -35,13 +37,13 @@
                 <div id="menuContent">
                     <nav id="menu">
                         <div class="menu blue" id="menu1">
-                            <a href="{{ path('entreprise') }}" >L&#039;ENTREPRISE</a>
+                            <a href="{{app.request.basepath}}" >L&#039;ENTREPRISE</a>
                         </div>
                         <div class="menu pink" id="menu2">
-                            <a href="{{ path('metiers') }}" >NOS MÉTIERS</a>
+                            <a href="{{ path('metiers',{lang: lang}) }}" >NOS MÉTIERS</a>
                         </div>
-                        <div class="menu yellow" id="menu3" ><a href="{{ path('nous_contactez') }}" class="blackLink">CONTACT</a></div>
-                        <div class="menu black" id="menu4" ><a href="{{ path('espace_client') }}" >ESPACE CLIENT</a></div>
+                        <div class="menu yellow" id="menu3" ><a href="{{ path('nous_contactez',{lang: lang}) }}" class="blackLink">CONTACT</a></div>
+                        <div class="menu black" id="menu4" ><a href="{{ path('espace_client',{lang: lang}) }}" >ESPACE CLIENT</a></div>
                     </nav>
 
                    {%for menu in menus%}
@@ -51,7 +53,7 @@
                             <li><a href="#">{{ sub_menu.name }}</a>
                                 <ul class='menulvl3'>
                                     {%for sub_sub_menu in sub_menu.sub_sub_menu%}
-                                             <li><a href="{{ path('item_01') }}" >{{ sub_sub_menu.name }}</a></li> 
+                                             <li><a href="{{ path('item_01',{lang: lang}) }}" >{{ sub_sub_menu.name }}</a></li>
                                     {% endfor %}
                                 </ul>
                             </li>
@@ -82,7 +84,7 @@
                
             <div id="footer">
                 <div id="img_footer" >
-                    <nav id="menu_footer"> <a href="{{ path('entreprise') }}">L'entreprise</a> - <a href="{{ path('metiers') }}">Nos métiers</a> - <a href="{{ path('espace_client') }}">Espace Client</a> - <a href="{{ path('mention_legal') }}">Mentions légales</a> - <a href="{{ path('plan_site') }}">Plan du site</a> - <a href="{{ path('nous_contactez') }}">Contact</a></nav>
+                    <nav id="menu_footer"> <a href="{{app.request.basepath}}">L'entreprise</a> - <a href="{{ path('metiers',{lang: lang}) }}">Nos métiers</a> - <a href="{{ path('espace_client',{lang: lang}) }}">Espace Client</a> - <a href="{{ path('mention_legal',{lang: lang}) }}">Mentions légales</a> - <a href="{{ path('plan_site',{lang: lang}) }}">Plan du site</a> - <a href="{{ path('nous_contactez',{lang: lang}) }}">Contact</a></nav>
                     <div id="info_footer">
                         {{adresse}}<br />
                         {{CP}} {{city}}<br />

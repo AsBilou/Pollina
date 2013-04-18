@@ -8,6 +8,9 @@
  */
 
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 
 $app->get('/',function() use ($app){
@@ -118,7 +121,7 @@ $app->get('/{lang}/', function($lang) use ($app){
     ));
 });
 
-$app->get('/contact', function() use ($app){
+$app->get('/{lang}/contact', function($lang) use ($app){
 
     //Récuperation des information
     $conf = ConfigurationQuery::create()
@@ -196,6 +199,7 @@ $app->get('/contact', function() use ($app){
 
     return $app['twig']->render('template/site/contact.twig', array(
         'menus'=>$menus,
+        'lang'=>$lang,
         'adresse'=>$conf->get(0)->getValue(),
         'CP'=>$conf->get(1)->getValue(),
         'city'=>$conf->get(2)->getValue(),
@@ -210,7 +214,7 @@ $app->get('/contact', function() use ($app){
     ));
 })->bind('nous_contactez');
 
-$app->get('/item_01', function() use ($app){
+$app->get('/{lang}/item_01', function($lang) use ($app){
 
         //Recuperation de la langue a afficher
     switch($lang){
@@ -289,6 +293,7 @@ $app->get('/item_01', function() use ($app){
 
     return $app['twig']->render('template/site/item_01.twig', array(
         'menus'=>$menus,
+        'lang'=>$lang,
         'adresse'=>$conf->get(0)->getValue(),
         'CP'=>$conf->get(1)->getValue(),
         'city'=>$conf->get(2)->getValue(),
@@ -303,7 +308,26 @@ $app->get('/item_01', function() use ($app){
     ));
 })->bind('item_01');
 
-$app->get('/entreprise', function() use ($app){
+
+$app->get('/{lang}/metiers', function($lang) use ($app){
+    
+    
+    //Recuperation de la langue a afficher
+    switch($lang){
+        case 'fr':
+            $langDescription=10;
+            break;
+        case 'en':
+            $langDescription=11;
+            break;
+        case 'de':
+            $langDescription=12;
+            break;
+        default:
+            $langDescription=10;
+            $lang='fr';
+            break;
+    }
 
     
     //Recuperation de la langue a afficher
@@ -331,99 +355,7 @@ $app->get('/entreprise', function() use ($app){
     $menus = MenuQuery::create()
         ->find();
     
-    //Explode du contenu du carousel
-    $carousel = $conf->get(9)->getValue();
-    $carousel = explode(',',$carousel);
-    
-        $menus = array(
-        'menu_1'=>array(
-            'id'=>1,
-            'name'=>'Nos Metiers',
-            'sub_menus'=>array(
-                'sub_menu_1'=>array(
-                    'id'=>11,
-                    'name'=>'Metier 01',
-                    'link'=>'Metier 01',
-                    'sub_sub_menu'=>array(
-                        'sub_sub_menu_1'=>array(
-                            'id'=>111,
-                            'name'=>'Sous Metier 01',
-                            'link'=>'Metier 01'
-                        )
-                    )
-                ),
-                'sub_menu_2'=>array(
-                    'id'=>12,
-                    'name'=>'Metier 02',
-                    'link'=>'Metier 01',
-                    'sub_sub_menu'=>array(
-                        'sub_sub_menu_1'=>array(
-                            'id'=>121,
-                            'name'=>'Sous Metier 01',
-                            'link'=>'Metier 01'
-                        )
-                    )
-                ),
-                'sub_menu_3'=>array(
-                    'id'=>13,
-                    'name'=>'Metier 03',
-                    'link'=>'Metier 01',
-                    'sub_sub_menu'=>array(
-                        'sub_sub_menu_1'=>array(
-                            'id'=>131,
-                            'name'=>'Sous Metier 01',
-                            'link'=>'Metier 01'
-                        )
-                    )
-                ),
-            ),
-        )
-    );
 
-    return $app['twig']->render('template/site/entreprise.twig', array(
-        'menus'=>$menus,
-        'adresse'=>$conf->get(0)->getValue(),
-        'CP'=>$conf->get(1)->getValue(),
-        'city'=>$conf->get(2)->getValue(),
-        'phone'=>$conf->get(3)->getValue(),
-        'fax'=>$conf->get(4)->getValue(),
-        'facebook'=>$conf->get(5)->getValue(),
-        'twitter'=>$conf->get(6)->getValue(),
-        'gplus'=>$conf->get(7)->getValue(),
-        'rss'=>$conf->get(8)->getValue(),
-        'carousel'=>$carousel,
-        'description'=>$conf->get($langDescription)->getValue(),
-    ));
-})->bind('entreprise');
-
-$app->get('/metiers', function() use ($app){
-    
-    
-    //Recuperation de la langue a afficher
-    switch($lang){
-        case 'fr':
-            $langDescription=10;
-            break;
-        case 'en':
-            $langDescription=11;
-            break;
-        case 'de':
-            $langDescription=12;
-            break;
-        default:
-            $langDescription=10;
-            $lang='fr';
-            break;
-    }
-
-    //Récuperation des information
-    $conf = ConfigurationQuery::create()
-        ->find();
-
-    //Recuperation du menu
-    $menus = MenuQuery::create()
-        ->find();
-    
     $menus = array(
         'menu_1'=>array(
             'id'=>1,
@@ -468,14 +400,14 @@ $app->get('/metiers', function() use ($app){
             ),
         )
     );
-
-    
     //Explode du contenu du carousel
     $carousel = $conf->get(9)->getValue();
     $carousel = explode(',',$carousel);
 
+
     return $app['twig']->render('template/site/metiers.twig', array(
         'menus'=>$menus,
+        'lang'=>$lang,
         'adresse'=>$conf->get(0)->getValue(),
         'CP'=>$conf->get(1)->getValue(),
         'city'=>$conf->get(2)->getValue(),
@@ -490,9 +422,190 @@ $app->get('/metiers', function() use ($app){
     ));
 })->bind('metiers');
 
-$app->get('/espace_client', function() use ($app){
+$app->match('/{lang}/espace_client', function(Request $request,$lang) use ($app){
 
  //Récuperation des information
+    $conf = ConfigurationQuery::create()
+        ->find();
+    
+            //Recuperation de la langue a afficher
+    switch($lang){
+        case 'fr':
+            $langDescription=10;
+            break;
+        case 'en':
+            $langDescription=11;
+            break;
+        case 'de':
+            $langDescription=12;
+            break;
+        default:
+            $langDescription=10;
+            $lang='fr';
+            break;
+    }
+    
+
+    //Recuperation du menu
+    $menus = MenuQuery::create()
+        ->find();
+
+    $sheet = SheetQuery::create()
+        ->find();
+    for($i=0;$i<$sheet->count();$i++ )
+    {
+        $key=$sheet->get($i)->getId();
+        $datasheet [$key] = utf8_encode( $sheet->get($i)->getName());
+    }
+    
+
+
+        $menus = array(
+        'menu_1'=>array(
+            'id'=>1,
+            'name'=>'Nos Metiers',
+            'sub_menus'=>array(
+                'sub_menu_1'=>array(
+                    'id'=>11,
+                    'name'=>'Metier 01',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>111,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+                'sub_menu_2'=>array(
+                    'id'=>12,
+                    'name'=>'Metier 02',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>121,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+                'sub_menu_3'=>array(
+                    'id'=>13,
+                    'name'=>'Metier 03',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>131,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+            ),
+        )
+    );
+        
+    //Création du formulaire
+    $form = $app['form.factory']->createBuilder('form')
+        ->add('number_pages','text',array(
+        'label'=>'Le nombre de page',
+        'required'=>true,
+        'attr' => array('placeholder' => 'XX'),
+        'constraints'=>array(
+            new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
+            )
+        ))
+        ->add('type', 'choice', array(
+          'choices' => $datasheet,
+          'required'=>true,
+          'label'=>'Type de papier',
+        ))
+        ->add('email','email',array(
+        'label'=>'Votre email',
+        'required'=>true,
+        'attr' => array('placeholder' => 'pierre@pollina.fr','class'=>'span7'),
+        'constraints'=>array(
+            new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
+        )
+        ))
+
+     ->getForm();
+    
+    
+     $flagCreateDevis = 0; 
+     if('POST'==$request->getMethod()){
+        $form->bind($request);
+        if($form->isValid()){
+            $data = $form->getData();
+            $type = $data['type'];
+            $number_pages = $data['number_pages'];
+            
+            $devis = new Devis();
+            $name = date("Y-m-d")."_".rand(0000, 9999);
+            $devis->setName($name);
+            $devis->setIdSheet($type);
+            $devis->setNumber($number_pages);
+            $devis->setStatus("en attente de paiement");
+            $devis->save();
+            $flagCreateDevis = 1;
+        }
+    } 
+    
+    $statusDevis="";
+    if(isset($_POST['seach'])){
+    if($_POST['seach'] == "1"){
+        
+            $findDevis = DevisQuery::create()
+                ->filterByName($_POST['key'])
+                ->find();
+            $statusDevis = $findDevis->get(0)->getStatus();
+    }}
+
+    //Explode du contenu du carousel
+    $carousel = $conf->get(9)->getValue();
+    $carousel = explode(',',$carousel);
+
+    return $app['twig']->render('template/site/espace_client.twig', array(
+        'flagCreateDevis'=> $flagCreateDevis,
+        'statusDevis'=> $statusDevis,
+        'form'=>$form->createView(),
+        'menus'=>$menus,
+        'lang'=>$lang,
+        'adresse'=>$conf->get(0)->getValue(),
+        'CP'=>$conf->get(1)->getValue(),
+        'city'=>$conf->get(2)->getValue(),
+        'phone'=>$conf->get(3)->getValue(),
+        'fax'=>$conf->get(4)->getValue(),
+        'facebook'=>$conf->get(5)->getValue(),
+        'twitter'=>$conf->get(6)->getValue(),
+        'gplus'=>$conf->get(7)->getValue(),
+        'rss'=>$conf->get(8)->getValue(),
+        'carousel'=>$carousel,
+        'description'=>$conf->get($langDescription)->getValue(),
+    ));
+})->bind('espace_client');
+
+$app->get('/{lang}/plan_site', function($lang) use ($app){
+
+
+    //Recuperation de la langue a afficher
+    switch($lang){
+        case 'fr':
+            $langDescription=10;
+            break;
+        case 'en':
+            $langDescription=11;
+            break;
+        case 'de':
+            $langDescription=12;
+            break;
+        default:
+            $langDescription=10;
+            $lang='fr';
+            break;
+    }
+
+    //Récuperation des information
     $conf = ConfigurationQuery::create()
         ->find();
     
@@ -562,13 +675,14 @@ $app->get('/espace_client', function() use ($app){
             ),
         )
     );
-    
+
     //Explode du contenu du carousel
     $carousel = $conf->get(9)->getValue();
     $carousel = explode(',',$carousel);
 
-    return $app['twig']->render('template/site/espace_client.twig', array(
+    return $app['twig']->render('template/site/plan_site.twig', array(
         'menus'=>$menus,
+        'lang'=>$lang,
         'adresse'=>$conf->get(0)->getValue(),
         'CP'=>$conf->get(1)->getValue(),
         'city'=>$conf->get(2)->getValue(),
@@ -580,13 +694,69 @@ $app->get('/espace_client', function() use ($app){
         'rss'=>$conf->get(8)->getValue(),
         'carousel'=>$carousel,
         'description'=>$conf->get($langDescription)->getValue(),
-
     ));
-})->bind('espace_client');
+})->bind('plan_site');
 
-$app->get('/plan_site', function() use ($app){
+$app->get('/404', function() use ($app){
+    return $app['twig']->render('template/site/404.twig', array(
+    ));
+});
 
+$app->get('/{lang}/mention/legal', function($lang) use ($app){
     
+    //Récuperation des information
+    $conf = ConfigurationQuery::create()
+        ->find();
+
+    //Recuperation du menu
+    $menus = MenuQuery::create()
+        ->find();
+    
+        $menus = array(
+        'menu_1'=>array(
+            'id'=>1,
+            'name'=>'Nos Metiers',
+            'sub_menus'=>array(
+                'sub_menu_1'=>array(
+                    'id'=>11,
+                    'name'=>'Metier 01',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>111,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+                'sub_menu_2'=>array(
+                    'id'=>12,
+                    'name'=>'Metier 02',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>121,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+                'sub_menu_3'=>array(
+                    'id'=>13,
+                    'name'=>'Metier 03',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>131,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+            ),
+        )
+    );
+
     //Recuperation de la langue a afficher
     switch($lang){
         case 'fr':
@@ -603,66 +773,14 @@ $app->get('/plan_site', function() use ($app){
             $lang='fr';
             break;
     }
-    
-    //Récuperation des information
-    $conf = ConfigurationQuery::create()
-        ->find();
-
-    //Recuperation du menu
-    $menus = MenuQuery::create()
-        ->find();
-    
-        $menus = array(
-        'menu_1'=>array(
-            'id'=>1,
-            'name'=>'Nos Metiers',
-            'sub_menus'=>array(
-                'sub_menu_1'=>array(
-                    'id'=>11,
-                    'name'=>'Metier 01',
-                    'link'=>'Metier 01',
-                    'sub_sub_menu'=>array(
-                        'sub_sub_menu_1'=>array(
-                            'id'=>111,
-                            'name'=>'Sous Metier 01',
-                            'link'=>'Metier 01'
-                        )
-                    )
-                ),
-                'sub_menu_2'=>array(
-                    'id'=>12,
-                    'name'=>'Metier 02',
-                    'link'=>'Metier 01',
-                    'sub_sub_menu'=>array(
-                        'sub_sub_menu_1'=>array(
-                            'id'=>121,
-                            'name'=>'Sous Metier 01',
-                            'link'=>'Metier 01'
-                        )
-                    )
-                ),
-                'sub_menu_3'=>array(
-                    'id'=>13,
-                    'name'=>'Metier 03',
-                    'link'=>'Metier 01',
-                    'sub_sub_menu'=>array(
-                        'sub_sub_menu_1'=>array(
-                            'id'=>131,
-                            'name'=>'Sous Metier 01',
-                            'link'=>'Metier 01'
-                        )
-                    )
-                ),
-            ),
-        )
-    );
         
     //Explode du contenu du carousel
     $carousel = $conf->get(9)->getValue();
     $carousel = explode(',',$carousel);
 
-    return $app['twig']->render('template/site/plan_site.twig', array(
+    return $app['twig']->render('template/site/mention.twig', array(
         'menus'=>$menus,
+        'lang'=>$lang,
         'adresse'=>$conf->get(0)->getValue(),
         'CP'=>$conf->get(1)->getValue(),
         'city'=>$conf->get(2)->getValue(),
@@ -675,27 +793,12 @@ $app->get('/plan_site', function() use ($app){
         'carousel'=>$carousel,
         'description'=>$conf->get($langDescription)->getValue(),
     ));
-})->bind('plan_site');
+})->bind('mention_legal');
 
 
-$app->get('/404', function() use ($app){
-    return $app['twig']->render('template/site/404.twig', array(
-    ));
-});
+$app->match('/{lang}/newsletter/unsubscribe', function(Request $request,$lang) use ($app){
 
-$app->get('/mention/legal', function() use ($app){
-    
-    
-    
-    //Récuperation des information
-    $conf = ConfigurationQuery::create()
-        ->find();
-
-    //Recuperation du menu
-    $menus = MenuQuery::create()
-        ->find();
-    
-        $menus = array(
+    $menus = array(
         'menu_1'=>array(
             'id'=>1,
             'name'=>'Nos Metiers',
@@ -739,13 +842,61 @@ $app->get('/mention/legal', function() use ($app){
             ),
         )
     );
-        
+
+    //Recuperation de la langue a afficher
+    switch($lang){
+        case 'fr':
+            $langDescription=10;
+            break;
+        case 'en':
+            $langDescription=11;
+            break;
+        case 'de':
+            $langDescription=12;
+            break;
+        default:
+            $langDescription=10;
+            $lang='fr';
+            break;
+    }
+
+    //Récuperation des information
+    $conf = ConfigurationQuery::create()
+        ->find();
+
     //Explode du contenu du carousel
     $carousel = $conf->get(9)->getValue();
     $carousel = explode(',',$carousel);
 
-    return $app['twig']->render('template/site/mention.twig', array(
+
+    //Création du formulaire
+    $form = $app['form.factory']->createBuilder('form')
+        ->add('email','email',array(
+        'label'=>'Votre email',
+        'required'=>true,
+        'attr' => array('placeholder' => 'pierre@pollina.fr','class'=>'span10'),
+        'constraints'=>array(
+            new Assert\NotBlank(array('message' => 'Don\'t leave blank')),
+        )
+    ))
+        ->getForm();
+
+    if('POST'==$request->getMethod()){
+        $form->bind($request);
+        if($form->isValid()){
+            $data = $form->getData();
+            $mail = $data['email'];
+            $user = NewsletterQuery::create()
+                ->filterByEmail($mail)
+                ->find();
+            $user->get(0)->setState('inactif');
+            $user->save();
+        }
+    }
+    return $app['twig']->render('template/site/newsletter_unsubscribe.twig', array(
+        'form'=>$form->createView(),
         'menus'=>$menus,
+        'lang'=>$lang,
         'adresse'=>$conf->get(0)->getValue(),
         'CP'=>$conf->get(1)->getValue(),
         'city'=>$conf->get(2)->getValue(),
@@ -755,8 +906,10 @@ $app->get('/mention/legal', function() use ($app){
         'twitter'=>$conf->get(6)->getValue(),
         'gplus'=>$conf->get(7)->getValue(),
         'rss'=>$conf->get(8)->getValue(),
+        'carousel'=>$carousel,
+        'description'=>$conf->get($langDescription)->getValue(),
     ));
-})->bind('mention_legal');
+})->bind('form_newsletter_unsubscribe');
 
 $app->error(function (\Exception $e, $code) use ($app) {
     if($app['debug']) {

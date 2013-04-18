@@ -1,0 +1,46 @@
+{% extends 'layout/admin.base.twig' %}
+{% block content %}
+    <legend>Administration des types de papier disponible.</legend>
+    <div class="well">
+        <h4>Liste des papiers disponible</h4>
+        <table class="table-bordered table">
+            <thead>
+            <tr>
+                <th>
+                    #
+                </th>
+                <th>
+                    Nom
+                </th>
+                <th>
+                    Taille
+                </th>
+                <th>
+                    Poids
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for sheet in sheets %}
+                <tr>
+                    <td>
+                        {{ sheet.id }}
+                    </td>
+                    <td>
+                        {{ sheet.name }}
+                    </td>
+                    <td>
+                        {{ sheet.size.Size }}
+                    </td>
+                    <td>
+                        {{ sheet.weight.Weight }}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="clearfix"></div>
+        <h4>Ajouter un nouveau type de page</h4>
+        <a class="btn btn-primary" href="{{ path('devis_pages_add')}}">Ajouter</a>
+    </div>
+{% endblock %}
