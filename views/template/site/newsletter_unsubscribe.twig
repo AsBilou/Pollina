@@ -3,15 +3,13 @@
 {% endblock %}
 {%block article%}
     <div class="contact">
-        <div class="left">
+        <div>
             <h3>Desinscription Newsletter</h3>
             <p>Entrez votre adresse email pour vous désinscrire de notre newsletter</p>
-            <form action="{{ path('form_newsletter_unsubscribe',{lang: 'fr'}) }}" method="post">
+            <form action="{{ path('form_newsletter_unsubscribe',{lang: lang}) }}" method="post">
                 {{ form_widget(form) }}
                 <input class="btn btn-success" value="Valider" type="submit">
             </form>
-        </div>
-        <div class="right">
         </div>
         <div style="text-align: center;">
         </div>

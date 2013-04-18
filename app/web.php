@@ -120,7 +120,7 @@ $app->get('/{lang}/', function($lang) use ($app){
     ));
 });
 
-$app->get('/contact', function() use ($app){
+$app->get('/{lang}/contact', function($lang) use ($app){
 
     //Récuperation des information
     $conf = ConfigurationQuery::create()
@@ -198,6 +198,7 @@ $app->get('/contact', function() use ($app){
 
     return $app['twig']->render('template/site/contact.twig', array(
         'menus'=>$menus,
+        'lang'=>$lang,
         'adresse'=>$conf->get(0)->getValue(),
         'CP'=>$conf->get(1)->getValue(),
         'city'=>$conf->get(2)->getValue(),
@@ -212,7 +213,7 @@ $app->get('/contact', function() use ($app){
     ));
 })->bind('nous_contactez');
 
-$app->get('/item_01', function() use ($app){
+$app->get('/{lang}/item_01', function($lang) use ($app){
 
         //Recuperation de la langue a afficher
     switch($lang){
@@ -291,6 +292,7 @@ $app->get('/item_01', function() use ($app){
 
     return $app['twig']->render('template/site/item_01.twig', array(
         'menus'=>$menus,
+        'lang'=>$lang,
         'adresse'=>$conf->get(0)->getValue(),
         'CP'=>$conf->get(1)->getValue(),
         'city'=>$conf->get(2)->getValue(),
@@ -306,7 +308,7 @@ $app->get('/item_01', function() use ($app){
 })->bind('item_01');
 
 
-$app->get('/metiers', function() use ($app){
+$app->get('/{lang}/metiers', function($lang) use ($app){
     
     
     //Recuperation de la langue a afficher
@@ -386,6 +388,7 @@ $app->get('/metiers', function() use ($app){
 
     return $app['twig']->render('template/site/metiers.twig', array(
         'menus'=>$menus,
+        'lang'=>$lang,
         'adresse'=>$conf->get(0)->getValue(),
         'CP'=>$conf->get(1)->getValue(),
         'city'=>$conf->get(2)->getValue(),
@@ -400,7 +403,7 @@ $app->get('/metiers', function() use ($app){
     ));
 })->bind('metiers');
 
-$app->get('/espace_client', function() use ($app){
+$app->get('/{lang}/espace_client', function($lang) use ($app){
 
  //Récuperation des information
     $conf = ConfigurationQuery::create()
@@ -479,6 +482,7 @@ $app->get('/espace_client', function() use ($app){
 
     return $app['twig']->render('template/site/espace_client.twig', array(
         'menus'=>$menus,
+        'lang'=>$lang,
         'adresse'=>$conf->get(0)->getValue(),
         'CP'=>$conf->get(1)->getValue(),
         'city'=>$conf->get(2)->getValue(),
@@ -494,7 +498,8 @@ $app->get('/espace_client', function() use ($app){
     ));
 })->bind('espace_client');
 
-$app->get('/plan_site', function() use ($app){
+
+$app->get('/{lang}/plan_site', function($lang) use ($app){
 
     
     //Recuperation de la langue a afficher
@@ -573,6 +578,7 @@ $app->get('/plan_site', function() use ($app){
 
     return $app['twig']->render('template/site/plan_site.twig', array(
         'menus'=>$menus,
+        'lang'=>$lang,
         'adresse'=>$conf->get(0)->getValue(),
         'CP'=>$conf->get(1)->getValue(),
         'city'=>$conf->get(2)->getValue(),
@@ -593,7 +599,7 @@ $app->get('/404', function() use ($app){
     ));
 });
 
-$app->get('/mention/legal', function() use ($app){
+$app->get('/{lang}/mention/legal', function($lang) use ($app){
     
     
     
@@ -656,6 +662,7 @@ $app->get('/mention/legal', function() use ($app){
 
     return $app['twig']->render('template/site/mention.twig', array(
         'menus'=>$menus,
+        'lang'=>$lang,
         'adresse'=>$conf->get(0)->getValue(),
         'CP'=>$conf->get(1)->getValue(),
         'city'=>$conf->get(2)->getValue(),
