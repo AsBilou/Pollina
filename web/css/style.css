@@ -23,7 +23,7 @@ html, body {
     font-size: 1.2em;
     background-color: #252525;
     font-family: FengardoNeue_Regular, sans-serif;
-    font-size: 13px;
+    font-size: 15px;
 }
                 
 body {
@@ -368,14 +368,15 @@ a { text-decoration:none; }
 .page a{ color: #777777; }
 
 .contact {
-    margin-top: 510px;
+    margin-top: -210px;
     margin-left: 280px;
     float: left;
-    width: 870px;
+    width: 720px;
     height: 430px;
     padding-bottom: 130px;
     padding-top: 50px;
     padding-left: 250px;
+    padding-right: 150px;
     -webkit-border-radius: 312px 0px 0px 312px;
     border-radius: 312px 0px 0px 312px;
     background-color: #d3d3d3;
@@ -553,6 +554,10 @@ a { text-decoration:none; }
     color: #fff;
     border: 0px;
     padding-left: 10px;
+}
+
+.lpage{
+    padding-left: 50px;
 }
 
 

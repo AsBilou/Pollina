@@ -126,6 +126,55 @@ $app->get('/{lang}/contact', function($lang) use ($app){
     //Récuperation des information
     $conf = ConfigurationQuery::create()
         ->find();
+
+    //Recuperation du menu
+    $menus = MenuQuery::create()
+        ->find();
+
+    $menus = array(
+        'menu_1'=>array(
+            'id'=>1,
+            'name'=>'Nos Metiers',
+            'sub_menus'=>array(
+                'sub_menu_1'=>array(
+                    'id'=>11,
+                    'name'=>'Metier 01',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>111,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+                'sub_menu_2'=>array(
+                    'id'=>12,
+                    'name'=>'Metier 02',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>121,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+                'sub_menu_3'=>array(
+                    'id'=>13,
+                    'name'=>'Metier 03',
+                    'link'=>'Metier 01',
+                    'sub_sub_menu'=>array(
+                        'sub_sub_menu_1'=>array(
+                            'id'=>131,
+                            'name'=>'Sous Metier 01',
+                            'link'=>'Metier 01'
+                        )
+                    )
+                ),
+            ),
+        )
+    );
     
     //Recuperation du menu
     $menus = MenuQuery::create()
@@ -192,7 +241,7 @@ $app->get('/{lang}/contact', function($lang) use ($app){
             $lang='fr';
             break;
     }
-    
+
     //Explode du contenu du carousel
     $carousel = $conf->get(9)->getValue();
     $carousel = explode(',',$carousel);
@@ -308,10 +357,7 @@ $app->get('/{lang}/item_01', function($lang) use ($app){
     ));
 })->bind('item_01');
 
-
 $app->get('/{lang}/metiers', function($lang) use ($app){
-    
-    
     //Recuperation de la langue a afficher
     switch($lang){
         case 'fr':
@@ -457,8 +503,6 @@ $app->match('/{lang}/espace_client', function(Request $request,$lang) use ($app)
         $key=$sheet->get($i)->getId();
         $datasheet [$key] = utf8_encode( $sheet->get($i)->getName());
     }
-    
-
 
         $menus = array(
         'menu_1'=>array(
@@ -586,8 +630,6 @@ $app->match('/{lang}/espace_client', function(Request $request,$lang) use ($app)
 })->bind('espace_client');
 
 $app->get('/{lang}/plan_site', function($lang) use ($app){
-
-
     //Recuperation de la langue a afficher
     switch($lang){
         case 'fr':
@@ -608,8 +650,8 @@ $app->get('/{lang}/plan_site', function($lang) use ($app){
     //Récuperation des information
     $conf = ConfigurationQuery::create()
         ->find();
-    
-            //Recuperation de la langue a afficher
+
+    //Recuperation de la langue a afficher
     switch($lang){
         case 'fr':
             $langDescription=10;
@@ -625,12 +667,15 @@ $app->get('/{lang}/plan_site', function($lang) use ($app){
             $lang='fr';
             break;
     }
-    
 
     //Recuperation du menu
     $menus = MenuQuery::create()
         ->find();
-    
+
+    //Explode du contenu du carousel
+    $carousel = $conf->get(9)->getValue();
+    $carousel = explode(',',$carousel);
+
         $menus = array(
         'menu_1'=>array(
             'id'=>1,
@@ -703,7 +748,6 @@ $app->get('/404', function() use ($app){
 });
 
 $app->get('/{lang}/mention/legal', function($lang) use ($app){
-    
     //Récuperation des information
     $conf = ConfigurationQuery::create()
         ->find();
