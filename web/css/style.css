@@ -403,7 +403,8 @@ a { text-decoration:none; }
 
 #map_canvas{
     height: 80%;
-    width: 80%;
+    width: 100%;
+    margin-bottom: 20px;
 }
 
 #link_logo{

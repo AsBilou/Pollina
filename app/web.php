@@ -534,7 +534,7 @@ $app->match('/{lang}/espace_client', function(Request $request,$lang) use ($app)
     //Création du formulaire
     $form = $app['form.factory']->createBuilder('form')
         ->add('number_pages','text',array(
-        'label'=>'Le nombre de page',
+        'label'=>'Le nombre de pages',
         'required'=>true,
         'attr' => array('placeholder' => 'XX'),
         'constraints'=>array(
